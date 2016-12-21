@@ -70,7 +70,7 @@ exports.authenticate = function(req, res){
                 else{
                     // Check user password
                     var auth_url = "http://172.21.55.39/uaconsole/index.php/UserAccessConsole/authentify?cuid=" +
-                        user.username + "&password= " + user.password + "&key=" + config.LDAP_KEY;
+                        user.username + "&password=" + user.password + "&key=" + config.LDAP_KEY;
 
                     request(auth_url, function (error, response, body) {
                         if (!error && response.statusCode == 200) {
@@ -85,13 +85,13 @@ exports.authenticate = function(req, res){
                                 auth_user.cuid = user.username;
                                 auth_user.firstName = user_info.firstName;
                                 auth_user.lastName = user_info.lastName;
-                                auth_user.gender = user_info.gender.readUIntBE(0, 1);;
-                                auth_user.status = user_info.userSatus;
+                                auth_user.gender = user_info.gender.readUIntBE(0, 1);
+                                auth_user.status = user_info.userStatus;
                                 auth_user.image = user_info.usr_img;
 
                                 // User successfully authenticated. Read user info
                                 var info_url = "http://172.21.55.39/uaconsole/index.php/UserAccessConsole/search?cuid=" +
-                                    user.username;
+                                    user.username + "&key=" + config.LDAP_KEY;
                                 request(info_url, function (error, response, body) {
                                     if (!error && response.statusCode == 200) {
                                         var res = JSON.parse(body);
