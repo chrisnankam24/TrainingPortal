@@ -1,0 +1,153 @@
+<div class="ui fixed inverted menu" ng-controller="headerController">
+    <div class="ui container full_width">
+        <a href="#" class="header item borderless_right">
+            <img class="logo" src="/images/orange-logo.png">
+            <div class="borderless_right padding-left-10">
+                <div class="content">
+                    <div class="header small"><%= params.header.title %></div>
+                    <div class="meta">
+                        <span class="orange" style="font-size: 14px;"><em><%= params.header.subtitle %></em></span>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <div class="ui container middle-header" id="header_menu">
+            <div class="ui large secondary inverted pointing menu menu_top_padding">
+                <a class="active item" data-tab="administration"><%= params.header.menu.administration %></a>
+            </div>
+        </div>
+
+        <div class="right-header">
+            <div class="ui shape" id="header-menu-shape">
+                <div class="sides">
+                    <div class="first active side">
+                        <div class="right menu ui secondary inverted">
+                            <span class="divider"></span>
+                            <div class="item borderless_right borderless_left header-search-notification">
+                                <a href="#" onclick="open_search()"><i class="search link icon large"></i></a>
+                            </div>
+                            <span class="divider"></span>
+                            <div>
+                                <div class="ui item notification header-search-notification">
+                                    <a href="#" id="notification-icon"><i class="alarm outline link icon large"></i>
+                                    </a>
+                                    <div class="ui orange label header-notification-label">
+                                        0
+                                    </div>
+                                </div>
+                                <div class="ui flowing notification basic popup header-popup">
+                                    <div>
+                                        <div class="bottom-bordered" style="padding-bottom: 3px;">
+                                            Your notifications
+                                            <div class="ui orange mini label"
+                                                 style="float: right;">
+                                                100
+                                            </div>
+                                        </div>
+                                        <div style="clear: both;">
+                                            <div id="notification-list">
+
+                                            </div>
+                                            <div style="height: 25px; margin-top: 10px;">
+                                                <button class="ui mini button left floated clear-notification">effacer
+                                                </button>
+                                                <button class="ui orange mini button right floated">Tout afficher</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="ui flowing delete-notification basic popup header-popup">
+                                        <div class="bottom-bordered" style="padding-bottom: 3px;">
+                                            Choisir les Notifications
+                                            <div class="ui orange mini label"
+                                                 style="float: right;">5
+                                            </div>
+                                        </div>
+                                        <div style="clear: both;">
+                                            <div id="delete-notification-list">
+                                                <p style="font-size: small">
+                                                    What is Lorem Ipsum?
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                    industry.
+                                                    Lorem Ipsum has been the industry's standard dummy text ever since
+                                                    the
+                                                </p>
+                                            </div>
+                                            <div style="height: 25px; margin-top: 10px;">
+                                                <button class="ui orange mini button right floated">Tout Supprimer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="divider"></span>
+                            <div>
+                                <div class="ui item user-information"
+                                     style="margin-left: 0px; margin-right: 20px; margin-top: 7px;">
+                                    <a href="#" id="user-icon"><i class="user link icon large"></i></a>
+                                </div>
+                                <div class="ui flowing user-information basic popup" style="width: 239px;">
+                                    <div>
+                                        <div style="height: 28px; border-bottom: 1px solid rgba(34, 36, 38, 0.15); margin-top: -3px;">
+                                            <div class="ui small label left floated"><%= params.user.full_name %></div>
+                                            <div class="ui small label" style="float: right;"><%= params.user.direction %></div>
+                                        </div>
+                                        <div style="margin: 10px; margin-left: 14%;">
+                                            <div class="ui blurring circular small image" id="userImageContainer">
+                                                <div class="ui dimmer">
+                                                    <div class="content" ng-if="!is_image_processing">
+                                                        <div class="center">
+                                                            <div class="ui mini primary button" ng-click="uploadUserImg()">Load</div>
+                                                            <div class="ui mini button" ng-click="clearUserImg()">Clear</div>
+                                                            <div style="display: none;">
+                                                                <input type="file" accept="image/*" id="uploadUserImage" onchange="angular.element(this).scope().handleUserImageUpload(this.files)" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui text loader" ng-if="is_image_processing">{{image_process}}</div>
+                                                </div>
+                                                <img id="userImage" src="<%= params.user.image %>">
+                                            </div>
+                                        </div>
+                                        <div style="height: 25px;">
+                                            <button class="ui fluid inverted orange mini button" ng-class="{'loading': is_logging_out}" ng-click="logOut()">Log Out</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="ui item admin-configuration"
+                                     style="margin-left: 100px; margin-right: 0px; margin-top: 7px; padding-right: 0px;">
+                                    <a href="#" id="config-icon"><i class="setting link icon large"></i></a>
+                                </div>
+                                <div class="ui flowing admin-configuration basic popup"
+                                     style="width: 150px; padding: 10px 7px 3px;">
+                                    <div>
+                                        <div style="height: 28px; margin-top: 0px; " ng-click="goToTrainee()">
+                                            <div class="ui small label fluid button">Personal View</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="second side">
+                        <div class="right menu ui secondary inverted">
+                            <span class="divider"></span>
+                            <div class="ui inverted transparent icon medium input right item long_search"
+                                 style="width: 290px; margin-top: 7px; padding-right: 0px; margin-right: 0px;">
+                                <input type="text" class="search" ng-keyup="perform_admin_search()" ng-model="search_request" placeholder = {{search_text}}>
+                                <a href="#" ng-click="perform_admin_search()"><i class="search link icon"></i></a>
+                            </div>
+                            <a class="item" style="margin-top: 7px;">
+                                <i class="close icon large" ng-click="close_admin_search()"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

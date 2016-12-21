@@ -1,0 +1,14 @@
+/*******************************
+     User Global Variables
+*******************************/
+@primaryColor   : @orange;
+@secondaryColor : @black;
+@orange         : #FF7900;
+@grey           : #666666;
+@red            : #CD3C14;
+@yellow         : #FFD200;
+@blue           : #4BB4E6;
+@green          : #32C832;
+@pink           : #FFB4E6;
+@focusedFormBorderColor  : @orange;
+@loaderLineColor    : @orange;

@@ -1,0 +1,259 @@
+<div class="slide round_radius" ng-show="active_page == 'management'">
+    <div style="height: 40px!important; border-bottom: 1px solid rgba(34, 36, 38, 0.15);">
+        <div class="ui grid" style="margin-top: 0px;">
+            <div class="two wide column" style="padding-top: 6px;">
+                <a href="#" ng-click="moveManagementBack()"><i class="chevron circle left orange link icon ui big"></i></a>
+            </div>
+            <div class="fourteen wide column" style="padding-top: 6px;">
+
+            </div>
+        </div>
+    </div>
+    <div id="">
+        <div id="subs-details-page" class="ui blurring">
+            <div class="ui inverted dimmer">
+                <div class="ui text loader">Loading</div>
+            </div>
+            <div class="ui grid bottom-bordered" style="margin: 0px;">
+                <div class="three wide column">
+                    <div class="ui image">
+                        <img src={{SUBS_INFO.usr_img}}>
+                    </div>
+                </div>
+                <div class="thirteen wide column"
+                     style="padding-left: 0px; text-align: left; font-size: small;">
+                    <div class="row">
+                        <div class="" style="display: inline; float: left;">
+                            <div class="ui small label">{{SUBS_INFO.firstName + ' ' + SUBS_INFO.lastName}}</div>
+                        </div>
+                        <div style="float: right;">
+                            <div class="" style="font-size: x-small; display: inline;"><em>{{SUBS_INFO.no_planned_training}}
+                                    Planned Training</em></div>
+                        </div>
+                    </div>
+                    <div class="row" style="clear: both; padding-top: 3px;">
+                        <div class="" style="display: inline; float: left;">
+                            <div class="" style="font-size: x-small; display: inline;"><em>{{SUBS_INFO.gender ? 'Male' :
+                                    'Female'}}</em></div>
+                        </div>
+                        <div style="float: right;">
+                            <div class="" style="font-size: x-small; display: inline;"><em>{{'+(237) ' +
+                                    SUBS_INFO.number}}</em></div>
+                        </div>
+                    </div>
+                    <div class="row" style="clear: both; padding-top: 3px;">
+                        <div class="" style="display: inline; float: left;">
+                            <div class="" style="font-size: x-small; display: inline;"><em>{{SUBS_INFO.email}}</em>
+                            </div>
+                        </div>
+                        <div style="float: right;">
+                            <div class="" style="font-size: x-small; display: inline;"><em>{{SUBS_INFO.name_next_training}}</em>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="clear: both; padding-top: 3px;">
+                        <div class="" style="display: inline; float: left;">
+                            <div class="" style="font-size: x-small; display: inline;"><em>{{SUBS_INFO.average_all_quiz}}</em>
+                            </div>
+                        </div>
+                        <div style="float: right;">
+                            <div class="" style="font-size: x-small; display: inline;"><em>{{SUBS_INFO.date_next_training}}</em>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <div>
+                        <div class="ui subs_details pointing secondary menu" style="margin-bottom: 3px;">
+                            <a class="active item" data-tab="training_table" id="training_table_tab" ng-click="loadSubsData('training_table')" style="font-size: small;">Training
+                                Table</a>
+                            <a class="item" data-tab="training_calendar" ng-click="loadSubsData('training_calendar')" style="font-size: small;">Training Calendar</a>
+
+                            <a class="item" data-tab="quiz_result_table" ng-click="loadSubsData('quiz_table')" style="font-size: small;">Quiz Results
+                                Table</a>
+
+                            <a class="item" ng-hide="true" data-tab="quiz_result_graph" style="font-size: small;">Quiz Results
+                                Graph</a>
+                        </div>
+                        <div class="ui tab" data-tab="training_table" style="height: 150px">
+                            <div style="margin: 15px;">
+                                <div>
+                                    <form class="ui form mini"
+                                          style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                        <div class="fields">
+                                            <div class="five wide field">
+                                                <div class="ui input">
+                                                    <input type="text" class="training-table-date" id="subs_training_start_date"
+                                                           placeholder="Start Date"
+                                                           name="">
+                                                </div>
+                                            </div>
+                                            <div class="five wide field">
+                                                <div class="ui input">
+                                                    <input type="text" class="training-table-date" id="subs_training_end_date"
+                                                           placeholder="End Date"
+                                                           name="">
+                                                </div>
+                                            </div>
+                                            <div class="two wide field">
+                                                <button class="ui primary mini button" ng-click="loadSubsTrainingItems()">
+                                                    Load
+                                                </button>
+                                            </div>
+                                            <div class="five wide field"
+                                                 style="padding: 0px 0px 6px 14px;">
+                                                <div class="ui mini icon buttons"
+                                                     style="margin-left: 90px;">
+                                                    <button class="ui button" ng-disabled="SUBS_DISABLE_BACKWARD_NAV" ng-click="subsLoadPrev()"><i
+                                                                class="chevron left icon"></i></button>
+                                                    <button class="ui button" ng-disabled="SUBS_DISABLE_FORWARD_NAV" ng-click="subsLoadNext()"><i
+                                                                class="chevron right icon"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="ui container" id="subs_training_table">
+                                    <table class="ui very basic left small selectable aligned table sort" style="font-size: 11px;">
+                                        <thead>
+                                        <tr class="center aligned">
+                                            <th class="sort-header">Training Date</th>
+                                            <th class="sort-header">Training Name</th>
+                                            <th class="sort-header">Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="center aligned" ng-repeat="training in subs_training_list">
+                                            <td>{{training.startTS | date: "MMM, dd, yyyy"}}</td>
+                                            <td>{{training.training_name}}</td>
+                                            <td>{{training.status}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui tab" data-tab="training_calendar" style="height: 150px">
+                            <div style="margin-top: 0px;" id="management_training_calendar"></div>
+                        </div>
+                        <div class="ui tab" data-tab="quiz_result_table" style="height: 150px">
+                            <div style="margin: 15px;">
+                                <div>
+                                    <form class="ui form mini"
+                                          style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                        <div class="fields">
+                                            <div class="five wide field">
+                                                <div class="ui input">
+                                                    <input type="text" class="training-table-date" id="subs_quiz_start_date"
+                                                           placeholder="Start Date"
+                                                           name="">
+                                                </div>
+                                            </div>
+                                            <div class="five wide field">
+                                                <div class="ui input">
+                                                    <input type="text" class="training-table-date" id="subs_quiz_end_date"
+                                                           placeholder="End Date"
+                                                           name="">
+                                                </div>
+                                            </div>
+                                            <div class="two wide field">
+                                                <button class="ui primary mini button" ng-click="loadSubsQuizItems()">
+                                                    Load
+                                                </button>
+                                            </div>
+                                            <div class="five wide field"
+                                                 style="padding: 0px 0px 6px 14px;">
+                                                <div class="ui mini icon buttons"
+                                                     style="margin-left: 90px;">
+                                                    <button class="ui button" ng-disabled="SUBS_DISABLE_BACKWARD_NAV" ng-click="subsLoadPrev()"><i
+                                                                class="chevron left icon"></i></button>
+                                                    <button class="ui button" ng-disabled="SUBS_DISABLE_FORWARD_NAV" ng-click="subsLoadNext()"><i
+                                                                class="chevron right icon"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="ui container" id="subs_quiz_table">
+                                    <table class="ui very basic left small selectable aligned table sort" style="font-size: 11px;">
+                                        <thead>
+                                        <tr class="center aligned">
+                                            <th class="sort-header">Quiz Name</th>
+                                            <th class="sort-header">Score</th>
+                                            <th class="sort-header">Taking Date</th>
+                                            <th class="sort-header">Publication Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="center aligned" ng-repeat="quiz in subs_quiz_list">
+                                            <td>{{quiz.quiz_name}}</td>
+                                            <td>{{quiz.score}}</td>
+                                            <td>{{quiz.dateTakingQuiz | date: "MMM, dd, yyyy"}}</td>
+                                            <td>{{quiz.creationDate | date: "MMM, dd, yyyy"}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui tab" data-tab="quiz_result_graph" style="height: 150px" ng-hide="true">
+                            <div style="margin: 15px;">
+                                <form class="ui form mini"
+                                      style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                    <div class="fields">
+                                        <div class="four wide field">
+                                            <div class="ui input">
+                                                <input type="text" class="training-table-date"
+                                                       placeholder="Start Date"
+                                                       name="">
+                                            </div>
+                                        </div>
+                                        <div class="four wide field">
+                                            <div class="ui input">
+                                                <input type="text" class="training-table-date"
+                                                       placeholder="End Date"
+                                                       name="">
+                                            </div>
+                                        </div>
+                                        <div class="six wide field">
+                                            <div class="ui fluid multiple search selection dropdown"
+                                                 id="management_result_catrgory">
+                                                <input type="hidden" name="">
+                                                <i class="dropdown icon"></i>
+                                                <div class="default text">Category
+                                                </div>
+                                                <div class="menu">
+                                                    <div class="item"
+                                                         data-value="id-direction-1">
+                                                        Category A
+                                                    </div>
+                                                    <div class="item"
+                                                         data-value="id-direction-2">
+                                                        Category B
+                                                    </div>
+                                                    <div class="item"
+                                                         data-value="id-direction-3">
+                                                        Category C
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one wide field">
+                                            <div class="ui primary mini button ">
+                                                Load
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

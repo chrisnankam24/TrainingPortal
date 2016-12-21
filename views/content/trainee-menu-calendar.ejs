@@ -1,0 +1,243 @@
+<div class="three wide column" style="margin-left: -25px;  z-index: 10;" ng-controller="groupController">
+    <div class="row" style="width: 127.5%; margin-top: -5px;">
+        <div class="ui horizontal section divider no_margin full_width">
+            <h5>
+                <small ng-if="active_page == 'training'">Training Groups</small>
+                <small ng-if="active_page == 'quiz'">Quiz Groups</small>
+                <small ng-if="active_page == 'resources'">Resources Groups</small>
+                <small ng-if="active_page == 'management'">Team Groups</small>
+                <small ng-if="active_page == 'notifications'">Notifications</small>
+            </h5>
+        </div>
+        <div class="ui segment" style="margin-top: 7px;">
+            <div class="ui secondary left-content-menu vertical pointing menu" style="height: 116px;">
+
+                <div ng-show="active_page == 'training'">
+                    <a class="active item" data-tab="all-training" id="all_training" ng-click="trainingMenu('all')">All Training</a>
+                    <a class="item" data-tab="taken-training" ng-click="trainingMenu('taken')">Taken Training</a>
+                    <a class="item" data-tab="untaken-training" ng-click="trainingMenu('untaken')">Untaken Training</a>
+                </div>
+
+                <div ng-show="active_page == 'quiz'">
+                    <a class="active item" data-tab="all-quiz" id="all_quiz" ng-click="quizMenu('all')">All Quiz</a>
+                    <a class="item" data-tab="taken-quiz" ng-click="quizMenu('taken')">Taken Quiz</a>
+                    <a class="item" data-tab="pending-quiz" ng-click="quizMenu('pending')">Pending Quiz</a>
+                </div>
+
+                <div ng-show="active_page == 'resources'">
+                    <a class="active item" data-tab="all-resources" id="all_resources" ng-click="resourcesMenu('all')" style="padding-top: 8px; padding-bottom: 8px; font-size: small;">All Resources</a>
+                    <a class="item" data-tab="document-resources"  ng-click="resourcesMenu('document')" style="padding-top: 8px; padding-bottom: 8px; font-size: small;">Document Resources</a>
+                    <a class="item" data-tab="multimedia-resources"  ng-click="resourcesMenu('multimedia')" style="padding-top: 8px; padding-bottom: 8px; font-size: small;">Multimedia Resources</a>
+                    <a class="item" data-tab="form-resources"  ng-click="resourcesMenu('forms')" style="padding-top: 8px; padding-bottom: 8px; font-size: small;">Form and Subs Resources</a>
+                </div>
+
+                <div ng-show="active_page == 'management'">
+                    <a class="active item" data-tab="subordinates" style="padding-top: 8px; padding-bottom: 8px; font-size: small;">Subordinates</a>
+                </div>
+
+                <div ng-show="active_page == 'notifications'">
+                    <a class="active item" style="padding-top: 8px; padding-bottom: 8px; font-size: small;">All</a>
+                    <a class="item" style="padding-top: 8px; padding-bottom: 8px; font-size: small;">Unseen Notifications</a>
+                </div>
+
+                <div class="ui active tab" data-tab="all-training"></div>
+                <div class="ui tab" data-tab="taken-training"></div>
+                <div class="ui tab" data-tab="untaken-training"></div>
+                <div class="ui active tab" data-tab="all-quiz"></div>
+                <div class="ui tab" data-tab="taken-quiz"></div>
+                <div class="ui tab" data-tab="pending-quiz"></div>
+                <div class="ui active tab" data-tab="all-resources"></div>
+                <div class="ui tab" data-tab="document-resources"></div>
+                <div class="ui tab" data-tab="multimedia-resources"></div>
+                <div class="ui tab" data-tab="form-resources"></div>
+
+            </div>
+            <div class="free_space" style="margin-bottom: 13px;">
+
+            </div>
+
+            <div class="ui checkbox fluid" id="training-hidden-checkbox" style="margin-bottom: 5px;" ng-show="active_page == 'training'">
+                <input type="checkbox" name="" ng-model="SHOW_HIDDEN_TRAINING" ng-click="showHidden()">
+                <label style="font-size: small;">Show hidden Training</label>
+            </div>
+            <div class="ui checkbox fluid" id="quiz-hidden-checkbox" style="margin-bottom: 5px;" ng-show="active_page == 'quiz'">
+                <input type="checkbox" name="" ng-model="SHOW_HIDDEN_QUIZ" ng-click="showHidden()">
+                <label style="font-size: small;">Show hidden Quiz</label>
+            </div>
+            <div class="ui checkbox fluid" id="resources-hidden-checkbox" style="margin-bottom: 5px;" ng-show="active_page == 'resources'">
+                <!--Here to uniquely maintain the UI -->
+                <input type="checkbox" name="">
+                <label style="font-size: small; visibility: hidden;">BLah Blah Blah</label>
+            </div>
+            <div class="ui checkbox fluid" id="notifications-hidden-checkbox" style="margin-bottom: 5px;" ng-show="active_page == 'notifications'">
+                <input type="checkbox" name="" ng-model="SHOW_HIDDEN_NOTIFICATIONS" ng-click="showHidden()">
+                <label style="font-size: small;">Show hidden Notifications </label>
+            </div>
+
+            <div ng-show="active_page == 'training'">
+                <div class="ui fluid labeled icon top right menu-filter pointing dropdown primary mini button"
+                     style="margin-top: 5px; margin-bottom: -5px;" >
+                    <i class="filter icon"></i>
+                    <span class="text" style="font-size: small;">Filter Training</span>
+                    <div class="menu">
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="filterTrainingType('none')">
+                            <span style="font-size: small;">No filter</span>
+                        </div>
+                        <div class="header">
+                            <i class="tags icon"></i>
+                            Filter by type
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="filterTrainingType('metiers')">
+                            <span style="font-size: small;">Metiers</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="filterTrainingType('offres et services')">
+                            <span style="font-size: small;">Offres et Services</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="filterTrainingType('transverses')">
+                            <span style="font-size: small;">Transverses</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="header">
+                            <i class="calendar icon"></i>
+                            Filter by date
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="trainingPeriod('week')">
+                            <span style="font-size: small;">This Week</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="trainingPeriod('month')">
+                            <span style="font-size: small;">This Month</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="trainingPeriod('year')">
+                            <span style="font-size: small;">This Year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="active_page == 'quiz'">
+                <div class="ui fluid labeled icon top right menu-filter pointing dropdown primary mini button"
+                     style="margin-top: 5px; margin-bottom: -5px;">
+                    <i class="filter icon"></i>
+                    <span class="text" style="font-size: small;">Filter Quiz</span>
+                    <div class="menu">
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="resetQuizType()">
+                            <span style="font-size: small;">No filter</span>
+                        </div>
+                        <div class="header">
+                            <i class="tags icon"></i>
+                            Filter by Category
+                        </div>
+                        <div class="item" style="padding: 5px 5px 5px 16px!important;" ng-click="filterQuizCategory('CAT 1')">
+                            <span style="font-size: small;">Quiz Category 1</span>
+                        </div>
+                        <div class="item" style="padding: 5px 5px 5px 16px!important;"  ng-click="filterQuizCategory('CAT 2')">
+                            <span style="font-size: small;">Quiz Category 2</span>
+                        </div>
+                        <div class="item" style="padding: 5px 5px 5px 16px!important;">
+                            <i class="dropdown icon"></i>
+                            <span style="font-size: small;">Subcategories</span>
+                            <div class="menu" style="font-size: small;">
+                                <div class="item" style="padding: 5px 5px 5px 16px!important;"  ng-click="filterQuizSubCategory('SUB CAT 1')">
+                                    <span style="font-size: small;">Sub Category 1</span>
+                                </div>
+                                <div class="item" style="padding: 5px 5px 5px 16px!important;"   ng-click="filterQuizSubCategory('SUB CAT 2')">
+                                    <span style="font-size: small;">Sub Category 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="header">
+                            <i class="calendar icon"></i>
+                            Filter by addition date
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="quizPeriod('week')">
+                            <span style="font-size: small;">This Week</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="quizPeriod('month')">
+                            <span style="font-size: small;">This Month</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="quizPeriod('year')">
+                            <span style="font-size: small;">This Year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="active_page == 'resources'">
+                <div class="ui fluid labeled icon top right menu-filter pointing dropdown primary mini button"
+                     style="margin-top: 5px; margin-bottom: -5px;">
+                    <i class="filter icon"></i>
+                    <span class="text" style="font-size: small;">Filter Resources</span>
+                    <div class="menu">
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="resetResources()">
+                            <span style="font-size: small;">No filter</span>
+                        </div>
+                        <div class="header">
+                            <i class="calendar icon"></i>
+                            Filter by addition date
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;" ng-click="resourcesPeriod('week')">
+                            <span style="font-size: small;">This Week</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;"  ng-click="resourcesPeriod('month')">
+                            <span style="font-size: small;">This Month</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;"  ng-click="resourcesPeriod('year')">
+                            <span style="font-size: small;">This Year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="active_page == 'notifications'">
+                <div class="ui fluid labeled icon top right menu-filter pointing dropdown primary mini button"
+                     style="margin-top: 5px; margin-bottom: -5px;">
+                    <i class="filter icon"></i>
+                    <span class="text" style="font-size: small;">Filter Notifications</span>
+                    <div class="menu">
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;">
+                            <span style="font-size: small;">No filter</span>
+                        </div>
+                        <div class="header">
+                            <i class="tags icon"></i>
+                            Filter by Type
+                        </div>
+
+                        <div class="divider"></div>
+                        <div class="header">
+                            <i class="calendar icon"></i>
+                            Filter by addition date
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;">
+                            <span style="font-size: small;">This Week</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;">
+                            <span style="font-size: small;">This Month</span>
+                        </div>
+                        <div class="item" style="padding: 5px 0px 5px 16px!important;">
+                            <span style="font-size: small;">This Year</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 80px;" ng-show="active_page == 'management'">
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row" style="width: 127.9%; margin-top: -20px;">
+        <div class="ui horizontal section divider no_margin full_width">
+            <h5>
+                <small ng-show="active_page != 'management'">Training Calendar</small>
+                <small ng-show="active_page == 'management'">Team Calendar</small>
+            </h5>
+        </div>
+        <div class="ui" style="height: 217px; width: 240px; margin-top: 5px; padding: 0px; z-index: 100;">
+            <div class="ui blurring segment borderless" ng-class="{'loading': LOADING_CALENDAR}" style="width: 240px; height: 264px; margin-top: 6px; padding: 0px;">
+                <div style="margin-top: 0px;" id="training-calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>

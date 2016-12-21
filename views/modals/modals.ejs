@@ -1,0 +1,113 @@
+<!--Training Evaluation Form-->
+
+<div class="ui evaluation long blurring small modal scrolling" ng-controller="evaluationFormController" id="evaluation-form">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 16px;">
+        <span>{{FORM_NAME}}</span>
+    </div>
+    <div>
+        <div>
+            <div id="evaluation_zone">
+                <div class="content" style="height: 420px; height: 410px; margin: 10px 30px;">
+                    <div class="description" id="form-group">
+                        <!--Question element-->
+                        <div id="question-list">
+                            <!--<div>
+                                <div>
+                                    <em>1. Text for criteria 1. This is actually a question which needs to be anwsered by the user</em>
+                                </div>
+                                <div>
+                                    <div class="ui form" style="margin-top: 10px; margin-left: 30px;">
+                                        <div class="grouped fields">
+                                            <div class="inline fields" style="margin-bottom: 8px;">
+                                                <div class="eight wide field">
+                                                    <div class="ui checkbox">
+                                                        <input type="radio" name="example2" checked ng-click="setCiteriaProp(1, 1)">
+                                                        <label>Once a week</label>
+                                                    </div>
+                                                </div>
+                                                <div class="eight wide field">
+                                                    <div class="ui checkbox">
+                                                        <input type="radio" name="example2" ng-click="setCiteriaProp(1, 2)">
+                                                        <label>2-3 times a week</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="inline fields" style="margin-bottom: 8px;">
+                                                <div class="eight wide field">
+                                                    <div class="ui checkbox">
+                                                        <input type="radio" name="example2" ng-click="setCiteriaProp(1, 3)">
+                                                        <label>Once a day</label>
+                                                    </div>
+                                                </div>
+                                                <div class="eight wide field">
+                                                    <div class="ui checkbox">
+                                                        <input type="radio" name="example2" ng-click="setCiteriaProp(1, 4)">
+                                                        <label>Twice a day</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="inline fields" style="margin-bottom: 8px;">
+                                                <div class="eight wide field">
+                                                    <div class="ui checkbox">
+                                                        <input type="radio" name="example2" ng-click="setCiteriaProp(1, 5)">
+                                                        <label>Once a day</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui divider"></div>-->
+                        </div>
+
+                        <!--<div class="ui form" style="margin-bottom: 10px;">-->
+                        <!--<div class="field">-->
+                        <!--<label><em>Comment</em></label>-->
+                        <!--<textarea></textarea>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">{{LOADING_STATE}}</div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny button">Cancel</div>
+        <div class="ui mini primary button" ng-click="submitForm(SESSION_ID)">Submit</div>
+    </div>
+</div>
+
+<div class="ui quiz long blurring small modal scrolling" ng-controller="quizFormController" id="quiz-form">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 16px;">
+        <span>{{QUIZ_NAME}}</span>
+    </div>
+    <div>
+        <div>
+            <div id="quiz-evaluation_zone">
+                <div class="content" style="height: 420px; height: 410px; margin: 10px 30px;">
+                    <div class="description" id="form-group">
+                        <!--Question element-->
+                        <div id="quiz-question-list">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">{{LOADING_STATE}}</div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny button">Cancel</div>
+        <div class="ui mini primary button" ng-click="submitForm(SESSION_ID)">Submit</div>
+    </div>
+</div>

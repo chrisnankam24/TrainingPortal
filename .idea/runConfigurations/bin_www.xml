@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="bin\www" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="$USER_HOME$/AppData/Roaming/npm/nodemon.cmd" path-to-js-file="$PROJECT_DIR$/../DV-Portal/bin/www" working-dir="$PROJECT_DIR$/../DV-Portal">
+    <envs>
+      <env name="DEBUG" value="DV-Gateway:*" />
+    </envs>
+    <browser url="http://localhost:3000/" />
+    <profiling v8-profiler-path="" />
+    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
+      <profiling v8-profiler-path="" />
+    </EXTENSION>
+    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSStartBrowserRunConfigurationExtension">
+      <browser url="http://localhost:3000/" />
+    </EXTENSION>
+    <method />
+  </configuration>
+</component>

@@ -1,0 +1,184 @@
+body {
+  padding: 50px;
+  font: 14px Helvetica, Arial, sans-serif;
+}
+
+.orange {
+    color: #FF7900;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+
+
+
+.semi_limitted_left_padding {
+    padding-left: 10px !important;
+}
+
+.no_side_padding {
+    padding-left: 0px !important;
+}
+
+.menu_top_padding {
+    border-top-width: 12px !important;
+}
+
+.no_border {
+    border-radius: 0px !important;
+}
+
+.full_width {
+    width: 100% !important;
+}
+
+.formal_height {
+    height: 50% !important;
+}
+
+.borderless_right {
+    border: none !important;
+}
+
+.borderless_left {
+    background: transparent !important;
+    border: none !important;;
+}
+
+.no_margin {
+    margin-bottom: 0px !important;
+}
+
+.free_space {
+    margin-top: 30px;
+}
+
+.search_position {
+    margin-top: -20px !important;
+    margin-right: 10px !important;
+}
+
+.long_search {
+    width: 50%;
+}
+
+.search_close {
+    border-right: 0px !important;
+    padding-right: 0px !important;
+}
+
+span.divider {
+    display: inline-block;
+    width: 0;
+    height: 2.5em;
+    border-right: solid rgba(105, 105, 105, 0.3) 1px;
+    margin-top: 10px;
+}
+
+a.item:hover {
+    background-color: transparent !important;
+}
+
+.no_padding {
+    padding: 0px !important;
+}
+
+.round_radius {
+    border-radius: 3px !important;
+}
+
+.padding-left-10 {
+    padding: 0px 0px 0px 10px;
+}
+
+.middle-header{
+    width: 760px!important;
+}
+
+.right-header{
+    width: 350px!important;
+}
+
+.header-search-notification {
+    margin-right: 0px!important;
+    margin-left: 0px!important;
+    margin-top: 7px!important;
+}
+
+.header-notification-label {
+    margin-left: -14px!important;
+    padding-left: 9px!important;
+    margin-top: -23px!important;
+    z-index: 1!important;
+}
+
+.header-popup {
+    width: 239px!important;
+}
+
+.bottom-bordered {
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15)!important;
+}
+.top-bordered {
+    border-top: 1px solid rgba(34, 36, 38, 0.15)!important;
+}
+
+.event {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 150px;
+    bottom: 3px;
+    left: 15px;
+    content: " ";
+    display: block;
+    background: #3d8cb9;
+}
+
+.event.busy {
+    background: #f64747;
+}
+
+.flatpickr-calendar{
+    font-size: small!important;
+}
+
+.list-item:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.025);
+}
+
+/**
+ * (optional) define here the style definitions which should be applied on the slider container
+ * e.g. width including further controls like arrows etc.
+ */
+.slider {}
+
+.frame {
+    /**
+     * (optional) wrapper width, specifies width of the slider frame.
+     */
+    width: 560px;
+
+    position: relative;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.slides {
+    display: inline-block;
+}
+
+.slides li {
+    position: relative;
+    display: inline-block;
+
+    /**
+     * (optional) if the content inside the slide element has a defined size.
+     */
+}

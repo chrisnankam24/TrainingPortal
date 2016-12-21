@@ -1,0 +1,29 @@
+<div class="ten wide column">
+    <div class="row">
+        <div class="ui segment no_padding" style="margin-top: 49px; margin-left: 7%; height: 523px;">
+            <div id="main_list_page" style="height: 50%!important;">
+                <div class="section fp-auto-height" id="user-main-content" style="height: 100%;">
+
+                    <!--Include First slide of UI content. This slide loads training, quiz, resources,
+                    subs and notification message lists.-->
+
+                    <%- include('trainee-slides/trainee-lists', {user: ""}); %>
+
+                    <!--Include Training details slide-->
+
+                    <%- include('trainee-slides/training-details', {user: ""}); %>
+
+                    <!--Include Quiz details slide-->
+
+                    <%- include('trainee-slides/quiz-details', {user: ""}); %>
+
+                    <!--Include Subordinate details slide-->
+
+                    <%- include('trainee-slides/subordinate-details', {user: ""}); %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

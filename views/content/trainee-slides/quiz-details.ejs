@@ -1,0 +1,53 @@
+<div class="slide round_radius" ng-show="active_page == 'quiz'">
+    <div style="height: 40px!important; border-bottom: 1px solid rgba(34, 36, 38, 0.15);">
+        <div class="ui grid" style="margin-top: 0px;">
+            <div class="two wide column" style="padding-top: 6px;">
+                <a href="#" ng-click="moveQuizBack()"><i class="chevron circle left orange link icon ui big"></i></a>
+            </div>
+            <div class="eleven wide column" style="padding-top: 6px;">
+
+            </div>
+            <div class="three wide column" style="padding-top: 6px;" ng-show="SHOW_TAKE_QUIZ" id="quiz_button">
+                <button class="ui inverted orange mini button" ng-click="loadQuizForm(QUIZ_INFO.quizID, QUIZ_INFO.plannedTrainingID)">Take Quiz</button>
+            </div>
+        </div>
+    </div>
+    <div id="">
+        <div id="quiz-details-page" class="ui blurring">
+            <div class="ui inverted dimmer">
+                <div class="ui text loader">Loading</div>
+            </div>
+            <div class="ui grid bottom-bordered" style="margin: 0px;">
+                <div class="three wide column">
+                    <div class="ui image" id="qpic_container">
+                        <!--<img src="/images/wireframes/square-image.png">-->
+                        <img data-name="{{QUIZ_INFO.quiz_name}}" id="qpic" class="quiz_large_profile" style="border-radius: 3px;"/>
+                    </div>
+                    {{createLargeInitials()}}
+                </div>
+                <div class="eight wide column"
+                     style="padding-left: 0px; padding-right: 0px; text-align: left; font-size: x-small; border-right: 1px solid rgba(34, 36, 38, 0.15)">
+                    <div class="ui small label" style="padding-bottom: 1px;">{{QUIZ_INFO.quiz_name}}</div>
+                    <div style="padding-bottom: 1px; font-size: x-small; "><em>{{QUIZ_INFO.training_name}}</em></div>
+                    <div style="padding-bottom: 1px; font-size: x-small; "><em>{{QUIZ_INFO.quizTaken ? 'Quiz Taken' : 'Quiz yet to be taken'}}</em></div>
+                    <div style="padding-bottom: 1px; font-size: x-small; "><em>{{QUIZ_INFO.category}}</em></div>
+                    <div style="padding-bottom: 1px; font-size: x-small; "><em>{{QUIZ_INFO.subCategory}}</em></div>
+                    <div style="padding-bottom: 1px; font-size: x-small; "><em>{{QUIZ_INFO.num_questions}} Question(s)</em></div>
+                    <div style="padding-bottom: 1px; font-size: x-small; "><em>{{QUIZ_INFO.creationDate | date: "MMM, d, yyyy"}}</em></div>
+                </div>
+                <div class="five wide column ui blurring" ng-hide="SHOW_TAKE_QUIZ">
+                    <div class="ui inverted dimmer">
+                        <div class="ui text loader">Registering</div>
+                    </div>
+                    <div>
+                        <label class="ui small label"
+                               style="margin-bottom: 5px;">Score</label>
+                    </div>
+                    <div>
+                        <label class="ui massive circular label orange">{{QUIZ_INFO.score + '/20'}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

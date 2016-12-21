@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" ng-app="DVPortalApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= title %></title>
+    <meta name="description" content="">
+    <meta name="author" content="Chrisnankam24">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="/css/normalize.css">
+
+    <link rel="stylesheet" href="/js/vendor/fullpage/jquery.fullpage.min.css">
+    <link rel="stylesheet" href="/semantic/dist/semantic.min.css">
+    <link rel="stylesheet" href="/js/vendor/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="/js/vendor/perfect-scrollbar/perfect-scrollbar.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <script src="/js/vendor/html5.js"></script>
+    <![endif]-->
+
+    <!--Import angular js script-->
+    <script src="/js/vendor/angular/angular.min.js"></script>
+
+    <style>
+
+        #test_ps{
+            position: relative;
+            height: 200px;
+            width: 644px;
+            overflow: hidden;
+        }
+
+        .site-block,.session-block .list .item a {
+            cursor: move;
+        }
+
+        .refresh:hover {
+            cursor: pointer;
+        }
+
+        .white-background {
+            background-color: white!important;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!--Include Trainee / Manager Header-->
+
+<%- include('headers/admin-header', params); %>
+
+<div class="ui active tab" data-tab="administration">
+
+</div>
+
+<div class="ui center aligned container" style="margin-top: 40px;">
+    <div class="ui stackable inverted divided grid" ng-controller="adminController">
+
+        <!--Include Admin Menu. This is the first column of the admin UI-->
+
+        <%- include('content/admin-menu', params); %>
+
+        <!--Include Admin Main Content view. This is the second column of the Admin UI-->
+
+        <%- include('content/admin-content', params); %>
+
+        <!--Include Admin stats and feedback view. This is the third column of the Admin UI-->
+
+        <%- include('content/admin-stats-feedback', params); %>
+    </div>
+</div>
+
+<!--Include UI Modals-->
+
+<%- include('modals/admin-modals', params); %>
+
+<!-- REQUIRED JS SCRIPTS -->
+<script src="/js/vendor/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/js/vendor/fullpage/jquery.fullpage.min.js"></script>
+<script src="/js/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/js/vendor/flatpickr/flatpickr.min.js"></script>
+<script src="/js/vendor/tinymce/tinymce.min.js"></script>
+<script src="/js/vendor/date/date.js"></script>
+<script src="/js/vendor/tablesort/tablesort.js"></script>
+<script src="/js/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/js/vendor/perfect-scrollbar/perfect-scrollbar.jquery.min.js"></script>
+<script src="/js/vendor/sortable/Sortable.min.js"></script>
+<script src="/js/vendor/crossroads/signals.min.js"></script>
+<script src="/js/vendor/crossroads/crossroads.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/js/admin-init.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/controllers/headerController.js"></script>
+<script src="/js/controllers/adminController.js"></script>
+<script src="/js/controllers/pTrainingFormController.js"></script>
+<script src="/js/controllers/quizQuestionsController.js"></script>
+<script src="/js/controllers/quizResultsController.js"></script>
+<script src="/js/controllers/reportController.js"></script>
+
+<!-- Plugins -->
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>

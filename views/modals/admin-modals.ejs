@@ -1,0 +1,1016 @@
+<div class="ui training long fullscreen modal scrolling" ng-controller="pTrainingFormController" id="planned-training-form">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 16px;">
+        <span>Planned Training Form</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui blurring" id="content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <div id="pt_page" style="height: 50%!important;">
+                    <div class="section fp-auto-height" style="height: 100%;">
+                        <div class="slide round_radius">
+                            <div class="ui divided grid" style="height: 100%; margin: 0px;">
+                                <div class="column" style="width: 50%; padding: 0px 14px;">
+                                    <h4 class="ui dividing header" style="font-size: small; text-align: center; margin-bottom: 4px;">
+                                        Configuration</h4>
+                                    <div>
+                                        <div id="configuration-block" style="padding-top: 10px;">
+                                            <form class="ui form mini"
+                                                  style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
+                                                <input type="text" style="position: fixed; left: -10000000000000000000000000px;" disabled>
+                                                <div class="field required">
+                                                    <label style="font-size: 12px; float: left;">Training</label>
+                                                    <div class="ui fluid search selection dropdown"
+                                                         id="pt-training" style="clear:both;">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Training
+                                                        </div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-repeat="training in CONFIG.training"
+                                                                 data-value={{training.trainingID}}>
+                                                                {{training.training_name}}
+                                                                {{$last ? initForm() : ""}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="fields">
+                                                    <div class="eight wide field required">
+                                                        <label style="font-size: 12px; float: left;">Transmission Mode</label>
+                                                        <div class="ui fluid search selection dropdown"
+                                                             id="pt_trans_mode" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Transmission Mode
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-click="alterTrainingMode(trans_mode.transmissionMode)" ng-repeat="trans_mode in CONFIG.trans_modes"
+                                                                     data-value={{trans_mode.transmissionMode}}>
+                                                                    {{trans_mode.transmissionMode}}
+                                                                    {{$last ? initForm() : ""}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="eight wide field required">
+                                                        <label style="font-size: 12px; float: left;">Training Type</label>
+                                                        <div class="ui fluid search selection dropdown"
+                                                             id="pt_training_type" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Training Type
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-repeat="training_type in CONFIG.training_types"
+                                                                     data-value={{training_type.trainingType}}>
+                                                                    {{training_type.trainingType}}
+                                                                    {{$last ? initForm() : ""}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="fields">
+                                                    <div class="six wide field required">
+                                                        <label style="font-size: 12px; float: left;">Start Date</label>
+                                                        <div class="ui input">
+                                                            <input type="text" ng-model="start_date" id="pt_start_date"
+                                                                   placeholder="Start Date"
+                                                                   name="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="five wide field required">
+                                                        <label style="font-size: 12px; float: left;">Session Duration (hrs)</label>
+                                                        <div class="ui input">
+                                                            <input type="number" ng-model="session_duration" id="pt_session_duration"
+                                                                   placeholder="Session Duration"
+                                                                   name="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="five wide field required">
+                                                        <label style="font-size: 12px; float: left;">Initial Max / Session</label>
+                                                        <div class="ui input">
+                                                            <input type="number" ng-model="max_per_session" id="pt_initial_max"
+                                                                   placeholder="Max / Session"
+                                                                   name="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="equal width fields">
+                                                    <div class="field required" ng-show="show_training_sites == 1">
+                                                        <label style="font-size: 12px; float: left;">Conference #</label>
+                                                        <div class="ui input">
+                                                            <input type="number" ng-model="conference_num" id="pt_conference_no"
+                                                                   placeholder="Conference #"
+                                                                   name="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="field required" ng-show="show_training_sites == 2">
+                                                        <label style="font-size: 12px; float: left;">Address</label>
+                                                        <div class="ui input">
+                                                            <input type="text" ng-model="e_learning_address" id="pt_learning_address"
+                                                                   placeholder="E learning Address"
+                                                                   name="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="field required" ng-show="show_training_sites == 0">
+                                                        <label style="font-size: 12px; float: left;">Training Sites</label>
+                                                        <div class="ui fluid multiple search selection dropdown"
+                                                             id="pt_training_sites" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Training Sites
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-click="processTrainingSite(training_site)" ng-repeat="training_site in CONFIG.training_sites"
+                                                                     data-value={{training_site.trainingLocationID}}>
+                                                                    {{training_site.town + ', ' + training_site.site}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="field required">
+                                                        <label style="font-size: 12px; float: left;">Training Audience</label>
+                                                        <div class="ui fluid search selection dropdown"
+                                                             id="pt_training_audience" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Training Audience
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-click="alterAudience(training_audience.trainingAudience)" ng-repeat="training_audience in CONFIG.training_audience"
+                                                                     data-value={{training_audience.trainingAudience}}>
+                                                                    {{training_audience.trainingAudience}}
+                                                                    {{$last ? initForm() : ""}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="fields">
+
+                                                    <div class="eight wide field required">
+                                                        <label style="font-size: 12px; float: left;">Evaluation Form</label>
+                                                        <input type="hidden" name="">
+                                                        <div class="ui fluid search selection dropdown"
+                                                             id="pt_eval_form" style="clear:both;">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Evaluation Form
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-repeat="evaluation_form in CONFIG.evaluation_forms"
+                                                                     data-value={{evaluation_form.evaluationFormID}}>
+                                                                    {{evaluation_form.formName}}
+                                                                    {{$last ? initForm() : ""}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="eight wide field required">
+                                                        <label style="font-size: 12px; float: left;">Training Code</label>
+                                                        <input type="text" name="" ng-model="training_code">
+                                                    </div>
+                                                </div>
+
+                                                <h6 class="ui dividing header" ng-show="show_audience" style="font-size: small; margin-top: 10px; text-align: left;">
+                                                    <em>Audience</em></h6>
+
+                                                <div ng-show="show_audience" class="equal width fields">
+
+                                                    <div class="field required">
+                                                        <label style="font-size: 12px; float: left;">Direction(s)</label>
+                                                        <div class="ui fluid multiple search selection dropdown"
+                                                             id="pt_direction" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Direction(s)
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-click="proccessDirection(direction.directionID)" ng-repeat="direction in CONFIG.directions"
+                                                                     data-value={{direction.directionID}}>
+                                                                    {{direction.direction}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="field required">
+                                                        <label style="font-size: 12px; float: left;">Department(s)</label>
+                                                        <div class="ui fluid multiple search selection dropdown"
+                                                             id="pt_department" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Department(s)
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-repeat="department in CONFIG.departments"
+                                                                     data-value={{department.departmentID}}>
+                                                                    {{department.department}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="field required">
+                                                        <label style="font-size: 12px; float: left;">Service(s)</label>
+                                                        <div class="ui fluid search multiple selection dropdown"
+                                                             id="pt_service" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Service(s)
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-click="processService(service.serviceID)" ng-repeat="service in CONFIG.services"
+                                                                     data-value={{service.serviceID}}>
+                                                                    {{service.service}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="ui primary mini right floated submit button" style="margin-bottom: 40px;" ng-click="generate_participants()">Generate</div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column" style="width: 50%; padding: 0px 14px;">
+                                    <h4 class="ui dividing header" style="font-size: small; text-align: center;">
+                                        Participants
+                                        <div class="ui mini primary right floated refresh" style="margin-top: -5px; padding: 5px 0px; float: right;" ng-click="generate_participants()"><i class="undo orange icon"></i></div>
+                                    </h4>
+                                    <div>
+                                        <div id="participants-block" class="ui blurring container">
+                                            <div class="ui inverted dimmer">
+                                                <div class="ui text loader">Loading</div>
+                                            </div>
+                                            <div class="ui two column doubling stackable grid container">
+                                                <div class="column" ng-repeat="site_content in SITES_CONTAINER">
+                                                    <div class="ui text container segment" style="width: 100%; padding: 5px;">
+                                                        <h6 class="ui dividing header centered" style="margin-bottom: 0px;">{{site_content.site_name}}</h6>
+                                                        <div>
+                                                            <div class="site-block" style="height: 240px; padding: 5px 10px;">
+                                                                <div class="ui list" style="height: 230px;" id={{site_content.id}}>
+                                                                    <div class="item" id="{{participant.cuid + ':' + site_content.id + ':' + participant.firstName + ':' + participant.lastName + ':' + participant.region + ':' + participant.site + ':' + participant.town + ':' + participant._serviceID}}" ng-repeat="participant in site_content.participants">
+                                                                        <a class="ui fluid label" id="{{'part_' + participant.cuid}}" ng-style="{'background-color': site_content.site_color}">
+                                                                            {{participant.firstName + ' ' + participant.lastName}}
+                                                                            <i class="delete right floated icon" id="{{'li_' + participant.cuid}}" onclick="delete_participant(this)"></i>
+                                                                            {{$last ? init(site_content.id) : ""}}
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide round_radius">
+                            <div id="pt-details-tab">
+                                <div class="ui small top attached tabular menu"
+                                     style="margin-bottom: 3px;" >
+                                    <a class="item" ng-class="{'active': $first}" id="{{site.site_id}}" data-tab="{{site.site_name}}" ng-repeat="site in site_session_participants" ng-bind="site.site_name"></a>
+                                </div>
+                                <div class="ui tab" data-tab="{{site.site_name}}" ng-repeat="site in site_session_participants">
+                                    <div style="margin-top: 10px;" id="{{'session_contents_' + $index}}">
+                                        <div class="sessions-block">
+                                            <div class="ui four column doubling stackable grid container">
+                                                <div class="column" ng-repeat="session in site.site_sessions">
+                                                    <div class="ui text container segment" style="width: 100%; padding: 5px;">
+                                                        <h6 class="ui dividing header centered" style="margin-bottom: 0px;" ng-bind="session.session_name"></h6>
+                                                        <div style="margin-top: 10px;">
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
+
+                                                                <div class="equal width fields">
+                                                                    <div class="six wide field required">
+                                                                        <div class="ui input">
+                                                                            <input type="text" id="{{session.session_id + '_start_date'}}"
+                                                                                   placeholder="Start Date" value="{{session.session_start_date}}"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="six wide field required">
+                                                                        <div class="ui input">
+                                                                            <input type="text" id="{{session.session_id + '_end_date'}}"
+                                                                                   placeholder="End Date" value="{{session.session_end_date}}"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="equal width fields">
+                                                                    <div class="field required">
+                                                                        <div class="ui fluid multiple search selection dropdown"
+                                                                             id="{{session.session_id + '_trainers'}}" style="clear:both;">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Trainers
+                                                                            </div>
+                                                                            <div class="menu">
+                                                                                <div class="item" ng-repeat="trainer in CONFIG.trainers"
+                                                                                     data-value="{{trainer.id}}">
+                                                                                    {{trainer.firstName + ' ' + trainer.lastName}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <h6 class="ui dividing header" style="font-size: small; margin-top: 10px; text-align: left;">
+                                                                    <em>Participants</em></h6>
+
+                                                            </form>
+                                                        </div>
+                                                        <div>
+                                                            <div class="session-block" style="height: 200px; padding: 5px 10px;">
+                                                                <div class="ui list" style="height: 220px;" id={{session.session_id}}>
+                                                                    <div class="item" id="{{participant.cuid + ':' + participant.firstName + ':' + participant.lastName + ':' + participant.region + ':' + participant.town + ':' + participant.site + ':' + participant._serviceID}}" ng-repeat="participant in session.session_participants">
+                                                                        <a class="ui fluid label" style="text-align: center" ng-style="{'background-color': session.session_color}">
+                                                                            {{participant.firstName + ' ' + participant.lastName}}
+                                                                            {{$last ? init_session(session.session_id) : ""}}
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{$last ? initialise() : ""}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button" ng-hide="show_submit" ng-click="doCancel()">Cancel</div>
+        <div class="ui mini button" ng-show="show_submit" ng-click="move_back()">Back</div>
+        <button class="ui mini primary button" ng-hide="show_submit" ng-click="proceedPlanning()" ng-disabled="SITES_CONTAINER.length < 1">Proceed</button>
+        <div class="ui mini primary button" ng-show="show_submit" ng-click="submitPT()">Submit</div>
+    </div>
+</div>
+
+<div class="ui quiz long fullscreen modal scrolling" ng-controller="quizQuestionsController" id="quiz-form">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
+        <span>Quiz</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui blurring" id="content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <div id="q_page" style="height: 50%!important;">
+                    <div class="section fp-auto-height" style="height: 100%;">
+                        <div class="slide round_radius">
+                            <div class="ui divided grid" style="height: 100%; margin: 0px;">
+                                <div class="column" style="width: 50%; padding: 0px 14px;">
+                                    <div style="margin-left: 50px; margin-right: 50px;">
+                                        <h4 class="ui dividing header"
+                                            style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                            {{addModifText}} Quiz</h4>
+                                        <form class="ui form mini"
+                                              style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
+                                            <div class="field required">
+                                                <label style="font-size: 12px; float: left;">Quiz</label>
+                                                <div class="ui input">
+                                                    <input type="text" ng-model="quiz_name"
+                                                           placeholder="Quiz"
+                                                           name="">
+                                                </div>
+                                            </div>
+                                            <div class="fields">
+                                                <div class="eight wide field required">
+                                                    <label style="font-size: 12px; float: left;">Sub Category</label>
+                                                    <div class="ui fluid search selection dropdown"
+                                                         id="quiz_sub_category" style="clear:both;">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Sub Category
+                                                        </div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-repeat="sub_cat in CONFIG.sub_category"
+                                                                 data-value="{{sub_cat.subCategoryID}}">
+                                                                {{sub_cat.subCategory}}
+                                                                {{$last ? initForm() : ""}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="eight wide field required">
+                                                    <label style="font-size: 12px; float: left;">Quiz Type</label>
+                                                    <div class="ui fluid search selection dropdown"
+                                                         id="quiz_type" style="clear:both;">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Quiz Type
+                                                        </div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-click="alterAudience(qtype.quizType)" ng-repeat="qtype in CONFIG.quiz_type"
+                                                                 data-value="{{qtype.quizType}}">
+                                                                {{qtype.quizType}}
+                                                                {{$last ? initForm() : ""}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="field required" ng-hide="show_audience">
+                                                <label style="font-size: 12px; float: left;">Planned Training</label>
+                                                <div class="ui fluid search selection dropdown"
+                                                     id="quiz_pt" style="clear:both;">
+                                                    <input type="hidden" name="">
+                                                    <i class="dropdown icon"></i>
+                                                    <div class="default text">Planned Training
+                                                    </div>
+                                                    <div class="menu">
+                                                        <div class="item" ng-repeat="pt in CONFIG.plannedTraining"
+                                                             data-value="{{pt.plannedTrainingID}}">
+                                                            {{pt.plannedTrainingID + '-' + pt.training_name}}
+                                                            {{$last ? initForm() : ""}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div ng-show="show_audience" class="equal width fields">
+
+                                                <div class="field required">
+                                                    <label style="font-size: 12px; float: left;">Direction(s)</label>
+                                                    <div class="ui fluid multiple search selection dropdown"
+                                                         id="q_direction" style="clear:both;">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Direction(s)
+                                                        </div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-click="proccessDirection(direction.directionID)" ng-repeat="direction in CONFIG.directions"
+                                                                 data-value={{direction.directionID}}>
+                                                                {{direction.direction}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="field required">
+                                                    <label style="font-size: 12px; float: left;">Department(s)</label>
+                                                    <div class="ui fluid multiple search selection dropdown"
+                                                         id="q_department" style="clear:both;">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Department(s)
+                                                        </div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-repeat="department in CONFIG.departments"
+                                                                 data-value={{department.departmentID}}>
+                                                                {{department.department}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="field required">
+                                                    <label style="font-size: 12px; float: left;">Service(s)</label>
+                                                    <div class="ui fluid search multiple selection dropdown"
+                                                         id="q_service" style="clear:both;">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Service(s)
+                                                        </div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-click="processService(service.serviceID)" ng-repeat="service in CONFIG.services"
+                                                                 data-value={{service.serviceID}}>
+                                                                {{service.service}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" name="" id="quiz_id" value="{{quiz_id}}">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="column" style="width: 50%; padding: 0px 14px;">
+                                    <h4 class="ui dividing header" style="font-size: small; text-align: center;">
+                                        Takers
+                                        <div class="ui mini primary right floated refresh" style="margin-top: -5px; padding: 5px 0px; float: right;" ng-click="generate_participants()"><i class="undo orange icon"></i></div>
+                                    </h4>
+                                    <div>
+                                        <div id="participants-block" class="ui blurring container">
+                                            <div class="ui inverted dimmer">
+                                                <div class="ui text loader">Loading</div>
+                                            </div>
+                                            <div class="ui two column doubling stackable grid container">
+                                                <div class="column" ng-repeat="site_content in SITES_CONTAINER">
+                                                    <div class="ui text container segment" style="width: 100%; padding: 5px;">
+                                                        <h6 class="ui dividing header centered" style="margin-bottom: 0px;">{{site_content.site_name}}</h6>
+                                                        <div>
+                                                            <div class="site-block" style="height: 240px; padding: 5px 10px;">
+                                                                <div class="ui list" style="height: 230px;" id={{site_content.id}}>
+                                                                    <div class="item" id="{{participant.cuid + ':' + site_content.id + ':' + participant.firstName + ':' + participant.lastName + ':' + participant.region + ':' + participant.site + ':' + participant.town + ':' + participant._serviceID}}" ng-repeat="participant in site_content.participants">
+                                                                        <a class="ui fluid label" id="{{'part_' + participant.cuid}}" ng-style="{'background-color': site_content.site_color}">
+                                                                            {{participant.firstName + ' ' + participant.lastName}}
+                                                                            <i class="delete right floated icon" id="{{'li_' + participant.cuid}}" onclick="delete_participant(this)"></i>
+                                                                            {{$last ? init(site_content.id) : ""}}
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button" ng-click="doCancel()">Cancel</div>
+        <div class="ui mini approve primary button" ng-click="addModifyQuiz()">{{addModifText}} Quiz</div>
+    </div>
+</div>
+
+<div class="ui quiz-questions long fullscreen modal scrolling" ng-controller="quizQuestionsController" id="quiz-questions">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 16px;">
+        <span>{{current_quiz.quiz_name}}</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui blurring" id="content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <div class="ui divided grid" style="height: 100%; margin: 0px;">
+                    <div class="column" style="width: 50%; padding: 0px 14px;">
+                        <h4 class="ui dividing header" style="font-size: small; text-align: center; margin-bottom: 4px;">
+                            {{isModif? 'Modify' : 'Add'}} Question
+                            <div class="ui mini primary right floated refresh" style="margin-top: -5px; padding: 5px 0px; float: right;" ng-click="clear()"><i class="undo orange icon"></i></div>
+                        </h4>
+                        <div>
+                            <div id="configuration-block" style="padding-top: 10px;">
+                                <form class="ui form mini"
+                                      style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
+                                    <input type="text" style="position: fixed; left: -10000000000000000000000000px;" disabled>
+
+                                    <div class="fields">
+                                        <div class="thirteen wide field required">
+                                            <label style="font-size: 12px; float: left;">Question</label>
+                                            <div class="ui input">
+                                                <textarea type="text" ng-model="quiz_question_title"
+                                                       placeholder="Question text" rows="2"
+                                                       ></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="three wide field">
+                                            <div class="ui checkbox fluid" id="quiz_question_type" style="margin-top: 21px;">
+                                                <input type="checkbox" name="" ng-model="isMCQ" ng-click="showPropositions()">
+                                                <label style="font-size: small;">MCQ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div ng-show="isMCQ">
+                                        <h6 class="ui dividing header" style="font-size: small; margin-top: 10px; text-align: left; margin-bottom: 5px;">
+                                            <em>Propositions</em>
+                                            <div class="ui mini primary right floated refresh" style="margin-top: -5px; padding: 5px 0px; float: right;" ng-click="addProposition()"><i class="add orange icon"></i></div>
+                                        </h6>
+
+                                        <div class="" id="proposition_list" style="padding-right: 5px;">
+                                            <div class="ui fluid">
+                                                <div class="grouped fields">
+                                                    <div class="inline fields" style="margin-bottom: 8px;" ng-repeat="proposition in proposition_list">
+                                                        <div class="sixteen wide field" style="padding-right: 0px;">
+                                                            <div class="ui checkbox" style="margin-right: 0px;">
+                                                                <input type="radio" name="proposition" id="{{proposition.id}}" ng-checked="$first">
+                                                                <label></label>
+                                                            </div>
+                                                            <div class="ui input">
+                                                                <input type="text" ng-model="proposition.text"
+                                                                       placeholder="Proposition"
+                                                                       name="">
+                                                            </div>
+                                                            <div class="ui mini primary right floated refresh" style="margin-left: 5px; margin-right: 0px; margin-top: 1px;" ng-click="deleteProposition(proposition.id)"><i class="remove orange icon"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="" id="question_id" value="{{question_id}}">
+                                    <div class="ui primary mini right floated submit button" style="margin-bottom: 40px; margin-top: 10px;" ng-click="addModifyQuestion()">{{isModif? 'Modify' : 'Add'}} Question</div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column" style="width: 50%; padding: 0px 14px;">
+                        <h4 class="ui dividing header" style="font-size: small; text-align: center;">
+                            Questions
+                            <div class="ui mini primary right floated refresh" style="margin-top: -5px; padding: 5px 0px; float: right;" ng-click="load_questions()"><i class="undo orange icon"></i></div>
+                        </h4>
+                        <div>
+                            <div id="participants-block" class="ui blurring container">
+                                <div class="ui inverted dimmer">
+                                    <div class="ui text loader">Loading</div>
+                                </div>
+                                <div id="quiz-question-table" style="margin-left: 5px; margin-right: 5px;">
+                                    <table class="ui very basic left small selectable aligned table sort" style="font-size: 11px; margin-top: 5px;">
+                                        <thead>
+                                        <tr class="center aligned">
+                                            <th class="sort-header">ID</th>
+                                            <th class="sort-header">Text</th>
+                                            <th class="sort-header">Type</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="center aligned" ng-repeat="question in question_list">
+                                            <td ng-bind="question.questionID"></td>
+                                            <td ng-bind="question.question_title"></td>
+                                            <td ng-bind="question.question_type"></td>
+                                            <td>
+                                                <div class="ui icon mini buttons">
+                                                    <button class="ui button" ng-click="startModifyQuestion(question)"><i
+                                                                class="write link icon"></i>
+                                                    </button>
+                                                    <button class="ui grey button" ng-click="deleteQuestion(question)"><i
+                                                                class="remove link icon"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button">Cancel</div>
+        <button class="ui mini approve primary button">Done</button>
+    </div>
+</div>
+
+<div class="ui sessions long fullscreen modal scrolling" ng-controller="pTrainingFormController" id="pt-sessions">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
+        <span>Quiz</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui blurring" id="content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <div id="q_page" style="height: 50%!important;">
+                    <div class="section fp-auto-height" style="height: 100%;">
+                        <div class="slide round_radius">
+                            <div class="ui divided grid" style="height: 100%; margin: 0px;">
+                                <div class="column" style="width: 50%; padding: 0px 14px;">
+                                    <div>
+                                        <h4 class="ui dividing header"
+                                            style="font-size: small; text-align: center;">
+                                            Sessions</h4>
+                                    </div>
+                                    <div>
+                                        <table class="ui very basic left small selectable aligned table"
+                                               id="post-table" style="font-size: 11px; margin-top: 15px;">
+                                            <thead>
+                                            <tr class="center aligned">
+                                                <th class="sort-header">No</th>
+                                                <th class="sort-header">Start</th>
+                                                <th class="sort-header">End</th>
+                                                <th class="sort-header">Location</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="center aligned refresh" ng-click="loadSessionParticipants(session)" ng-repeat="session in CONFIG.sessions_list">
+                                                <td ng-bind="$index + 1"></td>
+                                                <td ng-bind="session.startTS | date : 'EEE dd, MMM, yyyy'"></td>
+                                                <td ng-bind="session.endTS | date : 'EEE dd, MMM, yyyy'"></td>
+                                                <td ng-bind="session.site + ', ' + session.town"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="column" style="width: 50%; padding: 0px 14px;">
+                                    <h4 class="ui dividing header" style="font-size: small; text-align: center;">
+                                        Participants
+                                    </h4>
+                                    <div>
+                                        <table class="ui very basic left small selectable aligned table"
+                                               id="post-table" style="font-size: 11px; margin-top: 15px;">
+                                            <thead>
+                                            <tr class="center aligned">
+                                                <th class="sort-header">First Name</th>
+                                                <th class="sort-header">Last Name</th>
+                                                <th class="sort-header">Status</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="center aligned" ng-repeat="participant in CONFIG.session_part_list">
+                                                <td ng-bind="participant.firstName"></td>
+                                                <td ng-bind="participant.lastName"></td>
+                                                <td>
+                                                    <div class="ui inline dropdown part_session_taking_status">
+                                                        <div class="text" ng-bind="participant.trainingTaken == 1 ? 'Taken' : 'Not Taken'"></div>
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="menu">
+                                                            <div class="item" ng-click="set_session_taken(participant, 1)" ng-class="{'active': participant.trainingTaken == 1}" data-text="Taken">Taken</div>
+                                                            <div class="item" ng-click="set_session_taken(participant, 0)" ng-class="{'active': participant.trainingTaken == 0}" data-text="not taken">Not Taken</div>
+                                                        </div>
+                                                    </div>
+                                                    {{$last ? init_session_parts() : ""}}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button" ng-click="doCancel()">Cancel</div>
+        <div class="ui mini approve primary button" ng-click="addModifyQuiz()">Done</div>
+    </div>
+</div>
+
+<div class="ui quiz_result long fullscreen modal scrolling" ng-controller="quizResultsController" id="quiz-results">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
+        <span>Quiz</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui blurring" id="content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <div id="q_page" style="height: 50%!important;">
+                    <div class="section fp-auto-height" style="height: 100%;">
+                        <div class="slide round_radius">
+                            <div>
+                                <table class="ui very basic left small selectable aligned table"
+                                       id="post-table" style="font-size: 11px; margin-top: 15px;">
+                                    <thead>
+                                    <tr class="center aligned">
+                                        <th class="sort-header">No</th>
+                                        <th class="sort-header">First Name</th>
+                                        <th class="sort-header">Last Name</th>
+                                        <th class="sort-header">Score</th>
+                                        <th class="sort-header">Date</th>
+                                        <th class="sort-header">Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="center aligned refresh" ng-repeat="taker in CONFIG.quiz_takers_list">
+                                        <td ng-bind="$index + 1"></td>
+                                        <td ng-bind="taker.firstName"></td>
+                                        <td ng-bind="taker.lastName"></td>
+                                        <td ng-bind="taker.score"></td>
+                                        <td ng-bind="taker.dateTakingQuiz | date : 'EEE dd, MMM, yyyy'"></td>
+                                        <td ng-bind="taker.quizTaken == 1 ? 'Taken' : 'Untaken'"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button" ng-click="doCancel()">Cancel</div>
+        <div class="ui mini approve primary button" ng-click="addModifyQuiz()">Done</div>
+    </div>
+</div>
+
+<div class="ui report long fullscreen modal scrolling" ng-controller="reportController" id="reports">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
+        <span>Reports</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui blurring" id="content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+<!--
+                <div id="q_page" style="height: 50%!important;">
+                    <div class="section fp-auto-height" style="height: 100%;">
+                        <div class="slide round_radius">
+                            <div>
+                                <table class="ui very basic left small selectable aligned table"
+                                       id="post-table" style="font-size: 11px; margin-top: 15px;">
+                                    <thead>
+                                    <tr class="center aligned">
+                                        <th class="sort-header">No</th>
+                                        <th class="sort-header">First Name</th>
+                                        <th class="sort-header">Last Name</th>
+                                        <th class="sort-header">Score</th>
+                                        <th class="sort-header">Date</th>
+                                        <th class="sort-header">Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="center aligned refresh" ng-repeat="taker in CONFIG.quiz_takers_list">
+                                        <td ng-bind="$index + 1"></td>
+                                        <td ng-bind="taker.firstName"></td>
+                                        <td ng-bind="taker.lastName"></td>
+                                        <td ng-bind="taker.score"></td>
+                                        <td ng-bind="taker.dateTakingQuiz | date : 'EEE dd, MMM, yyyy'"></td>
+                                        <td ng-bind="taker.quizTaken == 1 ? 'Taken' : 'Untaken'"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+-->
+                <div id="report_tab">
+                    <div class="ui small top attached tabular menu"
+                         style="margin-bottom: 3px;" >
+                        <a class="item" data-tab="report_1" id="report_1" ng-click="updateContent()">KPI 1</a>
+                        <a class="item" data-tab="report_2" id="report_2"  ng-click="updateContent()">KPI 2</a>
+                    </div>
+                    <div class="ui tab" data-tab="report_1">
+                        <div id="q_page" style="height: 50%!important;">
+                            <div class="section fp-auto-height" style="height: 100%;">
+                                <div class="slide round_radius">
+                                    <div id="kpi_1" style=" margin-top: 15px;">
+                                        <table class="ui very celled structured left small selectable aligned table"
+                                               id="post-table" style="font-size: 11px;">
+                                            <thead>
+                                            <tr class="center aligned">
+                                                <th class="sort-header" rowspan="3" colspan="1">Training Name</th>
+                                                <th class="sort-header" rowspan="3" colspan="1">Training Location</th>
+                                                <th class="sort-header" rowspan="1" colspan="2"></th>
+                                                <th class="sort-header" rowspan="3" colspan="1">Audience (Services)</th>
+                                                <th class="sort-header" rowspan="1" colspan="6">Participants</th>
+                                            </tr>
+                                            <tr class="center aligned">
+                                                <th class="sort-header" rowspan="2" colspan="1">Dates</th>
+                                                <th class="sort-header" rowspan="2" colspan="1">Session Duration</th>
+                                                <th class="sort-header" rowspan="1" colspan="3">Expected</th>
+                                                <th class="sort-header" rowspan="1" colspan="3">Attended</th>
+                                            </tr>
+                                            <tr class="center aligned">
+                                                <th class="sort-header" rowspan="1" colspan="1">Women</th>
+                                                <th class="sort-header" rowspan="1" colspan="1">Men</th>
+                                                <th class="sort-header" rowspan="1" colspan="1">Total</th>
+                                                <th class="sort-header" rowspan="1" colspan="1">Women</th>
+                                                <th class="sort-header" rowspan="1" colspan="1">Men</th>
+                                                <th class="sort-header" rowspan="1" colspan="1">Total</th>
+                                                <!--<th class="sort-header" rowspan="1" colspan="1">Expected</th>-->
+                                                <!--<th class="sort-header" rowspan="1" colspan="1">Realized</th>-->
+                                                <!--<th class="sort-header" rowspan="1" colspan="1">Expected</th>-->
+                                                <!--<th class="sort-header" rowspan="1" colspan="1">Realized</th>-->
+                                                <!--<th class="sort-header" rowspan="1" colspan="1">Women</th>-->
+                                                <!--<th class="sort-header" rowspan="1" colspan="1">Men</th>-->
+                                                <!--<th class="sort-header" rowspan="1" colspan="1">Total</th>-->
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="center aligned refresh" ng-repeat="training in CONFIG.training_kpi_list">
+                                                <td ng-bind="training.training_name"></td>
+                                                <td ng-bind="training.site + ', ' + training.town"></td>
+                                                <td ng-bind="(training.startDate | date : 'EEE dd, MMM') + ' - ' + (training.endDate | date : 'EEE dd, MMM')"></td>
+                                                <td ng-bind="training.sessionDuration"></td>
+                                                <td ng-bind="training.services"></td>
+                                                <td ng-bind="training.women_expected"></td>
+                                                <td ng-bind="training.men_expected"></td>
+                                                <td ng-bind="training.total_expected"></td>
+                                                <td ng-bind="training.women_attended"></td>
+                                                <td ng-bind="training.men_attended"></td>
+                                                <td ng-bind="training.total_attended"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui tab" data-tab="report_2">
+                        <div id="q_page" style="height: 50%!important;">
+                            <div class="section fp-auto-height" style="height: 100%;">
+                                <div class="slide round_radius">
+                                    <div>
+                                        <table class="ui very celled structured left small selectable aligned table"
+                                               id="post-table" style="font-size: 11px; margin-top: 15px;">
+                                            <thead>
+                                            <tr class="center aligned">
+                                                <th class="sort-header">Name</th>
+                                                <th class="sort-header">Post</th>
+                                                <th class="sort-header">January</th>
+                                                <th class="sort-header">Febuary</th>
+                                                <th class="sort-header">March</th>
+                                                <th class="sort-header">April</th>
+                                                <th class="sort-header">May</th>
+                                                <th class="sort-header">June</th>
+                                                <th class="sort-header">July</th>
+                                                <th class="sort-header">August</th>
+                                                <th class="sort-header">September</th>
+                                                <th class="sort-header">October</th>
+                                                <th class="sort-header">November</th>
+                                                <th class="sort-header">December</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="center aligned refresh" ng-repeat="stat in CONFIG.users_training_list">
+                                                <td ng-bind="stat.firstName + ' ' + stat.lastName"></td>
+                                                <td ng-bind="stat.post_name"></td>
+                                                <td ng-bind="stat.January"></td>
+                                                <td ng-bind="stat.Febuary"></td>
+                                                <td ng-bind="stat.March"></td>
+                                                <td ng-bind="stat.April"></td>
+                                                <td ng-bind="stat.May"></td>
+                                                <td ng-bind="stat.June"></td>
+                                                <td ng-bind="stat.July"></td>
+                                                <td ng-bind="stat.August"></td>
+                                                <td ng-bind="stat.September"></td>
+                                                <td ng-bind="stat.October"></td>
+                                                <td ng-bind="stat.November"></td>
+                                                <td ng-bind="stat.December"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button" ng-click="doCancel()">Cancel</div>
+        <div class="ui mini approve primary button" ng-click="addModifyQuiz()">Done</div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+{
+  "name": "DV-Portal",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "ejs": "~2.4.1",
+    "express": "~4.13.4",
+    "express-mysql-session": "^1.2.0",
+    "express-session": "^1.14.2",
+    "flatpickr": "^2.0.6",
+    "fullpage.js": "^2.8.8",
+    "jsonwebtoken": "^7.1.9",
+    "morgan": "~1.7.0",
+    "mysql": "^2.11.1",
+    "nodemailer": "^2.6.4",
+    "nodemon": "^1.11.0",
+    "request": "^2.76.0",
+    "semantic-ui": "^2.2.4",
+    "serve-favicon": "~2.3.0",
+    "sortablejs": "^1.4.2",
+    "tablesort": "^4.1.0"
+  }
+}

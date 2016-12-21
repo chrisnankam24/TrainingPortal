@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" ng-app="DVPortalApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= title %></title>
+    <meta name="description" content="">
+    <meta name="author" content="Chrisnankam24">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        .page_menu_slider .slider {}
+
+        .page_menu_slider .frame {
+            /**
+             * (optional) wrapper width, specifies width of the slider frame.
+             */
+            width: 1080px;
+
+            border: solid 2px black;
+
+            position: relative;
+            font-size: 0;
+            line-height: 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .page_menu_slider .slides {
+            display: inline-block;
+        }
+
+        .page_menu_slider li {
+            position: relative;
+            display: inline-block;
+
+            /**
+             * (optional) if the content inside the slide element has a defined size.
+             */
+            width: 1080px;
+            height: 200px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="slider page_menu_slider">
+    <div class="frame js_frame">
+        <ul class="slides js_slides">
+            <li class="js_slide" style="background-color: red">1</li>
+            <li class="js_slide" style="background-color: green">2</li>
+            <li class="js_slide" style="background-color: blue">3</li>
+            <li class="js_slide" style="background-color: yellowgreen">4</li>
+            <li class="js_slide" style="background-color: orange">5</li>
+            <li class="js_slide" style="background-color: orangered">6</li>
+        </ul>
+    </div>
+</div>
+
+<!-- REQUIRED JS SCRIPTS -->
+<script src="/js/vendor/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/js/vendor/lory/lory.min.js"></script>
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        slider = document.querySelector('.page_menu_slider');
+
+        lory(slider, {
+            infinite: 4,
+            slidesToScroll: 4,
+            slideSpeed: 1000,
+            ease: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'
+        });
+    });
+</script>
+
+</body>
+</html>

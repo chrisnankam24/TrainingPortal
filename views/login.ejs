@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" ng-app="DVPortalApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= title %></title>
+    <meta name="description" content="">
+    <meta name="author" content="Chrisnankam24">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="/css/normalize.css">
+
+    <link rel="stylesheet" href="/semantic/dist/semantic.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <script src="/js/vendor/html5.js"></script>
+    <![endif]-->
+
+    <!--Import angular js script-->
+    <script src="/js/vendor/angular/angular.min.js"></script>
+
+    <style>
+
+        .center_container {
+            margin-top: 10%!important;
+        }
+        .no_margin {
+            margin: 0px!important;
+        }
+        .no_margin_buttom{
+            margin-bottom: 0px!important;
+        }
+
+        .limitted_padding {
+            padding-left: 5px!important;
+            padding-right: 5px!important;
+        }
+
+        .shape_left_margin {
+            margin-left: 45px!important;
+        }
+        .title_margin_top {
+            margin-top: 20px!important;
+            margin-bottom: 0px!important;
+        }
+
+        .no_padding_bottom{
+            padding-bottom: 0px!important;
+        }
+
+        .center_text {
+            text-align: center!important;
+        }
+
+
+    </style>
+
+</head>
+
+<body ng-controller="loginController">
+
+<!--shake_element('#login-container')-->
+
+<div class="ui raised padded text container segment center_container no_margin_buttom" id="login-container">
+
+    <div class="ui negative hidden message" >
+        <div class="header">
+        </div>
+        <p class="center_text">{{error_message}}</p>
+    </div>
+
+    <div class="ui divided grid">
+        <div class="row">
+            <div class="six wide column">
+                <div class="ui vertically divided grid">
+                    <div class="row no_padding_bottom">
+                        <div class="sixteen wide column limitted_padding">
+                            <div class="ui shape square shape_left_margin" id="portal-info-shape">
+                                <div class="sides">
+                                    <div class="first side active">
+                                        <img src="/images/logo.png" class="ui small image">
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 onclick="switch_shape('#portal-info-shape')" class="title_margin_top center_text">DV Training Portal</h5>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="ten wide column">
+                <form class="ui blurring form" name="loginForm" id="loginForm"  ng-class="{'loading': logging_in}">
+                    <div class="field">
+                        <label>CUID</label>
+                        <div class="ui left icon input">
+                            <input type="text" placeholder="CUID" name="username" ng-model="login_params.username"
+                                   ng-required="true">
+                            <i class="user icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <div class="ui left icon input">
+                            <input type="password" placeholder="Password" name="password" ng-model="login_params.password"
+                                   ng-required="true">
+                            <i class="lock icon"></i>
+                        </div>
+                    </div>
+                    <div class="ui primary submit button fluid" ng-click="authenticate_user(login_params)">Login</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui raised very padded text container">
+    <div class="ui horizontal section divider no_margin"><h6 class="">&copy; Copyright 2016, Orange CM</h6></div>
+</div>
+
+
+<!-- REQUIRED JS SCRIPTS -->
+<script src="/js/vendor/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/semantic/dist/semantic.min.js"></script>
+<script src="/js/vendor/flatpickr/flatpickr.min.js"></script>
+<script src="/js/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/js/vendor/date/date.js"></script>
+<script src="/js/vendor/tinymce/tinymce.min.js"></script>
+<script src="/js/vendor/initial/initial.min.js"></script>
+<script src="/js/vendor/tablesort/tablesort.js"></script>
+<script src="/js/vendor/lory/lory.min.js"></script>
+<script src="/js/vendor/crossroads/signals.min.js"></script>
+<script src="/js/vendor/crossroads/crossroads.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/controllers/loginController.js"></script>
+<!-- Plugins -->
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>

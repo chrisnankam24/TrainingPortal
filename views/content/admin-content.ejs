@@ -1,0 +1,1841 @@
+<div class="ten wide column">
+    <div class="row" style="margin-top: -12px;">
+        <div class="ui blurring segment no_padding" id="content-lists" style="margin-top: 8.8%; margin-left: 7%; height: 517px;">
+            <div class="ui inverted dimmer white-background">
+                <div class="ui loader"></div>
+            </div>
+            <div id="main_list_page" style="height: 50%!important;">
+                <div class="section fp-auto-height" id="user-main-content" style="height: 100%;">
+                    <div class="slide round_radius">
+                        <div>
+                            <div id="details-page" class="ui blurring">
+                                <div>
+                                    <div id="detail-list">
+                                        <div id="posts-tab">
+                                            <div class="ui pointing secondary menu" style="margin-bottom: 3px;">
+                                                <a class="active item" data-tab="posts" ng-click="changePage('posts')"
+                                                   style="font-size: small;" id="posts_link">Posts</a>
+                                                <a class="item" data-tab="services" ng-click="changePage('services')" style="font-size: small;">Services</a>
+
+                                                <a class="item" data-tab="departments" ng-click="changePage('departments')"
+                                                   style="font-size: small;">Departments</a>
+                                                <a class="item" data-tab="directions" ng-click="changePage('directions')"
+                                                   style="font-size: small;">Directions</a>
+                                            </div>
+
+                                            <div class="ui tab" data-tab="posts">
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="posts-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} Post</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Name
+                                                                        of Post</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="Name of Post" ng-model="post_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="fields required">
+                                                                    <div class="three wide field">
+                                                                        <label style="font-size: 12px; text-align: left;">Post
+                                                                            Level</label>
+                                                                        <div class="ui fluid dropdown selection"
+                                                                             tabindex="0" id="post_level">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Level
+                                                                            </div>
+                                                                            <div class="menu" tabindex="-1">
+                                                                                <div class="item"
+                                                                                     data-value="1">1
+                                                                                </div>
+                                                                                <div class="item"
+                                                                                     data-value="2">2
+                                                                                </div>
+                                                                                <div class="item"
+                                                                                     data-value="3">3
+                                                                                </div>
+                                                                                <div class="item"
+                                                                                     data-value="4">4
+                                                                                </div>
+                                                                                <div class="item"
+                                                                                     data-value="5">5
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="thirteen wide field">
+                                                                        <label style="font-size: 12px; text-align: left;">Service</label>
+                                                                        <div class="ui fluid search selection dropdown"
+                                                                             id="post_service">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <input class="search"
+                                                                                   autocomplete="off"
+                                                                                   tabindex="0">
+                                                                            <div class="default text">Select
+                                                                                Service
+                                                                            </div>
+                                                                            <div class="menu" tabindex="-1">
+                                                                                <div class="item" ng-repeat="service in CONFIG.services"
+                                                                                     data-value="{{service.serviceID}}">
+                                                                                    {{service.service}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required" ng-show="is_add">
+                                                                    <label style="font-size: 12px; text-align: left;">Initial
+                                                                        Training</label>
+                                                                    <div class="ui fluid multiple search selection dropdown"
+                                                                         id="post_initial_training">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Training</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="training in CONFIG.training"
+                                                                                 data-value="{{training.trainingID}}">
+                                                                                {{training.training_name}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="post_id" value="{{post_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyPost()">
+                                                                        {{addModifText}} Post
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelPostModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{posts_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{posts_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{posts_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddPost()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="post-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Posts</th>
+                                                                <th class="sort-header">Level</th>
+                                                                <th class="sort-header">Service</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="post in posts_list">
+                                                                <!--<td ng-bind="post.postID"></td>-->
+                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="post.post_name"></td>
+                                                                <td ng-bind="post.level"></td>
+                                                                <td ng-bind="post.service"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyPost(post)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deletePost(post)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ui tab" data-tab="services">
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="services-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} Service</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Name
+                                                                        of Service</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="Name of Post" ng-model="service_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; text-align: left;">Department</label>
+                                                                    <div class="ui fluid search selection dropdown"
+                                                                         id="service_department">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Department</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="department in CONFIG.departments"
+                                                                                 data-value="{{department.departmentID}}">
+                                                                                {{department.department}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="service_id" value="{{service_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyService()">
+                                                                        {{addModifText}} Service
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelServiceModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{services_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{services_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{services_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddService()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="service-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Service</th>
+                                                                <th class="sort-header">Department</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="service in services_list">
+                                                                <!--<td ng-bind="service.serviceID"></td>-->
+                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="service.service"></td>
+                                                                <td ng-bind="service.department"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyService(service)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteService(service)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ui tab" data-tab="departments">
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="departments-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} Department</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Name
+                                                                        of Department</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="Name of Department" ng-model="department_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; text-align: left;">Direction</label>
+                                                                    <div class="ui fluid search selection dropdown"
+                                                                         id="department_direction">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Direction</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="direction in CONFIG.directions"
+                                                                                 data-value="{{direction.directionID}}">
+                                                                                {{direction.direction}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="department_id" value="{{department_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyDepartment()">
+                                                                        {{addModifText}} Department
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelDepartmentModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{departments_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{departments_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{departments_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddDepartment()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="department-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Department</th>
+                                                                <th class="sort-header">Direction</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="department in departments_list">
+                                                                <!--<td ng-bind="department.departmentID"></td>-->
+                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="department.department"></td>
+                                                                <td ng-bind="department.direction"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyDepartment(department)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteDepartment(department)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ui tab" data-tab="directions">
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="directions-list">
+                                                    <div class="ui inverted dimmer white-background white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} Direction</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Name
+                                                                        of Direction</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="Name of Direction" ng-model="direction_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="direction_id" value="{{direction_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyDirection()">
+                                                                        {{addModifText}} Direction
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelDirectionModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{directions_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{directions_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{directions_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddDirection()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="direction-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Direction</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="direction in directions_list">
+                                                                <!--<td ng-bind="direction.directionID"></td>-->
+                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="direction.direction"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyDirection(direction)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteDirection(direction)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide round_radius">
+                        <div>
+                            <div id="details-page" class="ui blurring">
+                                <div>
+                                    <div id="detail-list">
+                                        <div id="users-tab">
+                                            <div class="ui pointing secondary menu" style="margin-bottom: 3px;">
+                                                <a class="item" data-tab="users" ng-click="changePage('users')"
+                                                   style="font-size: small;" id="users_link">Users</a>
+                                                <a class="active item" data-tab="user-location" ng-click="changePage('user location')"
+                                                   style="font-size: small;">User Location</a>
+                                                <a class="active item" data-tab="user-post" ng-click="changePage('user post')"
+                                                   style="font-size: small;">User Post</a>
+                                            </div>
+                                            <div class="ui tab" data-tab="users">
+
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="users-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} User</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="fields required">
+                                                                    <div class="four wide field">
+                                                                        <label style="font-size: 12px; float: left;">CUID</label>
+                                                                        <div class="ui input">
+                                                                            <input type="text" ng-model="user_cuid" ng-disabled="!is_add"
+                                                                                   placeholder="CUID"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="six wide field">
+                                                                        <label style="font-size: 12px;">First
+                                                                            Name</label>
+                                                                        <div class="ui input">
+                                                                            <input type="text" ng-model="user_first_name"
+                                                                                   placeholder="First Name"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="six wide field">
+                                                                        <label style="font-size: 12px; float: right;">Last
+                                                                            Name</label>
+                                                                        <div class="ui input">
+                                                                            <input type="text" ng-model="user_last_name"
+                                                                                   placeholder="Last Name"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="fields required">
+                                                                    <div class="nine wide field">
+                                                                        <label style="font-size: 12px; float: left;">Email</label>
+                                                                        <div class="ui input">
+                                                                            <input type="email" ng-model="user_email"
+                                                                                   placeholder="Email"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="three wide field">
+                                                                        <label style="font-size: 12px;">Gender</label>
+                                                                        <div class="ui fluid search selection dropdown"
+                                                                             id="user_gender">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Gender
+                                                                            </div>
+                                                                            <div class="menu">
+                                                                                <div class="item" ng-repeat="gender in CONFIG.gender"
+                                                                                           data-value="{{gender.genderID}}">
+                                                                                    {{gender.gender}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="six wide field">
+                                                                        <label style="font-size: 12px; float: right;">Matricule</label>
+                                                                        <div class="ui input">
+                                                                            <input type="text" ng-model="user_matricule"
+                                                                                   placeholder="Matricule"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="fields required">
+                                                                    <div class="six wide field">
+                                                                        <label style="font-size: 12px; float: left;">Number</label>
+                                                                        <div class="ui input">
+                                                                            <input type="text" ng-model="user_number"
+                                                                                   placeholder="Number"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="six wide field">
+                                                                        <label style="font-size: 12px;">Status</label>
+                                                                        <div class="ui fluid search selection dropdown"
+                                                                             id="user_status">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Status
+                                                                            </div>
+                                                                            <div class="menu">
+                                                                                <div class="item" ng-repeat="status in CONFIG.status"
+                                                                                           data-value="{{status.status}}">
+                                                                                    {{status.status}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="six wide field">
+                                                                        <label style="font-size: 12px; float:right;">Contract
+                                                                            Type</label>
+                                                                        <div class="ui fluid search selection dropdown"
+                                                                             id="user_contract"
+                                                                             style="clear: both;">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Status
+                                                                            </div>
+                                                                            <div class="menu">
+                                                                                <div class="item" ng-repeat="contract in CONFIG.contract"
+                                                                                           data-value="{{contract.contract}}">
+                                                                                    {{contract.contract}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                                <div class="fields required">
+                                                                    <div class="eight wide field">
+                                                                        <label style="font-size: 12px; float: left;">Employment
+                                                                            Date</label>
+                                                                        <div class="ui input">
+                                                                            <input type="text" ng-model="user_employment_date"
+                                                                                   id="user_employment_date"
+                                                                                   placeholder="Date"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="eight wide field">
+                                                                        <label style="font-size: 12px; float:right;">Boss</label>
+                                                                        <div class="ui fluid search selection dropdown"
+                                                                             id="user_boss"
+                                                                             style="clear: both;">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Boss</div>
+                                                                            <div class="menu">
+                                                                                <div class="item" ng-repeat="user in CONFIG.user"
+                                                                                data-value="{{user.cuid}}">
+                                                                                    {{user.firstName + ' ' + user.lastName}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="fields required">
+                                                                    <div class="eight wide field required">
+                                                                        <label style="font-size: 12px;">User
+                                                                            Location</label>
+                                                                        <div class="ui fluid search selection dropdown"
+                                                                             id="user_location"
+                                                                             style="clear: both;">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Location</div>
+                                                                            <div class="menu">
+                                                                                <div class="item" ng-repeat="userLocation in CONFIG.userLocation"
+                                                                                     data-value="{{userLocation.userLocationID}}">
+                                                                                    {{userLocation.site + ' ' + userLocation.town}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="eight wide field required" ng-show="addModifText == 'Add'">
+                                                                        <label style="font-size: 12px;">User
+                                                                            Post</label>
+                                                                        <div class="ui fluid search selection dropdown"
+                                                                             id="user_post"
+                                                                             style="clear: both;">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Post</div>
+                                                                            <div class="menu">
+                                                                                <div class="item" ng-repeat="post in CONFIG.posts"
+                                                                                     data-value="{{post.postID}}">
+                                                                                    {{post.post_name}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="cuid" value="{{cuid}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyUser()">
+                                                                        {{addModifText}} User
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelUserModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{user_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{user_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{user_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddUser()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="user-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px; display: block; overflow-x: auto; height: 425px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">CUID</th>
+                                                                <th class="sort-header">First Name</th>
+                                                                <th class="sort-header">Last Name</th>
+                                                                <th class="sort-header">Email</th>
+                                                                <th class="sort-header">Gender</th>
+                                                                <th class="sort-header">MSISDN</th>
+                                                                <th class="sort-header">Matricule</th>
+                                                                <th class="sort-header">Status</th>
+                                                                <th class="sort-header">Contract Type</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="user in user_list">
+                                                                <td ng-bind="user.cuid"></td>
+                                                                <td ng-bind="user.firstName"></td>
+                                                                <td ng-bind="user.lastName"></td>
+                                                                <td ng-bind="user.email"></td>
+                                                                <td ng-bind="user.gender == 1 ? 'Male' : 'Female'"></td>
+                                                                <td ng-bind="user.number"></td>
+                                                                <td ng-bind="user.matricule"></td>
+                                                                <td ng-bind="user.userStatus"></td>
+                                                                <td ng-bind="user.contractType"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyUser(user)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteUser(user)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="ui tab" data-tab="user-location">
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="user_location-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} Site</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Name
+                                                                        of Site</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="Name of Site" ng-model="userLocation_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; text-align: left;">Town</label>
+                                                                    <div class="ui fluid search selection dropdown"
+                                                                         id="user_location_town">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Town</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="town in CONFIG.user_town"
+                                                                                 data-value="{{town.town}}">
+                                                                                {{town.town}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; text-align: left;">Site Region</label>
+                                                                    <div class="ui fluid search selection dropdown"
+                                                                         id="user_location_region">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Region</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="region in CONFIG.training_region"
+                                                                                 data-value="{{region.region}}">
+                                                                                {{region.region}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="user_location_id" value="{{userLocation_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyUserLocation()">
+                                                                        {{addModifText}} Site
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelUserLocationModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{user_location_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{user_location_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{user_location_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddUserLocation()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="user_location-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Site</th>
+                                                                <th class="sort-header">Town</th>
+                                                                <th class="sort-header">Region</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="userLocation in user_location_list">
+                                                                <!--<td ng-bind="userLocation.userLocationID"></td>-->
+                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="userLocation.site"></td>
+                                                                <td ng-bind="userLocation.town"></td>
+                                                                <td ng-bind="userLocation.region"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyUserLocation(userLocation)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteUserLocation(userLocation)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ui tab" data-tab="user-post">
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="user_post-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                Reassign User</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Name
+                                                                        of User</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text" disabled
+                                                                               placeholder="Name of User" ng-model="user_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; text-align: left;">New Post</label>
+                                                                    <div class="ui fluid search selection dropdown"
+                                                                         id="user_post_dd">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">New Post</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="post in CONFIG.posts"
+                                                                                 data-value="{{post.postID}}">
+                                                                                {{post.post_name}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="fields required">
+                                                                    <div class="eight wide field">
+                                                                        <label style="font-size: 12px; float: left;">Assignation
+                                                                            Date</label>
+                                                                        <div class="ui input">
+                                                                            <input type="text" ng-model="user_assignation_date"
+                                                                                   id="user_assignation_date"
+                                                                                   placeholder="Date"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="cuid" value="{{cuid}}">
+                                                                <input type="hidden" name="" id="current_post_id" value="{{current_post_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="ReassignUserPost()">
+                                                                        Reassign User
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelUserPostModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{user_post_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{user_post_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{user_post_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+
+                                                        </div>
+                                                    </div>
+                                                    <div id="user_post-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">CUID</th>
+                                                                <th class="sort-header">FirstName</th>
+                                                                <th class="sort-header">LastName</th>
+                                                                <th class="sort-header">Post</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="userPost in user_post_list">
+                                                                <td ng-bind="userPost.cuid"></td>
+                                                                <td ng-bind="userPost.firstName"></td>
+                                                                <td ng-bind="userPost.lastName"></td>
+                                                                <td ng-bind="userPost.post_name"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui grey button" ng-click="startReassignUserPost(userPost)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide round_radius">
+                        <div>
+                            <div id="details-page" class="ui blurring">
+                                <div>
+                                    <div id="detail-list">
+                                        <div id="training-tab">
+                                            <div class="ui pointing secondary menu"
+                                                 style="margin-bottom: 3px;">
+                                                <a class="active item" data-tab="training" ng-click="changePage('training')" style="font-size: small;" id="training_link">Training</a>
+                                                <a class="item" data-tab="training-location" ng-click="changePage('training location')"
+                                                   style="font-size: small;">Training Location</a>
+                                                <a class="item" data-tab="ex-trainers" ng-click="changePage('ex_trainers')"
+                                                   style="font-size: small;">Ex. Trainers</a>
+                                            </div>
+                                            <div class="ui tab" data-tab="training">
+
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="training-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} Training</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Name
+                                                                        of Training</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="Name of Training" ng-model="training_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required" ng-show="is_add">
+                                                                    <label style="font-size: 12px; text-align: left;">Resources</label>
+                                                                    <div class="ui fluid multiple search selection dropdown"
+                                                                         id="training_resources">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Resources</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="resource in CONFIG.resources"
+                                                                                 data-value="{{resource.resourceID}}">
+                                                                                {{resource.resource_name}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="training_id" value="{{training_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyTraining()">
+                                                                        {{addModifText}} Training
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelTrainingModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{training_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{training_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{training_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddTraining()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="training-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Training</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="training in training_list">
+                                                                <!--<td ng-bind="training.trainingID"></td>-->
+                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="training.training_name"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyTraining(training)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteTraining(training)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="ui tab" data-tab="training-location">
+
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="training_location-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} Training Site</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Name
+                                                                        of Training Site</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="Name of Training Site" ng-model="trainingLocation_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; text-align: left;">Site Town</label>
+                                                                    <div class="ui fluid search selection dropdown"
+                                                                         id="training_location_town">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Town</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="town in CONFIG.training_town"
+                                                                                 data-value="{{town.town}}">
+                                                                                {{town.town}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; text-align: left;">Site Region</label>
+                                                                    <div class="ui fluid search selection dropdown"
+                                                                         id="training_location_region">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Region</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="region in CONFIG.training_region"
+                                                                                 data-value="{{region.region}}">
+                                                                                {{region.region}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="training_location_id" value="{{trainingLocation_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyTrainingLocation()">
+                                                                        {{addModifText}} Training Site
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelTrainingLocationModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{training_location_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{training_location_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{training_location_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddTrainingLocation()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="training_location-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Training Site</th>
+                                                                <th class="sort-header">Town</th>
+                                                                <th class="sort-header">Region</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="trainingLocation in training_location_list">
+                                                                <td ng-bind="trainingLocation.trainingLocationID"></td>
+                                                                <td ng-bind="trainingLocation.site"></td>
+                                                                <td ng-bind="trainingLocation.town"></td>
+                                                                <td ng-bind="trainingLocation.region"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyTrainingLocation(trainingLocation)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteTrainingLocation(trainingLocation)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="ui tab" data-tab="ex-trainers">
+
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="ex_trainers-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} External Trainer</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">First Name
+                                                                        </label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="First Name" ng-model="ex_trainer_first_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Last Name
+                                                                        </label>
+                                                                    <div class="ui input">
+                                                                        <input type="text"
+                                                                               placeholder="Last Name" ng-model="ex_trainer_last_name"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; text-align: left;">Gender</label>
+                                                                    <div class="ui fluid search selection dropdown"
+                                                                         id="ex_trainer_gender">
+                                                                        <input type="hidden" name="">
+                                                                        <i class="dropdown icon"></i>
+                                                                        <div class="default text">Gender</div>
+                                                                        <div class="menu">
+                                                                            <div class="item" ng-repeat="gender in CONFIG.gender"
+                                                                                 data-value="{{gender.genderID}}">
+                                                                                {{gender.gender}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="ex_trainer_id" value="{{ex_trainer_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyExTrainer()">
+                                                                        {{addModifText}} Trainer
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelExTrainerModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{exTrainer_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{exTrainer_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{exTrainer_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddExTrainer()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="exTrainer-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">First Name</th>
+                                                                <th class="sort-header">Last Name</th>
+                                                                <th class="sort-header">Gender</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="ex_trainer in exTrainer_list">
+                                                                <td ng-bind="ex_trainer.trainerID"></td>
+                                                                <td ng-bind="ex_trainer.firstName"></td>
+                                                                <td ng-bind="ex_trainer.lastName"></td>
+                                                                <td ng-bind="ex_trainer.gender == 1 ? 'Male' : 'Female'"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyExTrainer(ex_trainer)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteExTrainer(ex_trainer)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="active slide round_radius">
+                        <div>
+                            <div id="details-page" class="ui blurring">
+                                <div>
+                                    <div id="detail-list">
+                                        <div id="planned-training-tab">
+                                            <div class="ui pointing secondary menu"
+                                                 style="margin-bottom: 3px;">
+                                                <a class="active item"  ng-click="changePage('planned training')" data-tab="planned-training"
+                                                   style="font-size: small;" id="pt_link">Planned Training</a>
+                                            </div>
+                                            <div class="ui tab" data-tab="planned-training">
+
+                                                <div class="ui blurring" id="planned-training-list" style="height: 473px;">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                    </div>
+
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{pt_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{pt_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{pt_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddPt()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="planned-training-table" style="margin-left: 5px; margin-right: 5px;">
+                                                    <table class="ui very basic left small selectable aligned table"
+                                                           id="post-table" style="font-size: 11px; display: block; overflow-x: auto; height: 428px;">
+                                                        <thead>
+                                                        <tr class="center aligned">
+                                                            <th class="sort-header">ID</th>
+                                                            <th class="sort-header">Name</th>
+                                                            <th class="sort-header">Start</th>
+                                                            <th class="sort-header">End</th>
+                                                            <th class="sort-header">Mode</th>
+                                                            <th class="sort-header">Type</th>
+                                                            <th class="sort-header">Code</th>
+                                                            <th class="sort-header">Session Duration</th>
+                                                            <th class="sort-header">Sessions</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr class="center aligned" ng-repeat="pt in pt_list">
+                                                            <!--<td ng-bind="pt.plannedTrainingID"></td>-->
+                                                            <td ng-bind="$index + 1"></td>
+                                                            <td ng-bind="pt.training_name"></td>
+                                                            <td ng-bind="pt.startDate | date : 'EEE dd, MMM, yyyy'"></td>
+                                                            <td ng-bind="pt.endDate | date : 'EEE dd, MMM, yyyy'"></td>
+                                                            <td ng-bind="pt.transmissionMode"></td>
+                                                            <td ng-bind="pt.trainingType"></td>
+                                                            <td ng-bind="pt.trainingCode"></td>
+                                                            <td ng-bind="pt.sessionDuration"></td>
+                                                            <td>
+                                                                <button class="ui mini primary button" ng-click="startPtSessions(pt)">Sessions</i>
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <button class="ui mini primary button" ng-click="notifyTraining(pt.plannedTrainingID)">Notify</i>
+                                                                </button>
+                                                            </td>
+                                                            <td>
+                                                                <div class="ui icon mini buttons">
+                                                                    <button class="ui button"  ng-click="startModifyPt(pt)"><i
+                                                                                class="write link icon"></i>
+                                                                    </button>
+                                                                    <button class="ui grey button" ng-click="deletePt(pt)"><i
+                                                                                class="remove link icon"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide round_radius">
+                        <div>
+                            <div id="details-page" class="ui blurring">
+                                <div>
+                                    <div id="detail-list">
+                                        <div id="quiz-tab">
+                                            <div class="ui pointing secondary menu"
+                                                 style="margin-bottom: 3px;">
+                                                <a class="active item" data-tab="quiz" ng-click="changePage('quiz')"
+                                                   style="font-size: small;" id="quiz_link">Quiz</a>
+                                            </div>
+                                            <div class="ui tab" data-tab="quiz">
+
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="quiz-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{quiz_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{quiz_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{quiz_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddQuiz()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="quiz-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;  display: block; overflow-x: auto;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Name</th>
+                                                                <th class="sort-header">Creator</th>
+                                                                <th class="sort-header">Creation Date</th>
+                                                                <th class="sort-header">Sub Category</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="quiz in quiz_list">
+                                                                <!--<td ng-bind="quiz.quizID"></td>-->
+                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="quiz.quiz_name"></td>
+                                                                <td ng-bind="quiz.creator"></td>
+                                                                <td ng-bind="quiz.creationDate | date : 'EEE dd, MMM, yyyy'"></td>
+                                                                <td ng-bind="quiz.subCategory"></td>
+                                                                <td>
+                                                                    <button class="ui mini primary button" ng-click="startQuizQuestions(quiz)"> Questions
+                                                                        </button>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="ui mini primary button" ng-click="startQuizResults(quiz)"> Results
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyQuiz(quiz)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteQuiz(quiz)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide round_radius">
+                        <div>
+                            <div id="details-page" class="ui blurring">
+                                <div>
+                                    <div id="detail-list">
+                                        <div id="resources-tab">
+                                            <div class="ui pointing secondary menu"
+                                                 style="margin-bottom: 3px;">
+                                                <a class="active item" ng-click="changePage('resources')" data-tab="resources"
+                                                   style="font-size: small;" id="resources_link">Resources</a>
+                                            </div>
+
+                                            <div class="ui tab" data-tab="resources">
+                                                <div class="ui blurring container bottom-bordered"
+                                                     style=""
+                                                     id="resources-list">
+                                                    <div class="ui inverted dimmer white-background">
+                                                        <!--<div class="ui text loader">Loading</div>-->
+                                                        <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
+                                                            <h4 class="ui dividing header"
+                                                                style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
+                                                                {{addModifText}} Resource</h4>
+                                                            <form class="ui form mini"
+                                                                  style="margin-left: 20px; margin-right: 20px; margin-top: -5px;" ng-class="{'inverted blurring loading': is_rsform_loading}">
+                                                                <div class="fields">
+                                                                    <div class="sixteen wide field required">
+                                                                        <label style="font-size: 12px; float: left;">Name
+                                                                            of Resource</label>
+                                                                        <div class="ui input">
+                                                                            <input type="text" ng-model="resource_name"
+                                                                                   placeholder="Name of Resource"
+                                                                                   name="">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field required">
+                                                                    <label style="font-size: 12px; float: left;">Link
+                                                                        of Resource</label>
+                                                                    <div class="ui input">
+                                                                        <input type="text" ng-model="resource_link"
+                                                                               placeholder="Link of Resource"
+                                                                               name="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="fields required">
+                                                                    <div class="eight wide field">
+                                                                        <label style="font-size: 12px; text-align: left;">Resource Type</label>
+                                                                        <div class="ui fluid dropdown selection"
+                                                                             tabindex="0" id="resource-type">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <div class="default text">Resource Type
+                                                                            </div>
+                                                                            <div class="menu" tabindex="-1">
+                                                                                <div class="item"
+                                                                                     data-value="Document">Document
+                                                                                </div>
+                                                                                <div class="item"
+                                                                                     data-value="Video">Video
+                                                                                </div>
+                                                                                <div class="item"
+                                                                                           data-value="Audio">Audio
+                                                                                </div>
+                                                                                <div class="item"
+                                                                                           data-value="Form">Form
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="eight wide field">
+                                                                        <label style="font-size: 12px; text-align: left;">Resource Visibility</label>
+                                                                        <div class="ui fluid search selection dropdown"
+                                                                             id="resource-visibility">
+                                                                            <input type="hidden" name="">
+                                                                            <i class="dropdown icon"></i>
+                                                                            <input class="search"
+                                                                                   autocomplete="off"
+                                                                                   tabindex="0">
+                                                                            <div class="default text">Select
+                                                                                Resource Visibility
+                                                                            </div>
+                                                                            <div class="menu" tabindex="-1">
+                                                                                <div class="item"
+                                                                                     data-value="1">
+                                                                                    Public
+                                                                                </div>
+                                                                                <div class="item"
+                                                                                     data-value="0">
+                                                                                    Private
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="" id="resource_id" value="{{resource_id}}">
+                                                                <div class="ui container">
+                                                                    <div class="ui submit right floated primary mini button " ng-click="addModifyResource()">
+                                                                        {{addModifText}} Resource
+                                                                    </div>
+                                                                    <div class="ui submit right floated mini button" ng-click="cancelResourceModification()">
+                                                                        Cancel
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ui grid container"
+                                                         style="padding: 14px 14px 0px 0px; margin-bottom: 0px;">
+                                                        <div class="one wide column" style="padding-left: 10px;">
+
+                                                        </div>
+
+                                                        <div class="eleven wide column"
+                                                             style="padding: 10px 14px 6px;">
+                                                            <div class="ui mini icon buttons"
+                                                                 style="margin-left: 90px;">
+                                                                <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                                                                <button class="ui button">
+                                                                    <span>{{resources_list_min}}</span>
+                                                                    <span>-</span>
+                                                                    <span>{{resources_list_max}}</span>
+                                                                    <span>of</span>
+                                                                    <span>{{resources_list_total}}</span>
+                                                                </button>
+                                                                <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="four wide column"
+                                                             style="padding: 10px 10px 6px 14px;">
+                                                            <div class="ui mini buttons" style="float: right;">
+                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddResource()"><i
+                                                                            class="plus icon"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="resource-table" style="margin-left: 5px; margin-right: 5px;">
+                                                        <table class="ui very basic left small selectable aligned table sort"
+                                                               id="resource-table" style="font-size: 11px; margin-top: 5px; display: block; overflow-x: auto; height: 425px;">
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Resource</th>
+                                                                <th class="sort-header">Type</th>
+                                                                <th class="sort-header">Link</th>
+                                                                <th class="sort-header">Visibility</th>
+                                                                <th class="sort-header">No Downloads</th>
+                                                                <th class="sort-header">Addition Date</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="resource in resources_list">
+                                                                <!--<td ng-bind="resource.resourceID"></td>-->
+                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="resource.resource_name"></td>
+                                                                <td ng-bind="resource.resourceType"></td>
+                                                                <td ng-bind="resource.link"></td>
+                                                                <td ng-bind="resource.resourceVisibility == 1 ? 'Public' : 'Private'"></td>
+                                                                <td ng-bind="resource.num_downloads"></td>
+                                                                <td ng-bind="resource.addition_date | date : 'EEE dd, MMM, yyyy'"></td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" ng-click="startModifyResource(resource)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deleteResource(resource)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,277 @@
+<div class="slide round_radius">
+    <div style="height: 40px; border-bottom: 1px solid rgba(34, 36, 38, 0.15);">
+        <div class="ui grid container" style="margin-top: 0px; margin-bottom: 0px;">
+            <div class="one wide column">
+                <div class="ui checkbox" ng-show="active_page == 'training' || active_page == 'quiz'" style="margin-top: -2px;" ng-click="toggleCheckAll(CHECk_ALL_LIST_ELEMENTS)">
+                    <input type="checkbox" name="" ng-model="CHECk_ALL_LIST_ELEMENTS">
+                    <label></label>
+                </div>
+            </div>
+            <div class="three wide column" style="padding-top: 6px; padding-left: 0px;">
+                <div class="ui mini buttons training-list-actions" style="float: left" ng-show="active_page == 'training' || active_page == 'quiz'">
+                    <div class="ui button">Action</div>
+                    <div class="ui floating dropdown icon button">
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item disabled"
+                                 style="padding: 5px 5px 5px 3px!important;">
+                                <i class="delete small icon" style="margin-right: 0px;"></i>
+                                <span style="font-size: small;">Remove {{active_page}}</span>
+                            </div>
+                            <div class="item" style="padding: 5px 5px 5px 3px!important;" ng-click="hideElement()">
+                                <i class="hide small icon" style="margin-right: 0px;"></i>
+                                <span style="font-size: small;">Hide {{active_page}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="seven wide column">
+
+            </div>
+            <div class="three wide column">
+                <div class="" style="font-size: 12px; float: right;">
+                    <span>{{training_list_min}}</span>
+                    <span>-</span>
+                    <span>{{training_list_max}}</span>
+                    <span>of</span>
+                    <span>{{training_list_total}}</span>
+                </div>
+            </div>
+            <div class="two wide column" style="padding-top: 6px; padding-right: 18px;">
+                <div class="ui mini icon buttons" style="float: right;">
+                    <button class="ui button" ng-disabled="DISABLE_BACKWARD_NAV" ng-click="loadPrev()"><i class="chevron left icon"></i></button>
+                    <button class="ui button" ng-disabled="DISABLE_FORWARD_NAV" ng-click="loadNext()"><i class="chevron right icon"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="">
+        <div class="ui blurring" id="trainingList">
+            <div class="ui inverted dimmer">
+                <div class="ui text loader">Loading</div>
+            </div>
+            <ul style="padding: 0px; margin: 0px;" id="training-list" class="list">
+
+                <li class="ui doubling stackable grid container no_margin list-item" ng-style="{'background-color': item.colorCode}" ng-show="active_page == 'training'" ng-repeat="item in training_list"
+                    style="height: 60px; border-bottom: 1px solid rgba(34, 36, 38, 0.15); margin-top: 0px;">
+                    <div class="one wide column">
+                        <div class="ui checkbox" style="margin-top: 7px;">
+                            <input type="checkbox" name="" ng-model="TRAINING_ELEMENTS[item.sessionID]">
+                            <label></label>
+                        </div>
+                    </div>
+                    <div class="two wide column" ng-click="loadTrainingItem(item.sessionID)"
+                         style="padding-left: 0px; padding-top: 6px; padding-right: 24px;">
+                        <div class="ui big image">
+                            <!--<img src="/images/wireframes/image.png" width="100%">-->
+                            <img data-name={{item.training_name}} class="profile" style="border-radius: 3px;"/>
+                            {{$last ? createInitials() : ""}}
+                        </div>
+                    </div>
+                    <div class="thirteen wide column" ng-click="loadTrainingItem(item.sessionID)"
+                         style="padding-right: 0px; padding-left: 0px; margin-left: -18px; padding-top: 7px;">
+                        <div class="row">
+                            <div class="" style="display: inline; float: left;">
+                                <div class="ui small label name">{{item.training_name}}</div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.town == 'NA' ?'':item.town + ',' + item.site}}
+                                        {{item.town != 'NA' ?'': item.conferenceNumber}}</em></div>
+                            </div>
+                        </div>
+                        <div class="row" style="clear: both;">
+                            <div style=" margin-top: 2px; float: left;">
+                                <div class=""
+                                     style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.startTS | date: "MMM, d, yy HH:mm"}} - {{item.endTS | date: "MMM, d, yy HH:mm"}}</em></div>
+                                <div class=""
+                                     style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.sessionDuration}}hrs</em></div>
+                                <div class=""
+                                     style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.trainingType}}</em></div>
+                                <div class=""
+                                     style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.transmissionMode}}</em></div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="ui mini label">{{item.total_takers}} Participants</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="ui doubling stackable grid container no_margin list-item" ng-show="active_page == 'quiz'" ng-repeat="item in quiz_list"
+                    style="height: 60px; border-bottom: 1px solid rgba(34, 36, 38, 0.15); margin-top: 0px;">
+                    <div class="one wide column">
+                        <div class="ui checkbox" style="margin-top: 7px;">
+                            <input type="checkbox" name="" ng-model="QUIZ_ELEMENTS[item.quizID]">
+                            <label></label>
+                        </div>
+                    </div>
+                    <div class="two wide column" ng-click="loadQuizItem(item.quizID, item.plannedTrainingID)"
+                         style="padding-left: 0px; padding-top: 6px; padding-right: 24px;">
+                        <div class="ui big image">
+                            <!--<img src="/images/wireframes/image.png" width="100%">-->
+                            <img data-name={{item.quiz_name}} class="quiz_profile" style="border-radius: 3px;"/>
+                            {{$last ? createQuizInitials() : ""}}
+                        </div>
+                    </div>
+                    <div class="thirteen wide column"  ng-click="loadQuizItem(item.quizID, item.plannedTrainingID)"
+                         style="padding-right: 0px; padding-left: 0px; margin-left: -18px; padding-top: 7px;">
+                        <div class="row">
+                            <div class="" style="display: inline; float: left;">
+                                <div class="ui name small label">{{item.quiz_name}}</div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.num_questions}} Question(s)</em></div>
+                            </div>
+                        </div>
+                        <div class="row" style="clear: both;">
+                            <div style=" margin-top: 2px; float: left;">
+                                <div class=""
+                                     style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.training_name}}</em></div>
+                                <div class=""
+                                     style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.subCategory}}</em></div>
+                                <div class=""
+                                     style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.category}}</em></div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="ui mini label">{{item.creationDate | date: "MMM, d, yyyy"}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="ui doubling stackable grid container no_margin list-item" ng-style="{'background-color': item.colorCode}" ng-click="resource_click(item)" ng-show="active_page == 'resources'" ng-repeat="item in resource_list"
+                    style="height: 60px; border-bottom: 1px solid rgba(34, 36, 38, 0.15); margin-top: 0px;">
+                    <div class="one wide column">
+
+                    </div>
+                    <div class="two wide column"
+                         style="padding-left: 0px; padding-top: 6px; padding-right: 24px; margin-left: -10px;">
+                        <div class="ui big image">
+                            <!--<img src="/images/wireframes/image.png" width="100%">-->
+                            <img data-name={{item.resource_name}} class="resource_profile" style="border-radius: 3px;"/>
+                            {{$last ? createResourceInitials() : ""}}
+                        </div>
+                    </div>
+                    <div class="thirteen wide column"
+                         style="padding-right: 0px; padding-left: 0px; margin-left: -18px; padding-top: 7px;">
+                        <div class="row">
+                            <div class="" style="display: inline; float: left;">
+                                <div class="ui small name label">{{item.resource_name}}</div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.num_downloads}} Download(s)</em></div>
+                            </div>
+                        </div>
+                        <div class="row" style="clear: both;">
+                            <div style=" margin-top: 2px; float: left;">
+                                <div class="" style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.link}}</em>
+                                </div>
+                                <div class="" style="font-size: x-small; display: inline; margin-right: 15px;">
+                                    <em>{{item.resourceType}}</em>
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="ui mini label">{{item.addition_date | date: "MMM, d, yyyy"}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="ui doubling stackable grid container no_margin list-item" ng-click="loadManagementItem(item.cuid)" ng-show="active_page == 'management'" ng-repeat="item in management_list"
+                    style="height: 112px; border-bottom: 1px solid rgba(34, 36, 38, 0.15); margin-top: 0px;">
+                    <div class="one wide column">
+
+                    </div>
+                    <div class="three wide column"
+                         style="padding-left: 0px; padding-top: 6px; padding-right: 24px; margin-left: -10px;">
+                        <div class="ui big image">
+                            <!--<img src="/images/wireframes/image.png" width="100%">-->
+                            <img src={{item.usr_img}} width="100%">
+                        </div>
+                    </div>
+                    <div class="twelve wide column"
+                         style="padding-right: 0px; padding-left: 0px; margin-left: -18px; padding-top: 7px;">
+                        <div class="row">
+                            <div class="" style="display: inline; float: left;">
+                                <div class="ui small name label">{{item.firstName + " " + item.lastName}}</div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.no_planned_training}} Planned Training</em></div>
+                            </div>
+                        </div>
+                        <div class="row" style="clear: both; padding-top: 3px;">
+                            <div class="" style="display: inline; float: left;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.gender ? 'Male': 'Female'}}</em></div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.name_next_training ? item.name_next_training : 'NA'}}</em></div>
+                            </div>
+                        </div>
+                        <div class="row" style="clear: both;  padding-top: 3px;">
+                            <div class="" style="display: inline; float: left;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.email}}</em></div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.date_next_training ? item.date_next_training : 'NA'}}</em></div>
+                            </div>
+                        </div>
+                        <div class="row" style="clear: both;  padding-top: 3px;">
+                            <div class="" style="display: inline; float: left;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.number}}</em></div>
+                            </div>
+                            <div style="float: right;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.average_all_quiz ? item.average_all_quiz + ' on average in all quiz' : 'NA'}}</em></div>
+                            </div>
+                        </div>
+                        <div class="row" style="clear: both;  padding-top: 3px;">
+                            <div class="" style="display: inline; float: left;">
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.site}}</em></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </li>
+
+                <li class="ui doubling stackable grid container no_margin" ng-show="active_page == 'notifications'"
+                    style="height: 60px; border-bottom: 1px solid rgba(34, 36, 38, 0.15); margin-top: 0px;">
+                    <div class="one wide column">
+                        <div class="ui checkbox" style="margin-top: 7px;">
+                            <input type="checkbox" name="">
+                            <label></label>
+                        </div>
+                    </div>
+                    <div class="two wide column"
+                         style="padding-left: 0px; padding-top: 6px; padding-right: 24px;">
+                        <div class="ui big image">
+                            <img src="/images/wireframes/image.png" width="100%">
+                        </div>
+                    </div>
+                    <div class="ten wide column"
+                         style="padding-right: 0px; padding-left: 0px; margin-left: -18px; padding-top: 7px;">
+                        <div class="" style="display: inline; float: left;">
+                            <div class="ui small name label">Notification Message</div>
+                        </div>
+                    </div>
+                    <div class="three wide column" style="padding-right: 0px; padding-left: 0px; margin-left: 0px; padding-top: 7px;">
+                        <div style="float: right; margin-bottom: 5px;">
+                            <div style="font-size: x-small; display: inline;"><em>Notification Type</em></div>
+                        </div>
+                        <div style="float: right;">
+                            <div class="ui mini label">Creation Date</div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>

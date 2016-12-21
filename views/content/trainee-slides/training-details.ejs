@@ -1,0 +1,181 @@
+<div class="slide round_radius" ng-show="active_page == 'training'">
+    <div style="height: 40px!important; border-bottom: 1px solid rgba(34, 36, 38, 0.15);">
+        <div class="ui grid" style="margin-top: 0px;">
+            <div class="two wide column" style="padding-top: 6px;">
+                <a href="#" ng-click="moveTrainingBack()"><i
+                            class="chevron circle left orange link icon ui big"></i></a>
+            </div>
+            <div class="eleven wide column" style="padding-top: 6px;">
+
+            </div>
+            <div class="three wide column" style="padding-top: 6px;" id="eval_button">
+                <button class="ui inverted orange mini button" ng-show="SHOW_TAKE_EVALUATION && TRAINING_INFO.can_still_take == 0" ng-click="loadEvaluationForm(TRAINING_INFO.sessionID)">Evaluate</button>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div id="details-page" class="ui blurring">
+            <div class="ui inverted dimmer">
+                <div class="ui text loader">Loading {{TRAINING_DETAILS_LOADER_MESSAGE}}</div>
+            </div>
+            <div class="ui grid bottom-bordered" style="margin: 0px;">
+                <div class="three wide column">
+                    <div class="ui image" id="ppic_container">
+                        <!--<img src="/images/wireframes/square-image.png">-->
+                        <img data-name="{{TRAINING_INFO.training_name}}" id="ppic" class="large_profile"
+                             style="border-radius: 3px;"/>
+                    </div>
+                    {{createLargeInitials()}}
+                </div>
+                <div class="eight wide column"
+                     style="padding-left: 0px; padding-right: 0px; text-align: left; font-size: x-small; border-right: 1px solid rgba(34, 36, 38, 0.15)">
+                    <div class="ui label" style="font-size: 10px;">{{TRAINING_INFO.training_name}}</div>
+                    <div style="padding-bottom: 1px; font-size: x-small;"><em>{{TRAINING_INFO.startTS | date: "MMM, d, y HH:mm"}}hr - {{TRAINING_INFO.endTS | date: "MMM, d, y HH:mm"}}hr</em></div>
+                    <div style="padding-bottom: 1px; font-size: x-small;"><em>{{TRAINING_INFO.sessionDuration}} hrs</em>
+                    </div>
+                    <div style="padding-bottom: 1px; font-size: x-small;"><em>{{TRAINING_INFO.total_takers}}
+                            Participants</em></div>
+                    <div style="padding-bottom: 1px; font-size: x-small;"><em>{{TRAINING_INFO.transmissionMode}}</em></div>
+                    <div style="padding-bottom: 1px; font-size: x-small;"><em>{{TRAINING_INFO.town}},
+                            {{TRAINING_INFO.site}}{{TRAINING_INFO.conferenceNumber}}</em></div>
+                </div>
+                <div class="five wide column ui blurring" id="registration-form">
+                    <div class="ui inverted dimmer">
+                        <div class="ui text loader">Registering</div>
+                    </div>
+                    <div ng-show="TRAINING_INFO.can_still_take == 1">
+                        <div>
+                            <label class="ui small label" style="float: left;">Training
+                                Code</label>
+                        </div>
+                        <div style="clear: both;">
+                            <div class="ui mini fluid right icon input"
+                                 style="padding-top: 5px; padding-bottom: 5px;">
+                                <input type="text" ng-model="user_code">
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="ui fluid orange mini button" ng-click="registerTraining(TRAINING_INFO.sessionID, user_code)">Register</button>
+                        </div>
+                    </div>
+
+                    <div ng-show="TRAINING_INFO.can_still_take == 0 || TRAINING_REGISTERED">
+                        <div>
+                            <label class="ui circular label orange"><i class="checkmark huge icon"
+                                                                       style="margin-right: 0px;"></i></label>
+                        </div>
+                        <div>
+                            <label class="ui small label" style="margin-top: 5px;">Registered</label>
+                        </div>
+                    </div>
+
+                    <div ng-show="TRAINING_INFO.can_still_take == 2">
+                        <div>
+                            <i class="frown orange huge icon" style="margin-right: 0px;"></i>
+                        </div>
+                        <div>
+                            <label class="ui small label" style="margin-top: 5px;">Training Overdue</label>
+                        </div>
+                    </div>
+
+                    <div ng-show="TRAINING_INFO.can_still_take == 3">
+                        <div>
+                            <i class="smile orange huge icon" style="margin-right: 0px;"></i>
+                        </div>
+                        <div>
+                            <label class="ui small label" style="margin-top: 5px;">Upcoming Training</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div id="detail-list">
+                    <div ng-show="TRAINING_TRAINERS.length > 0">
+                        <div class="ui pointing secondary menu" style="margin-bottom: 3px;">
+                            <a class="active item" data-tab="first">Trainers</a>
+                        </div>
+                        <div class="ui" data-tab="first" style="height: 90px">
+                            <span class="js_prev prev" ng-show="SHOW_TRAINERS_NAV_BUT" onclick="lory(trainerSlider).slideTo(tSIndex = tSIndex - 1); return false;" style="display: inline; float: left; margin-top: 4%;">
+                                <a href="#"><i class="angle grey left big icon"></i></a>
+                            </span>
+                            <div class="slider trainer_page_menu_slider" style="margin-top: 10px;">
+                                <div class="frame js_frame">
+                                    <ul class="slides js_slides" id="trainers_slides_container">
+                                        <!--<li class="js_slide">-->
+                                            <!--<div style="margin-left: 10px;">-->
+                                                <!--<img class="ui circular image" src="/images/user_images/male.png"-->
+                                                     <!--style="width: 60px; height: 60px; margin-left: 15%;">-->
+                                                <!--<div class="ui label" style="font-size: 10px;"> Nankam Happi-->
+                                                    <!--Christian-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                            <span class="js_next next"  ng-show="SHOW_TRAINERS_NAV_BUT" onclick="lory(trainerSlider).slideTo(tSIndex = tSIndex + 1); return false;" style="display: inline; float: right; margin-top: -8.4%;">
+                                <a href="#"><i class="angle grey right big icon"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div style="margin-top: -10px;" ng-show="TRAINING_RESOURCES.length > 0">
+                        <div class="ui pointing secondary menu" style="margin-bottom: 3px;">
+                            <a class="active item" data-tab="first">Resources</a>
+                        </div>
+                        <div class="ui" data-tab="first" style="height: 90px">
+                            <span class="js_prev prev" ng-show="SHOW_RESOURCES_NAV_BUT" onclick="lory(resourcesSlider).slideTo(rSIndex = rSIndex - 1); return false;" style="display: inline; float: left; margin-top: 4%;">
+                                <a href="#"><i class="angle grey left big icon"></i></a>
+                            </span>
+                            <div class="slider resources_page_menu_slider" style="margin-top: 10px;">
+                                <div class="frame js_frame">
+                                    <ul class="slides js_slides" id="resources_slides_container">
+                                        <!--&lt;!&ndash;<li class="js_slide">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div style="margin-left: 10px;">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<img class="ui circular image" src="/images/user_images/document.png"&ndash;&gt;-->
+                                                     <!--&lt;!&ndash;style="width: 60px; height: 60px; margin-left: 15%;">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="ui label" style="font-size: 10px;"> Name of Resource&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                                    </ul>
+                                </div>
+                            </div>
+                            <span class="js_next next" ng-show="SHOW_RESOURCES_NAV_BUT" onclick="lory(resourcesSlider).slideTo(rSIndex = rSIndex + 1); return false;" style="display: inline; float: right; margin-top: -8.4%;">
+                                <a href="#"><i class="angle grey right big icon"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div style="margin-top: -10px;" ng-show="TRAINING_QUIZ.length > 0  && TRAINING_INFO.can_still_take == 0">
+                        <div class="ui pointing secondary menu" style="margin-bottom: 3px;">
+                            <a class="active item" data-tab="first">Quiz</a>
+                        </div>
+                        <div class="ui" data-tab="first" style="height: 90px">
+                            <span class="js_prev prev" ng-show="SHOW_QUIZ_NAV_BUT" onclick="lory(quizSlider).slideTo(qSIndex = qSIndex - 1); return false;" style="display: inline; float: left; margin-top: 4%;">
+                                <a href="#"><i class="angle grey left big icon"></i></a>
+                            </span>
+                            <div class="slider quiz_page_menu_slider" style="margin-top: 10px;">
+                                <div class="frame js_frame">
+                                    <ul class="slides js_slides" id="quiz_slides_container">
+                                        <!--<li class="js_slide">-->
+                                            <!--<div style="margin-left: 10px;">-->
+                                                <!--<img class="ui image quiz_profile"  data-name = "Chris" style="border-radius: 3px; margin-left: 20%">-->
+                                                <!--<div class="ui label" style="font-size: 10px; margin-top: 2px;"> Nankam Happi-->
+                                                    <!--Christian-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                            <span class="js_next next"  ng-show="SHOW_QUIZ_NAV_BUT" onclick="lory(quizSlider).slideTo(qSIndex = qSIndex + 1); return false;" style="display: inline; float: right; margin-top: -8.4%;">
+                                <a href="#"><i class="angle grey right big icon"></i></a>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
