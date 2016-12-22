@@ -190,8 +190,9 @@ exports.insert_training_resources = function (training_id, resources_id, callbac
 
 // Read day by day planned session info for the year
 exports.yearly_triaining_info = function(user_id, year, callback){
-    var query = "SELECT utv.cuid, utv.`sessionID`, utv.training_name, str_to_date(utv.startTS,'%Y-%m-%d') AS startDay, " +
-        "str_to_date(utv.endTS,'%Y-%m-%d') AS endDay FROM dv_portal_db.user_training_view utv WHERE utv.cuid = '" + user_id + "' " +
+
+    var query = "SELECT utv.cuid, utv.`sessionID`, utv.training_name, startTS AS startDay, " +
+        "endTS AS endDay FROM dv_portal_db.user_training_view utv WHERE utv.cuid = '" + user_id + "' " +
         "AND YEAR(utv.`startTS`) >= " + year + " AND YEAR(utv.`endTS`) <= " + year;
 
     db_conn.query(query, callback);

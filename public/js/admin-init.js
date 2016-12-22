@@ -66,7 +66,7 @@ $('.notif.button').popup({
     on: 'click',
     transition: 'horizontal flip',
     lastResort: 'bottom center',
-    closable: false,
+    closable: true,
     hideOnScroll: false,
     variation: 'wide'
 });
@@ -83,7 +83,7 @@ $('.notification').popup({
     on: 'click',
     transition: 'horizontal flip',
     lastResort: 'bottom center',
-    closable: false,
+    closable: true,
     hideOnScroll: false,
     variation: 'wide'
 });
@@ -100,7 +100,7 @@ $('.user-information').popup({
     on: 'click',
     transition: 'horizontal flip',
     lastResort: 'bottom center',
-    closable: false,
+    closable: true,
     hideOnScroll: false,
     variation: 'wide'
 });
@@ -117,7 +117,7 @@ $('.clear-notification').popup({
     on: 'click',
     transition: 'horizontal flip',
     lastResort: 'bottom center',
-    closable: false,
+    closable: true,
     hideOnScroll: false,
     variation: 'wide'
 });
@@ -134,7 +134,7 @@ $('.admin-configuration').popup({
     on: 'click',
     transition: 'horizontal flip',
     lastResort: 'bottom center',
-    closable: false,
+    closable: true,
     hideOnScroll: false,
     variation: 'wide'
 });

@@ -122,13 +122,12 @@ $('#quiz-type-table').tablesort();
 $('#proposition-table').tablesort();
 $('#quiz-table').tablesort();
 
-
-
-
+/*
 //{id} is required, :date: is optional
 crossroads.addRoute('/news/{id}/:date:', function(id, date){
     console.log(id +' - '+ date);
 });
+
 crossroads.parse('/news/123'); //match route and pass "123" as param
 crossroads.parse('/news/45/2011-09-31'); //match route passing "45" and "2011-09-31" as param
 
@@ -141,4 +140,21 @@ window.addEventListener("hashchange", function() {
     }
     console.log(route);
     crossroads.parse(route);
-});
+});*/
+
+/*
+var isSet = false;
+
+//setup hasher
+function parseHash(newHash, oldHash){
+    console.log('Old Hash:: ' + oldHash);
+    console.log('New Hash:: ' + newHash);
+    if(oldHash){
+        crossroads.parse(newHash);
+    }
+}
+hasher.initialized.add(parseHash); //parse initial hash
+hasher.changed.add(parseHash); //parse hash changes
+hasher.init(); //start listening for history change*/
+
+$('body').timeago();

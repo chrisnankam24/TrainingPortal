@@ -548,7 +548,7 @@ exports.get_adminTrainingList = function(req, res){
 
 exports.get_yearlyTrainingProgram = function (req, res) {
 
-    var cuid =  req.session.data.cuid;
+    var cuid =  'WLJD8430';//req.session.data.cuid;
     var year = req.body.year;
 
     trainingModel.yearly_triaining_info(cuid, year, function (err, rows) {
@@ -607,18 +607,19 @@ exports.get_sessionTrainingInfo = function (req, res) {
             training.trainingTaken = training.trainingTaken.readUIntBE(0, 1);
             training.hidden = training.hidden.readUIntBE(0, 1);
 
-            var current_date = Date.now();
+            var tmp_current_date = new Date();
+            var current_date = new Date(tmp_current_date);
+            current_date.setHours(tmp_current_date.getHours() - 3);
             var start_date = new Date(training.startTS);
             var end_date = new Date(training.endTS);
 
-
-            if(training.trainingTaken == 0 && start_date <= current_date && end_date >= current_date){
+            if(training.trainingTaken == 0 && +start_date <= +current_date && +end_date >= +current_date){
                 can_take = 1;
             }else if(training.trainingTaken == 1){
                 can_take = 0;
-            }else if(training.trainingTaken == 0 && end_date < current_date){
+            }else if(training.trainingTaken == 0 && +end_date < +current_date){
                 can_take = 2;
-            }else if(training.trainingTaken == 0 && start_date > current_date){
+            }else if(training.trainingTaken == 0 && +start_date > +current_date){
                 can_take = 3;
             }
 

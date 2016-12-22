@@ -1293,8 +1293,6 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
             user_id: $scope.current_subs
         };
 
-        console.log(params);
-
         // Make Image POST request
         $http.post('/api/v1/training/subsYearlyTrainingProgram', params)
             .success(function (data, status, headers, config) {

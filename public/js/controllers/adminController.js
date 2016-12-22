@@ -326,6 +326,11 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
     $scope.POSTS_ELEMENTS = [];
 
+    $rootScope.setSearchText = function (page) {
+        // Set search text
+        $rootScope.search_text = "Search " + page + " ...";
+    }
+
     $rootScope.changePage = function (page) {
         switch (page) {
             case 'posts':
@@ -379,6 +384,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
         }
 
         $rootScope.loadItems();
+
+        $rootScope.setSearchText(page);
 
     };
 
