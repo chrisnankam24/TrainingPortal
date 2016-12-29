@@ -76,8 +76,8 @@
                                 <div class="ui small label name">{{item.training_name}}</div>
                             </div>
                             <div style="float: right;">
-                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.town == 'NA' ?'':item.town + ',' + item.site}}
-                                        {{item.town != 'NA' ?'': item.conferenceNumber}}</em></div>
+                                <div class="" style="font-size: x-small; display: inline;"><em>{{item.town == null ?'':item.town + ',' + item.site}}
+                                        {{item.town != null ?'': item.conferenceNumber}}</em></div>
                             </div>
                         </div>
                         <div class="row" style="clear: both;">

@@ -50,6 +50,24 @@ $('#q_direction').dropdown({
     }
 });
 
+$('#quiz_pt').dropdown({
+    forceSelection: false,
+
+    onChange: function (value, text, $selectedItem) {
+        setQController();
+        qScope.plannedTrainingChanged();
+    }
+});
+
+delete_quiz_participant = function (elmt) {
+    var part = elmt.parentElement.parentElement.id.split(':');
+    var cuid = part[0];
+    var site_id = part[1];
+    setQController();
+    qScope.remove_participant(cuid, site_id);
+    elmt.parentElement.parentElement.remove();
+};
+
 // Create quiz questions controller
 app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
     
@@ -70,11 +88,14 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
             quizID: $rootScope.current_quiz.quizID
         };
 
+        $('#quiz-questions-list').dimmer('show');
+
         $http.post('/api/v1/quiz/quizQuestions', params).success(function (data, status, headers, config) {
                 $scope.question_list = data.data;
+                $('#quiz-questions-list').dimmer('hide');
 
-            }).error(function (data, status, headers, config) {
-            $('#content-lists').dimmer('hide');
+        }).error(function (data, status, headers, config) {
+            $('#quiz-questions-list').dimmer('hide');
         });
     };
 
@@ -307,13 +328,12 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
         }else{
             $scope.show_audience = true;
         }
+        $scope.generate_participants();
     };
 
     $scope.generate_participants = function () {
 
         var error = [];
-
-        console.log($scope.show_audience);
 
         // Get selected services
         var services_id = $scope.selected_services;
@@ -324,7 +344,7 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
 
             if($scope.show_audience == true){
 
-                $('#participants-block').dimmer('show');
+                $('#quiz-takers').dimmer('show');
 
                 var sites = $scope.selected_sites;
 
@@ -339,17 +359,17 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
 
                         $scope.SITES_CONTAINER = generate_site_participants(sites, participants);
 
-                        $('#participants-block').dimmer('hide');
+                        $('#quiz-takers').dimmer('hide');
 
                     }).error(function (data, status, headers, config) {
 
-                    $('#participants-block').dimmer('hide');
+                    $('#quiz-takers').dimmer('hide');
 
                 });
 
             }else{
 
-                $('#participants-block').dimmer('show');
+                $('#quiz-takers').dimmer('show');
 
                 var params = {
                     pt_id: pt_id
@@ -362,11 +382,11 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
 
                         $scope.SITES_CONTAINER = generate_site_participants(sites, participants);
 
-                        $('#participants-block').dimmer('hide');
+                        $('#quiz-takers').dimmer('hide');
 
                     }).error(function (data, status, headers, config) {
 
-                    $('#participants-block').dimmer('hide');
+                    $('#quiz-takers').dimmer('hide');
 
                 });
 
@@ -489,6 +509,31 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
         for(var i = 0; i < services_id.length; i++){
             $scope.selected_services.push(services_id[i]);
         }
+        $scope.generate_participants();
+    };
+
+    $scope.plannedTrainingChanged = function () {
+        $scope.generate_participants();
+    };
+
+    $scope.remove_participant = function(part_id, site_id) {
+
+        // Create sites container
+        var sites_container = $scope.SITES_CONTAINER;
+
+        for(var i = 0; i < sites_container.length; i++){
+            if(site_id == sites_container[i].id){
+                for(var j = 0; j < sites_container[i].participants.length; j++){
+                    if(sites_container[i].participants[j].cuid == part_id){
+                        sites_container[i].participants.splice(j, 1);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        $scope.SITES_CONTAINER = sites_container;
     };
 
     $scope.initForm = function () {

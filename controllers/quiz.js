@@ -25,14 +25,21 @@ exports.get_quizList = function(req, res){
             });
         }else{
 
-            for(var i = 0; i < rows.length; i++){
-                rows[i].quizTaken = rows[i].quizTaken.readUIntBE(0, 1);
-                rows[i].quiz_hidden = rows[i].quiz_hidden.readUIntBE(0, 1);
-            }
+            var result = [];
 
+
+            for(var i = 0; i < rows.length; i++){
+                if(rows[i].training_taken == 1 || rows[i].training_taken == null){
+                    rows[i].quizTaken = rows[i].quizTaken.readUIntBE(0, 1);
+                    rows[i].quiz_hidden = rows[i].quiz_hidden.readUIntBE(0, 1);
+                    result.push(rows[i]);
+                }else{
+
+                }
+            }
             res.json({
                 success: true,
-                data: rows
+                data: result
             });
         }
     });
@@ -609,17 +616,28 @@ function notify(quizID) {
 
     quizModel.quiz_users(quizID, function (err, rows) {
         if (err) {
+
             // Error querying DB
 
         } else {
+
+            var adminMail =  req.session.data.email;
+
+            var admin_name =  req.session.data.firstName + ' ' + req.session.data.lastName;
+
+            var quiz_name = '';
+
             for (var i = 0; i < rows.length; i++) {
 
                 var email = rows[i].email;
                 var trainee_name = rows[i].firstName + ' ' + rows[i].lastName;
-                var quiz_name = rows[i].quiz_name;
+                quiz_name = rows[i].quiz_name;
 
                 emailService.sendQuizMail(email, trainee_name, quiz_name);
             }
+
+            emailService.sendNotifMail(adminMail, admin_name, quiz_name, rows.length);
+
         }
     });
 };

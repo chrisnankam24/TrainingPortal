@@ -75,8 +75,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="fields">
-                                                    <div class="six wide field required">
+                                                <div class="equal width fields">
+                                                    <div class="field required">
                                                         <label style="font-size: 12px; float: left;">Start Date</label>
                                                         <div class="ui input">
                                                             <input type="text" ng-model="start_date" id="pt_start_date"
@@ -84,7 +84,7 @@
                                                                    name="">
                                                         </div>
                                                     </div>
-                                                    <div class="five wide field required">
+                                                    <div class="field required">
                                                         <label style="font-size: 12px; float: left;">Session Duration (hrs)</label>
                                                         <div class="ui input">
                                                             <input type="number" ng-model="session_duration" id="pt_session_duration"
@@ -92,47 +92,16 @@
                                                                    name="">
                                                         </div>
                                                     </div>
-                                                    <div class="five wide field required">
+                                                </div>
+
+                                                <div class="equal width fields">
+
+                                                    <div class="field required">
                                                         <label style="font-size: 12px; float: left;">Initial Max / Session</label>
                                                         <div class="ui input">
                                                             <input type="number" ng-model="max_per_session" id="pt_initial_max"
                                                                    placeholder="Max / Session"
                                                                    name="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="equal width fields">
-                                                    <div class="field required" ng-show="show_training_sites == 1">
-                                                        <label style="font-size: 12px; float: left;">Conference #</label>
-                                                        <div class="ui input">
-                                                            <input type="number" ng-model="conference_num" id="pt_conference_no"
-                                                                   placeholder="Conference #"
-                                                                   name="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="field required" ng-show="show_training_sites == 2">
-                                                        <label style="font-size: 12px; float: left;">Address</label>
-                                                        <div class="ui input">
-                                                            <input type="text" ng-model="e_learning_address" id="pt_learning_address"
-                                                                   placeholder="E learning Address"
-                                                                   name="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="field required" ng-show="show_training_sites == 0">
-                                                        <label style="font-size: 12px; float: left;">Training Sites</label>
-                                                        <div class="ui fluid multiple search selection dropdown"
-                                                             id="pt_training_sites" style="clear:both;">
-                                                            <input type="hidden" name="">
-                                                            <i class="dropdown icon"></i>
-                                                            <div class="default text">Training Sites
-                                                            </div>
-                                                            <div class="menu">
-                                                                <div class="item" ng-click="processTrainingSite(training_site)" ng-repeat="training_site in CONFIG.training_sites"
-                                                                     data-value={{training_site.trainingLocationID}}>
-                                                                    {{training_site.town + ', ' + training_site.site}}
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -150,6 +119,39 @@
                                                                     {{training_audience.trainingAudience}}
                                                                     {{$last ? initForm() : ""}}
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="field required" ng-show="show_training_sites == 1">
+                                                    <label style="font-size: 12px; float: left;">Conference #</label>
+                                                    <div class="ui input">
+                                                        <input type="number" ng-model="conference_num" id="pt_conference_no"
+                                                               placeholder="Conference #"
+                                                               name="">
+                                                    </div>
+                                                </div>
+                                                <div class="field required" ng-show="show_training_sites == 2">
+                                                    <label style="font-size: 12px; float: left;">Address</label>
+                                                    <div class="ui input">
+                                                        <input type="text" ng-model="e_learning_address" id="pt_learning_address"
+                                                               placeholder="E learning Address"
+                                                               name="">
+                                                    </div>
+                                                </div>
+                                                <div class="field required" ng-show="show_training_sites == 0">
+                                                    <label style="font-size: 12px; float: left;">Training Sites</label>
+                                                    <div class="ui fluid multiple search selection dropdown"
+                                                         id="pt_training_sites" style="clear:both;">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Training Sites
+                                                        </div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-click="processTrainingSite(training_site)" ng-repeat="training_site in CONFIG.training_sites"
+                                                                 data-value={{training_site.trainingLocationID}}>
+                                                                {{training_site.town + ', ' + training_site.site}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -218,24 +220,25 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <div class="field required">
-                                                        <label style="font-size: 12px; float: left;">Service(s)</label>
-                                                        <div class="ui fluid search multiple selection dropdown"
-                                                             id="pt_service" style="clear:both;">
-                                                            <input type="hidden" name="">
-                                                            <i class="dropdown icon"></i>
-                                                            <div class="default text">Service(s)
-                                                            </div>
-                                                            <div class="menu">
-                                                                <div class="item" ng-click="processService(service.serviceID)" ng-repeat="service in CONFIG.services"
-                                                                     data-value={{service.serviceID}}>
-                                                                    {{service.service}}
-                                                                </div>
+                                                <div ng-show="show_audience"  class="field required">
+                                                    <label style="font-size: 12px; float: left;">Service(s)</label>
+                                                    <div class="ui fluid search multiple selection dropdown"
+                                                         id="pt_service" style="clear:both;">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Service(s)
+                                                        </div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-click="processService(service.serviceID)" ng-repeat="service in CONFIG.services"
+                                                                 data-value={{service.serviceID}}>
+                                                                {{service.service}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
 
                                                 <div class="ui primary mini right floated submit button" style="margin-bottom: 40px;" ng-click="generate_participants()">Generate</div>
                                             </form>
@@ -353,6 +356,7 @@
                                     </div>
                                     {{$last ? initialise() : ""}}
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -388,111 +392,111 @@
                         <div class="slide round_radius">
                             <div class="ui divided grid" style="height: 100%; margin: 0px;">
                                 <div class="column" style="width: 50%; padding: 0px 14px;">
-                                    <div style="margin-left: 50px; margin-right: 50px;">
-                                        <h4 class="ui dividing header"
-                                            style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
-                                            {{addModifText}} Quiz</h4>
-                                        <form class="ui form mini"
-                                              style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
-                                            <div class="field required">
-                                                <label style="font-size: 12px; float: left;">Quiz</label>
-                                                <div class="ui input">
-                                                    <input type="text" ng-model="quiz_name"
-                                                           placeholder="Quiz"
-                                                           name="">
+                                    <h4 class="ui dividing header" style="font-size: small; text-align: center; margin-bottom: 4px;">
+                                        {{addModifText}} Quiz</h4>
+                                    <div>
+                                        <div class="session-configuration-block">
+                                            <form class="ui form mini"
+                                                  style="margin-left: 10px; margin-right: 10px; margin-top: 5px;">
+                                                <div class="field required">
+                                                    <label style="font-size: 12px; float: left;">Quiz</label>
+                                                    <div class="ui input">
+                                                        <input type="text" ng-model="quiz_name"
+                                                               placeholder="Quiz"
+                                                               name="">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="fields">
-                                                <div class="eight wide field required">
-                                                    <label style="font-size: 12px; float: left;">Sub Category</label>
+                                                <div class="fields">
+                                                    <div class="eight wide field required">
+                                                        <label style="font-size: 12px; float: left;">Sub Category</label>
+                                                        <div class="ui fluid search selection dropdown"
+                                                             id="quiz_sub_category" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Sub Category
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-repeat="sub_cat in CONFIG.sub_category"
+                                                                     data-value="{{sub_cat.subCategoryID}}">
+                                                                    {{sub_cat.subCategory}}
+                                                                    {{$last ? initForm() : ""}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="eight wide field required">
+                                                        <label style="font-size: 12px; float: left;">Quiz Type</label>
+                                                        <div class="ui fluid search selection dropdown"
+                                                             id="quiz_type" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Quiz Type
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-click="alterAudience(qtype.quizType)" ng-repeat="qtype in CONFIG.quiz_type"
+                                                                     data-value="{{qtype.quizType}}">
+                                                                    {{qtype.quizType}}
+                                                                    {{$last ? initForm() : ""}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="field required" ng-hide="show_audience">
+                                                    <label style="font-size: 12px; float: left;">Planned Training</label>
                                                     <div class="ui fluid search selection dropdown"
-                                                         id="quiz_sub_category" style="clear:both;">
+                                                         id="quiz_pt" style="clear:both;">
                                                         <input type="hidden" name="">
                                                         <i class="dropdown icon"></i>
-                                                        <div class="default text">Sub Category
+                                                        <div class="default text">Planned Training
                                                         </div>
                                                         <div class="menu">
-                                                            <div class="item" ng-repeat="sub_cat in CONFIG.sub_category"
-                                                                 data-value="{{sub_cat.subCategoryID}}">
-                                                                {{sub_cat.subCategory}}
+                                                            <div class="item" ng-repeat="pt in CONFIG.plannedTraining"
+                                                                 data-value="{{pt.plannedTrainingID}}">
+                                                                {{pt.plannedTrainingID + '-' + pt.training_name}}
                                                                 {{$last ? initForm() : ""}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="eight wide field required">
-                                                    <label style="font-size: 12px; float: left;">Quiz Type</label>
-                                                    <div class="ui fluid search selection dropdown"
-                                                         id="quiz_type" style="clear:both;">
-                                                        <input type="hidden" name="">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Quiz Type
+
+                                                <div ng-show="show_audience" class="equal width fields">
+
+                                                    <div class="field required">
+                                                        <label style="font-size: 12px; float: left;">Direction(s)</label>
+                                                        <div class="ui fluid multiple search selection dropdown"
+                                                             id="q_direction" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Direction(s)
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-click="proccessDirection(direction.directionID)" ng-repeat="direction in CONFIG.directions"
+                                                                     data-value={{direction.directionID}}>
+                                                                    {{direction.direction}}
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="menu">
-                                                            <div class="item" ng-click="alterAudience(qtype.quizType)" ng-repeat="qtype in CONFIG.quiz_type"
-                                                                 data-value="{{qtype.quizType}}">
-                                                                {{qtype.quizType}}
-                                                                {{$last ? initForm() : ""}}
+                                                    </div>
+
+                                                    <div class="field required">
+                                                        <label style="font-size: 12px; float: left;">Department(s)</label>
+                                                        <div class="ui fluid multiple search selection dropdown"
+                                                             id="q_department" style="clear:both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">Department(s)
+                                                            </div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-repeat="department in CONFIG.departments"
+                                                                     data-value={{department.departmentID}}>
+                                                                    {{department.department}}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="field required" ng-hide="show_audience">
-                                                <label style="font-size: 12px; float: left;">Planned Training</label>
-                                                <div class="ui fluid search selection dropdown"
-                                                     id="quiz_pt" style="clear:both;">
-                                                    <input type="hidden" name="">
-                                                    <i class="dropdown icon"></i>
-                                                    <div class="default text">Planned Training
-                                                    </div>
-                                                    <div class="menu">
-                                                        <div class="item" ng-repeat="pt in CONFIG.plannedTraining"
-                                                             data-value="{{pt.plannedTrainingID}}">
-                                                            {{pt.plannedTrainingID + '-' + pt.training_name}}
-                                                            {{$last ? initForm() : ""}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div ng-show="show_audience" class="equal width fields">
-
-                                                <div class="field required">
-                                                    <label style="font-size: 12px; float: left;">Direction(s)</label>
-                                                    <div class="ui fluid multiple search selection dropdown"
-                                                         id="q_direction" style="clear:both;">
-                                                        <input type="hidden" name="">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Direction(s)
-                                                        </div>
-                                                        <div class="menu">
-                                                            <div class="item" ng-click="proccessDirection(direction.directionID)" ng-repeat="direction in CONFIG.directions"
-                                                                 data-value={{direction.directionID}}>
-                                                                {{direction.direction}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="field required">
-                                                    <label style="font-size: 12px; float: left;">Department(s)</label>
-                                                    <div class="ui fluid multiple search selection dropdown"
-                                                         id="q_department" style="clear:both;">
-                                                        <input type="hidden" name="">
-                                                        <i class="dropdown icon"></i>
-                                                        <div class="default text">Department(s)
-                                                        </div>
-                                                        <div class="menu">
-                                                            <div class="item" ng-repeat="department in CONFIG.departments"
-                                                                 data-value={{department.departmentID}}>
-                                                                {{department.department}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="field required">
+                                                <div ng-show="show_audience" class="field required">
                                                     <label style="font-size: 12px; float: left;">Service(s)</label>
                                                     <div class="ui fluid search multiple selection dropdown"
                                                          id="q_service" style="clear:both;">
@@ -508,10 +512,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <input type="hidden" name="" id="quiz_id" value="{{quiz_id}}">
-                                        </form>
+                                                <input type="hidden" name="" id="quiz_id" value="{{quiz_id}}">
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="column" style="width: 50%; padding: 0px 14px;">
@@ -520,7 +524,7 @@
                                         <div class="ui mini primary right floated refresh" style="margin-top: -5px; padding: 5px 0px; float: right;" ng-click="generate_participants()"><i class="undo orange icon"></i></div>
                                     </h4>
                                     <div>
-                                        <div id="participants-block" class="ui blurring container">
+                                        <div id="quiz-takers" class="session-configuration-block ui blurring container">
                                             <div class="ui inverted dimmer">
                                                 <div class="ui text loader">Loading</div>
                                             </div>
@@ -534,7 +538,7 @@
                                                                     <div class="item" id="{{participant.cuid + ':' + site_content.id + ':' + participant.firstName + ':' + participant.lastName + ':' + participant.region + ':' + participant.site + ':' + participant.town + ':' + participant._serviceID}}" ng-repeat="participant in site_content.participants">
                                                                         <a class="ui fluid label" id="{{'part_' + participant.cuid}}" ng-style="{'background-color': site_content.site_color}">
                                                                             {{participant.firstName + ' ' + participant.lastName}}
-                                                                            <i class="delete right floated icon" id="{{'li_' + participant.cuid}}" onclick="delete_participant(this)"></i>
+                                                                            <i class="delete right floated icon" id="{{'li_' + participant.cuid}}" ng-show="show_audience" onclick="delete_quiz_participant(this)"></i>
                                                                             {{$last ? init(site_content.id) : ""}}
                                                                         </a>
                                                                     </div>
@@ -561,7 +565,7 @@
 
     <div class="actions">
         <div class="ui mini deny  button" ng-click="doCancel()">Cancel</div>
-        <div class="ui mini approve primary button" ng-click="addModifyQuiz()">{{addModifText}} Quiz</div>
+        <div class="ui mini primary button" ng-click="addModifyQuiz()">{{addModifText}} Quiz</div>
     </div>
 </div>
 
@@ -582,7 +586,7 @@
                             <div class="ui mini primary right floated refresh" style="margin-top: -5px; padding: 5px 0px; float: right;" ng-click="clear()"><i class="undo orange icon"></i></div>
                         </h4>
                         <div>
-                            <div id="configuration-block" style="padding-top: 10px;">
+                            <div class="session-configuration-block" style="padding-top: 10px;">
                                 <form class="ui form mini"
                                       style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
                                     <input type="text" style="position: fixed; left: -10000000000000000000000000px;" disabled>
@@ -643,7 +647,7 @@
                             <div class="ui mini primary right floated refresh" style="margin-top: -5px; padding: 5px 0px; float: right;" ng-click="load_questions()"><i class="undo orange icon"></i></div>
                         </h4>
                         <div>
-                            <div id="participants-block" class="ui blurring container">
+                            <div id="quiz-questions-list"  class="session-configuration-block ui blurring container">
                                 <div class="ui inverted dimmer">
                                     <div class="ui text loader">Loading</div>
                                 </div>
@@ -697,7 +701,7 @@
 
 <div class="ui sessions long fullscreen modal scrolling" ng-controller="pTrainingFormController" id="pt-sessions">
     <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
-        <span>Quiz</span>
+        <span>Training Sessions</span>
     </div>
     <div>
         <div>
@@ -715,7 +719,7 @@
                                             style="font-size: small; text-align: center;">
                                             Sessions</h4>
                                     </div>
-                                    <div>
+                                    <div class="session-configuration-block">
                                         <table class="ui very basic left small selectable aligned table"
                                                id="post-table" style="font-size: 11px; margin-top: 15px;">
                                             <thead>
@@ -731,7 +735,7 @@
                                                 <td ng-bind="$index + 1"></td>
                                                 <td ng-bind="session.startTS | date : 'EEE dd, MMM, yyyy'"></td>
                                                 <td ng-bind="session.endTS | date : 'EEE dd, MMM, yyyy'"></td>
-                                                <td ng-bind="session.site + ', ' + session.town"></td>
+                                                <td ng-bind="session.site == null ? '' : session.site + ', ' + session.town"></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -741,9 +745,9 @@
                                     <h4 class="ui dividing header" style="font-size: small; text-align: center;">
                                         Participants
                                     </h4>
-                                    <div>
+                                    <div class="session-configuration-block">
                                         <table class="ui very basic left small selectable aligned table"
-                                               id="post-table" style="font-size: 11px; margin-top: 15px;">
+                                               id="post-table" style="font-size: 11px;">
                                             <thead>
                                             <tr class="center aligned">
                                                 <th class="sort-header">First Name</th>
@@ -791,7 +795,7 @@
 
 <div class="ui quiz_result long fullscreen modal scrolling" ng-controller="quizResultsController" id="quiz-results">
     <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
-        <span>Quiz</span>
+        <span>Quiz Results</span>
     </div>
     <div>
         <div>
@@ -802,7 +806,7 @@
                 <div id="q_page" style="height: 50%!important;">
                     <div class="section fp-auto-height" style="height: 100%;">
                         <div class="slide round_radius">
-                            <div>
+                            <div class="session-configuration-block">
                                 <table class="ui very basic left small selectable aligned table"
                                        id="post-table" style="font-size: 11px; margin-top: 15px;">
                                     <thead>

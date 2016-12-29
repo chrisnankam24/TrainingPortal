@@ -84,7 +84,7 @@ exports.user_queryBuilder = function (start_ts, offset, search, callback) {
         query += " u.lastName LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY firstName LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };
@@ -102,11 +102,20 @@ exports.get_user = function (user_id, callback) { // UserID to read from DB
 
 // CREATE a user
 exports.add_user = function (user, callback) {
-    var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, employmentDate, number," +
-        " matricule, bossID, userStatus, userLocationID, contractType) " +
-        "VALUES (?, ?, ?, ?, ?, str_to_date('" + user.employmentDate  + "','%Y-%m-%d'), ?, ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
-        user.gender, user.number, user.matricule, user.bossID, user.userStatus,
-        user.userLocationID, user.contractType], callback);
+    if(user.bossID == ''){
+        var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, employmentDate, number," +
+            " matricule, userStatus, userLocationID, contractType) " +
+            "VALUES (?, ?, ?, ?, ?, str_to_date('" + user.employmentDate  + "','%Y-%m-%d'), ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
+            user.gender, user.number, user.matricule, user.userStatus, user.userLocationID, user.contractType], callback);
+
+    }else{
+        var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, employmentDate, number," +
+            " matricule, bossID, userStatus, userLocationID, contractType) " +
+            "VALUES (?, ?, ?, ?, ?, str_to_date('" + user.employmentDate  + "','%Y-%m-%d'), ?, ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
+            user.gender, user.number, user.matricule, user.bossID, user.userStatus, user.userLocationID, user.contractType], callback);
+
+        console.log(res.sql);
+    }
 };
 
 // UPDATE a user
@@ -174,6 +183,8 @@ exports.get_users_in_services = function (services_id, callback) {
     }
 
     query += ")";
+
+    console.log(query);
 
     db_conn.query(query, callback);
 

@@ -2,7 +2,7 @@
  * Created by user on 11/7/2016.
  */
 
-var trainingModel = require('../models/training'); // For training info
+var trainingModel = require('../models/ttraining'); // For training info
 var emailService = require('../config/email');
 
 // Administrivia
@@ -548,7 +548,7 @@ exports.get_adminTrainingList = function(req, res){
 
 exports.get_yearlyTrainingProgram = function (req, res) {
 
-    var cuid =  'WLJD8430';//req.session.data.cuid;
+    var cuid = req.session.data.cuid;
     var year = req.body.year;
 
     trainingModel.yearly_triaining_info(cuid, year, function (err, rows) {
@@ -609,8 +609,8 @@ exports.get_sessionTrainingInfo = function (req, res) {
 
             var tmp_current_date = new Date();
             var current_date = new Date(tmp_current_date);
-            current_date.setHours(tmp_current_date.getHours() - 3);
             var start_date = new Date(training.startTS);
+            start_date.setHours(start_date.getHours() - 3);
             var end_date = new Date(training.endTS);
 
             if(training.trainingTaken == 0 && +start_date <= +current_date && +end_date >= +current_date){
@@ -1148,17 +1148,29 @@ exports.notify = function (req, res) {
             });
         }else{
 
+            var adminMail =  req.session.data.email;
+
+            var admin_name =  req.session.data.firstName + ' ' + req.session.data.lastName;
+
+            var training_name = '';
+
             for(var i = 0; i < rows.length; i++){
-
-                console.log(rows[i]);
-
                 var email = rows[i].email;
                 var trainee_name = rows[i].firstName + ' ' + rows[i].lastName;
-                var training_name = rows[i].training_name;
-                var start_date = rows[i].startDate;
-                var end_date = rows[i].endDate;
-                emailService.sendMail(email, trainee_name, training_name, start_date, end_date);
+                training_name = rows[i].training_name;
+                var start_date = new Date(rows[i].startDate);
+                var end_date = new Date(rows[i].endDate);
+
+                var dateFormat = require('dateformat');
+
+                var start_tm = dateFormat(start_date, "dddd, mmmm dS, yyyy, hh:MM:ss");
+                var end_tm = dateFormat(end_date, "dddd, mmmm dS, yyyy, hh:MM:ss");
+
+                emailService.sendMail(email, trainee_name, training_name, start_tm, end_tm);
             }
+
+            emailService.sendNotifMail(adminMail, admin_name, training_name, rows.length);
+
             res.json({
                 success: true,
                 data: rows

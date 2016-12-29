@@ -173,6 +173,8 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
         for(var i = 0; i < services_id.length; i++){
             $scope.selected_services.push(services_id[i]);
         }
+
+        $scope.generate_participants();
     };
 
     $scope.reSelectTrainingSite = function (ts_id) {
@@ -299,7 +301,7 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
             for(var j = 0; j < participants.length; j++){
                 var part = participants[j];
-                var index = Math.floor(Math.random() * (sites_container.length));
+                var index = j % sites_container.length;
                 part.site_id = sites_container[index].id;
                 sites_container[index].participants.push(part);
             }
@@ -364,16 +366,11 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
                 elmt.id = part_id + ':' + to_site_id + ':' + firstName + ':' + lastName + ':' + region + ':' + site + ':' + town + ':' + _serviceID;
 
+                $scope.remove_participant(part_id, from_site_id);
+
                 for(var i = 0; i < $scope.SITES_CONTAINER.length; i++){
-                    if(from_site_id == $scope.SITES_CONTAINER[i].id){
-                        for(var j = 0; j < $scope.SITES_CONTAINER[i].participants.length; j++){
-                            if($scope.SITES_CONTAINER[i].participants[j].cuid == part_id){
-                                $scope.SITES_CONTAINER[i].participants.splice(j, 1);
-                                break;
-                            }
-                        }
-                    }
                     if(to_site_id == $scope.SITES_CONTAINER[i].id){
+                        console.log('Adding to ' + to_site_id);
                         $scope.SITES_CONTAINER[i].participants.push({
                            cuid: part_id,
                             firstName: firstName,
@@ -490,6 +487,7 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
     $scope.initialise = function () {
         //// Initialise Trans mode and training audience
+        console.log('Initializing');
         $('#pt_trans_mode').dropdown('set selected', 1);
         $('#pt_training_audience').dropdown('set selected', 1);
         $('#pt-details-tab .menu .item').tab();
@@ -497,16 +495,19 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
         for(var i = 0; i < $scope.site_session_participants.length; i++){
             $('#session_contents_' + i).slimScroll({height: '375px'});
             for(var j = 0; j < $scope.site_session_participants[i].site_sessions.length; j++){
-                flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_start_date', {enableTime: true});
-                flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_end_date', {enableTime: true});
+                flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_start_date', {enableTime: true, minDate: new Date()});
+                flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_end_date', {enableTime: true, minDate: new Date()});
                 $("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_trainers').dropdown({forceSelection: false});
+                flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_start_date', {enableTime: true, minDate: new Date()}).setDate(new Date($scope.site_session_participants[i].site_sessions[j].session_start_date));
+                flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_end_date', {enableTime: true, minDate: new Date()}).setDate(new Date($scope.site_session_participants[i].site_sessions[j].session_end_date));
+
             }
         }
     };
 
     $scope.proceedPlanning = function () {
 
-        $('#content-block').dimmer('show');
+        $('#planned-training-form').dimmer('show');
 
         var site_session_participants = [];
 
@@ -525,6 +526,11 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
             var init_date = Date.parse($scope.start_date + ' 08:00');
 
             var site_participants = $scope.SITES_CONTAINER[i].participants;
+
+            if(site_participants.length < 1){
+                alert($scope.SITES_CONTAINER[i].site_name + ' has no participants. Please delete this site if necessary before Proceeding');
+                return;
+            }
 
             // Determine # of sessions
             var num_sessions = Math.ceil($scope.SITES_CONTAINER[i].participants.length / $scope.max_per_session);
@@ -565,7 +571,7 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
         $.fn.fullpage.moveTo(0, 1);
 
-        $('#content-block').dimmer('hide');
+        $('#planned-training-form').dimmer('hide');
 
         $scope.show_submit = true;
     };
@@ -580,11 +586,10 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
     $scope.submitPT = function () {
 
+        var error = [];
+
         for(var i = 0; i < $scope.site_session_participants.length; i++){
-            var error = [];
             for(var j = 0; j < $scope.site_session_participants[i].site_sessions.length; j++){
-                var start = $("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_start_date').val();
-                var end = $("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_end_date').val();
 
                 var trainers =  $("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_trainers').dropdown('get value').split(',');
 
@@ -601,14 +606,6 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
                 }
 
-                $scope.site_session_participants[i].site_sessions[j].session_start_date = start;
-                $scope.site_session_participants[i].site_sessions[j].session_end_date = end;
-
-                if(start == '' || end == ''){
-                    error.push('Incorrect interval settings for' + $scope.site_session_participants[i].site_name + ', '
-                        +  $scope.site_session_participants[i].site_sessions[j].session_name + ' start date:: ' + start + ' :: end date :: ' + end);
-                }
-
                 if($scope.site_session_participants[i].site_sessions[j].session_participants.length < 1) {
                     error.push('No participant selected for ' + $scope.site_session_participants[i].site_name + ', ' +  $scope.site_session_participants[i].site_sessions[j].session_name);
                 }
@@ -621,7 +618,7 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
             //alert('Form OK');
 
-           $('#content-block').dimmer('show');
+            $('#planned-training-form').dimmer('show');
 
             var params = {
                 'trainingID': $('#pt-training').dropdown('get value'),
@@ -645,20 +642,22 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
                     $('#main_list_page').fullpage({
                         controlArrows: false,
                         fitToSection: false,
-                        //autoScrolling: false,
-                        //keyboardScrolling: false
+                        autoScrolling: false,
+                        keyboardScrolling: false
                     });
 
-                    $('#content-block').dimmer('hide');
+                    $scope.move_back();
+
+                    $('#planned-training-form').dimmer('hide');
+
+                    $rootScope.changePage('planned training');
 
                     $('.training.long.modal').modal('hide');
 
                 }).error(function (data, status, headers, config) {
 
-                $('#content-block').dimmer('hide');
-
+                $('#planned-training-form').dimmer('hide');
             });
-
         }
 
     };
@@ -670,8 +669,8 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
         $('#main_list_page').fullpage({
             controlArrows: false,
             fitToSection: false,
-            //autoScrolling: false,
-            //keyboardScrolling: false
+            autoScrolling: false,
+            keyboardScrolling: false
         });
 
         $rootScope.changePage('planned training');

@@ -4,8 +4,8 @@
 $('#main_list_page').fullpage({
     controlArrows: false,
     fitToSection: false,
-    //autoScrolling: false,
-    //keyboardScrolling: false
+    autoScrolling: false,
+    keyboardScrolling: false
 });
 
 
@@ -18,6 +18,10 @@ $('#participants-block').slimScroll({
 $('#configuration-block').slimScroll({
     height: '390px',
     alwaysVisible: true
+});
+
+$('.session-configuration-block').slimScroll({
+    height: '390px'
 });
 
 $('.site-block').slimScroll({
@@ -50,7 +54,8 @@ $('#pt-details-tab .menu .item').tab({});
 $('#admin-tab .menu .item').tab();
 
 flatpickr("#pt_start_date", {
-    altFormat: "F, j, Y"
+    altFormat: "F, j, Y",
+    minDate: new Date()
 });
 
 

@@ -36,11 +36,10 @@ function buildResourceQuery(query, group, start_ts, search) {
         query += connector + "rv.resource_name LIKE '%" + search + "%'";
     }
 
-    //query += connector + "rv.resourceVisibility = 'Public'";
+    query += connector + "rv.resourceVisibility = 0";
 
     return query;
 }
-
 
 // READ ALL resource
 exports.resources_queryBuilder = function (group, start_ts, offset, search, callback) {
@@ -52,6 +51,48 @@ exports.resources_queryBuilder = function (group, start_ts, offset, search, call
         " rv.`resourceVisibility`, rv.`resourceType`, (" + total_query + ") AS total FROM dv_portal_db.resources_view rv";
 
     query = buildResourceQuery(query, group, start_ts, search);
+
+    query += " LIMIT 10 OFFSET " + offset;
+
+    db_conn.query(query, callback);
+};
+
+function buildAdminResourceQuery(query, group, start_ts, search) {
+    var connector = " WHERE ";
+
+    if (group != 'all') {
+        if (group == 'document') {
+            query += connector + "rv.resourceType = 'document' ";
+            connector = " AND ";
+        } else if (group == 'multimedia') {
+            query += connector + "rv.resourceType = 'audio' OR rv.resourceType = 'video'";
+            connector = " AND ";
+        }else if (group == 'forms') {
+            query += connector + "rv.resourceType = 'form'";
+            connector = " AND ";
+        }
+    }
+    if(start_ts != 'none'){
+        query += connector + "rv.addition_date >= str_to_date('" + start_ts + "','%Y-%m-%d')";
+    }
+
+    if(search != undefined){
+        query += connector + "rv.resource_name LIKE '%" + search + "%'";
+    }
+
+    return query;
+}
+
+// READ ALL resource
+exports.admin_resources_queryBuilder = function (group, start_ts, offset, search, callback) {
+    var total_query = "SELECT COUNT(*) FROM dv_portal_db.resources_view rv";
+
+    total_query = buildAdminResourceQuery(total_query, group, start_ts, search);
+
+    var query = "SELECT rv.`resourceID`, rv.link, rv.`addition_date`, rv.resource_name, rv.num_downloads," +
+        " rv.`resourceVisibility`, rv.`resourceType`, (" + total_query + ") AS total FROM dv_portal_db.resources_view rv";
+
+    query = buildAdminResourceQuery(query, group, start_ts, search);
 
     query += " LIMIT 10 OFFSET " + offset;
 

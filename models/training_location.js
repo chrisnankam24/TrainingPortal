@@ -24,7 +24,7 @@ exports.trainingLocation_queryBuilder = function (start_ts, offset, search, call
         query += " t.site LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY site ASC LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };

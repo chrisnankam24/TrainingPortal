@@ -146,8 +146,6 @@ exports.update_user = function (req, res) {
         userLocationID: req.body.user_location
     };
 
-    console.log(user);
-
     userModel.update_user(id, user, function (err, rows) {
         if(err){
             // Error querying DB

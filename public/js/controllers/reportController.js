@@ -10,7 +10,7 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
     $scope.updateContent = function () {
 
         var params = {
-            date: '2016',
+            date: Date.now().getFullYear(),
             services: 'all'//[1, 2, 3, 5, 8]
         };
 

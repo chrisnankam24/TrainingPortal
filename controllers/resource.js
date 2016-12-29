@@ -44,6 +44,46 @@ exports.get_resourceList = function(req, res){
     });
 };
 
+exports.get_adminResourceList = function(req, res){
+    //group, creation_ts
+    var group = req.body.group;
+    var start_ts = req.body.start_ts;
+    var offset = req.body.offset;
+    var search = req.body.search;
+
+    resourceModel.admin_resources_queryBuilder(group, start_ts, offset, search, function(err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+
+            for(var i = 0; i < rows.length; i++){
+                if(rows[i].resourceType == 'Audio'){
+                    rows[i].colorCode = '#E0F2F1';
+                }else if(rows[i].resourceType == 'Video'){
+                    rows[i].colorCode = '#FFF3E0';
+                }else if(rows[i].resourceType == 'Document'){
+                    rows[i].colorCode = '#FDE3E0';
+                }
+                else{
+                    rows[i].colorCode = '#FFCCBC';
+                }
+                rows[i].colorCode = 'none';
+
+                rows[i].resourceVisibility = rows[i].resourceVisibility.readUIntBE(0, 1);
+            }
+
+            res.json({
+                success: true,
+                data: rows
+            });
+        }
+    });
+};
+
 exports.get_resource = function (req, res) {
 
     var resource_id = req.query.id;
@@ -90,6 +130,12 @@ exports.modify_resource = function (req, res) {
     var visibility = req.body.resource_visibility;
     var type = req.body.resource_type;
 
+    if(visibility == '0'){
+        visibility = 0;
+    }else{
+        visibility = 1;
+    }
+
     resourceModel.update_resource(id, name, link, type, visibility, function (err, rows) {
         if(err){
             // Error querying DB
@@ -113,6 +159,12 @@ exports.add_resource = function (req, res) {
     var link = req.body.resource_link;
     var visibility = req.body.resource_visibility;
     var type = req.body.resource_type;
+
+    if(visibility == '0'){
+        visibility = 0;
+    }else{
+        visibility = 1;
+    }
 
     resourceModel.insert_resource(name, link, type, visibility, function (err, rows) {
         if(err){

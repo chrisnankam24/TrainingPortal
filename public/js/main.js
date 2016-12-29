@@ -95,13 +95,6 @@ flatpickr(".flatpickr", {
     }
 });
 
-tinymce.init({
-    selector: '#feedback-textarea',
-    plugins : 'advlist anchor autolink autoresize autosave colorpicker bbcode directionality emoticons image ' +
-    'insertdatetime media link image lists charmap print preview',
-    menubar:false,
-    statusbar:false
-});
 
 $('#post-table').tablesort();
 $('#service-table').tablesort();
@@ -156,5 +149,3 @@ function parseHash(newHash, oldHash){
 hasher.initialized.add(parseHash); //parse initial hash
 hasher.changed.add(parseHash); //parse hash changes
 hasher.init(); //start listening for history change*/
-
-$('body').timeago();

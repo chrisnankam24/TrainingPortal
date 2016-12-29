@@ -20,8 +20,6 @@ function buildQuizQuery(query, group, show_hidden, quiz_category, quiz_sub_categ
         }
     }
     if(show_hidden == false){
-        query += connector + "uqv.quiz_hidden = 1";
-    }else{
         query += connector + "uqv.quiz_hidden = 0";
     }
 
@@ -52,7 +50,7 @@ exports.user_quiz_queryBuilder = function (user_id, group, show_hidden, quiz_cat
 
     var query = "SELECT uqv.`user_quiz_ID`, uqv.cuid, uqv.`quizID`, uqv.`dateTakingQuiz`, uqv.quiz_hidden, uqv.`plannedTrainingID`, " +
         "uqv.score, uqv.`quizTaken`, uqv.quiz_name, uqv.`creationDate`, uqv.`subCategoryID`, uqv.`subCategory`, " +
-        "uqv.`categoryID`, uqv.category, uqv.`quizType`, uqv.training_name, uqv.num_questions, (" + total_query + ") AS total " +
+        "uqv.`categoryID`, uqv.category, uqv.`quizType`, uqv.training_name, uqv.num_questions, uqv.training_taken, (" + total_query + ") AS total " +
         "FROM dv_portal_db.user_quiz_view uqv WHERE uqv.cuid = '" + user_id + "'";
 
 
@@ -242,12 +240,14 @@ exports.get_takers = function (quiz_id, callback) {
 };
 
 exports.hideQuiz = function (user_id, quiz_ids, callback) {
-    var query = "UPDATE user_quiz SET hidden = 1 WHERE cuid = '" + user_id + "' AND quizID IN (" + quiz_ids[0];
+    var query = "UPDATE user_quiz SET quiz_hidden = 1 WHERE cuid = '" + user_id + "' AND quizID IN (" + quiz_ids[0];
 
     for(var i = 1; i < quiz_ids.length; i++){
         query += ', ' + quiz_ids[i];
     }
     query += ')';
+
+    console.log(query);
 
     db_conn.query(query, callback);
 

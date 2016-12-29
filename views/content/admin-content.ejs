@@ -1,6 +1,6 @@
-<div class="ten wide column">
-    <div class="row" style="margin-top: -12px;">
-        <div class="ui blurring segment no_padding" id="content-lists" style="margin-top: 8.8%; margin-left: 7%; height: 517px;">
+<div class="thirteen wide column">
+    <div class="row" style="margin-top: -30px;">
+        <div class="ui blurring segment no_padding" id="content-lists" style="margin-top: 8.8%; margin-left: 7%; height: 100%; width: 98%;">
             <div class="ui inverted dimmer white-background">
                 <div class="ui loader"></div>
             </div>
@@ -166,7 +166,7 @@
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="post in posts_list">
                                                                 <!--<td ng-bind="post.postID"></td>-->
-                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="$index + posts_list_min"></td>
                                                                 <td ng-bind="post.post_name"></td>
                                                                 <td ng-bind="post.level"></td>
                                                                 <td ng-bind="post.service"></td>
@@ -279,7 +279,7 @@
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="service in services_list">
                                                                 <!--<td ng-bind="service.serviceID"></td>-->
-                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="$index + services_list_min"></td>
                                                                 <td ng-bind="service.service"></td>
                                                                 <td ng-bind="service.department"></td>
                                                                 <td>
@@ -391,7 +391,7 @@
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="department in departments_list">
                                                                 <!--<td ng-bind="department.departmentID"></td>-->
-                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="$index + departments_list_min"></td>
                                                                 <td ng-bind="department.department"></td>
                                                                 <td ng-bind="department.direction"></td>
                                                                 <td>
@@ -487,7 +487,7 @@
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="direction in directions_list">
                                                                 <!--<td ng-bind="direction.directionID"></td>-->
-                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="$index + directions_list_min"></td>
                                                                 <td ng-bind="direction.direction"></td>
                                                                 <td>
                                                                     <div class="ui icon mini buttons">
@@ -566,8 +566,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="fields required">
-                                                                    <div class="nine wide field">
+                                                                <div class="fields">
+                                                                    <div class="nine wide field required">
                                                                         <label style="font-size: 12px; float: left;">Email</label>
                                                                         <div class="ui input">
                                                                             <input type="email" ng-model="user_email"
@@ -575,7 +575,7 @@
                                                                                    name="">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="three wide field">
+                                                                    <div class="three wide field required">
                                                                         <label style="font-size: 12px;">Gender</label>
                                                                         <div class="ui fluid search selection dropdown"
                                                                              id="user_gender">
@@ -600,7 +600,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="fields required">
+                                                                <div class="fields required required">
                                                                     <div class="six wide field">
                                                                         <label style="font-size: 12px; float: left;">Number</label>
                                                                         <div class="ui input">
@@ -646,8 +646,8 @@
 
 
                                                                 </div>
-                                                                <div class="fields required">
-                                                                    <div class="eight wide field">
+                                                                <div class="fields">
+                                                                    <div class="eight wide field required">
                                                                         <label style="font-size: 12px; float: left;">Employment
                                                                             Date</label>
                                                                         <div class="ui input">
@@ -666,6 +666,9 @@
                                                                             <i class="dropdown icon"></i>
                                                                             <div class="default text">Boss</div>
                                                                             <div class="menu">
+                                                                                <div class="item" data-value="">
+                                                                                     None
+                                                                                </div>
                                                                                 <div class="item" ng-repeat="user in CONFIG.user"
                                                                                 data-value="{{user.cuid}}">
                                                                                     {{user.firstName + ' ' + user.lastName}}
@@ -687,7 +690,7 @@
                                                                             <div class="menu">
                                                                                 <div class="item" ng-repeat="userLocation in CONFIG.userLocation"
                                                                                      data-value="{{userLocation.userLocationID}}">
-                                                                                    {{userLocation.site + ' ' + userLocation.town}}
+                                                                                    {{userLocation.site + ', ' + userLocation.town}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -754,7 +757,7 @@
                                                     </div>
                                                     <div id="user-table" style="margin-left: 5px; margin-right: 5px;">
                                                         <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px; display: block; overflow-x: auto; height: 425px;">
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px; display: block; overflow-y: auto; height: 420px;">
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">CUID</th>
@@ -906,7 +909,7 @@
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="userLocation in user_location_list">
                                                                 <!--<td ng-bind="userLocation.userLocationID"></td>-->
-                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="$index + user_location_list_min"></td>
                                                                 <td ng-bind="userLocation.site"></td>
                                                                 <td ng-bind="userLocation.town"></td>
                                                                 <td ng-bind="userLocation.region"></td>
@@ -1158,7 +1161,7 @@
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="training in training_list">
                                                                 <!--<td ng-bind="training.trainingID"></td>-->
-                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="$index + training_list_min"></td>
                                                                 <td ng-bind="training.training_name"></td>
                                                                 <td>
                                                                     <div class="ui icon mini buttons">
@@ -1286,7 +1289,7 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="trainingLocation in training_location_list">
-                                                                <td ng-bind="trainingLocation.trainingLocationID"></td>
+                                                                <td ng-bind="$index + training_location_list_min"></td>
                                                                 <td ng-bind="trainingLocation.site"></td>
                                                                 <td ng-bind="trainingLocation.town"></td>
                                                                 <td ng-bind="trainingLocation.region"></td>
@@ -1410,7 +1413,7 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="ex_trainer in exTrainer_list">
-                                                                <td ng-bind="ex_trainer.trainerID"></td>
+                                                                <td ng-bind="$index + exTrainer_list_min"></td>
                                                                 <td ng-bind="ex_trainer.firstName"></td>
                                                                 <td ng-bind="ex_trainer.lastName"></td>
                                                                 <td ng-bind="ex_trainer.gender == 1 ? 'Male' : 'Female'"></td>
@@ -1488,7 +1491,7 @@
 
                                                     <div id="planned-training-table" style="margin-left: 5px; margin-right: 5px;">
                                                     <table class="ui very basic left small selectable aligned table"
-                                                           id="post-table" style="font-size: 11px; display: block; overflow-x: auto; height: 428px;">
+                                                           id="post-table" style="font-size: 11px; display: block; overflow-x: auto; height: 425px;">
                                                         <thead>
                                                         <tr class="center aligned">
                                                             <th class="sort-header">ID</th>
@@ -1507,7 +1510,7 @@
                                                         <tbody>
                                                         <tr class="center aligned" ng-repeat="pt in pt_list">
                                                             <!--<td ng-bind="pt.plannedTrainingID"></td>-->
-                                                            <td ng-bind="$index + 1"></td>
+                                                            <td ng-bind="$index + pt_list_min"></td>
                                                             <td ng-bind="pt.training_name"></td>
                                                             <td ng-bind="pt.startDate | date : 'EEE dd, MMM, yyyy'"></td>
                                                             <td ng-bind="pt.endDate | date : 'EEE dd, MMM, yyyy'"></td>
@@ -1598,7 +1601,7 @@
                                                     </div>
                                                     <div id="quiz-table" style="margin-left: 5px; margin-right: 5px;">
                                                         <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;  display: block; overflow-x: auto;">
+                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -1614,7 +1617,7 @@
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="quiz in quiz_list">
                                                                 <!--<td ng-bind="quiz.quizID"></td>-->
-                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="$index + quiz_list_min"></td>
                                                                 <td ng-bind="quiz.quiz_name"></td>
                                                                 <td ng-bind="quiz.creator"></td>
                                                                 <td ng-bind="quiz.creationDate | date : 'EEE dd, MMM, yyyy'"></td>
@@ -1730,13 +1733,13 @@
                                                                             <div class="default text">Select
                                                                                 Resource Visibility
                                                                             </div>
-                                                                            <div class="menu" tabindex="-1">
+                                                                            <div class="menu">
                                                                                 <div class="item"
-                                                                                     data-value="1">
+                                                                                     data-value="0">
                                                                                     Public
                                                                                 </div>
                                                                                 <div class="item"
-                                                                                     data-value="0">
+                                                                                     data-value="1">
                                                                                     Private
                                                                                 </div>
                                                                             </div>
@@ -1803,11 +1806,11 @@
                                                             <tbody>
                                                             <tr class="center aligned" ng-repeat="resource in resources_list">
                                                                 <!--<td ng-bind="resource.resourceID"></td>-->
-                                                                <td ng-bind="$index + 1"></td>
+                                                                <td ng-bind="$index + resources_list_min"></td>
                                                                 <td ng-bind="resource.resource_name"></td>
                                                                 <td ng-bind="resource.resourceType"></td>
                                                                 <td ng-bind="resource.link"></td>
-                                                                <td ng-bind="resource.resourceVisibility == 1 ? 'Public' : 'Private'"></td>
+                                                                <td ng-bind="resource.resourceVisibility == 0 ? 'Public' : 'Private'"></td>
                                                                 <td ng-bind="resource.num_downloads"></td>
                                                                 <td ng-bind="resource.addition_date | date : 'EEE dd, MMM, yyyy'"></td>
                                                                 <td>
@@ -1837,5 +1840,4 @@
             </div>
         </div>
     </div>
-
 </div>

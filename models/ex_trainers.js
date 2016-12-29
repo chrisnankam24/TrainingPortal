@@ -23,7 +23,7 @@ exports.exTrainer_queryBuilder = function (start_ts, offset, search, callback) {
         query += " t.lastName LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY firstName ASC LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };

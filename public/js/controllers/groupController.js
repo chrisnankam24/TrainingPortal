@@ -78,7 +78,7 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
             $rootScope.TRAINING_OFFSET = 0;
         }
         else if($scope.active_page == 'quiz'){
-            $rootScope.RESOUCES_OFFSET = 0;
+            $rootScope.QUIZ_OFFSET = 0;
         }
         $rootScope.loadListItems();
     };
@@ -479,7 +479,7 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
                   ids: ids_to_hide
               };
 
-              $http.post('/api/v1/training/hideTraining', params)
+              $http.post('/api/v1/quiz/hideQuiz', params)
                   .success(function (data, status, headers, config) {
 
                       alert('Quiz hidden');
@@ -487,7 +487,7 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
 
                   }).error(function (data, status, headers, config) {
 
-                  alert('Error hiding training');
+                  alert('Error hiding quiz');
 
               });
 

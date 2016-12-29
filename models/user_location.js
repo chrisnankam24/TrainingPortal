@@ -25,7 +25,7 @@ exports.userLocation_queryBuilder = function (start_ts, offset, search, callback
         query += " t.site LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY site LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };

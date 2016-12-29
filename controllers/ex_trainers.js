@@ -17,6 +17,11 @@ exports.get_exTrainerList = function(req, res){
                 message: err
             });
         }else{
+
+            for(var i = 0; i < rows.length; i++){
+                rows[i].gender = rows[i].gender.readUIntBE(0, 1);
+            }
+
             res.json({
                 success: true,
                 data: rows

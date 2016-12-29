@@ -24,7 +24,7 @@ exports.posts_queryBuilder = function (start_ts, offset, search, callback) {
         query += " WHERE p.post_name LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY post_name ASC LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };
@@ -44,7 +44,7 @@ exports.directions_queryBuilder = function (start_ts, offset, search, callback) 
         query += " WHERE d.direction LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY direction ASC LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };
@@ -98,7 +98,7 @@ exports.departments_queryBuilder = function (start_ts, offset, search, callback)
     }
 
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY department ASC LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };
@@ -147,7 +147,7 @@ exports.services_queryBuilder = function (start_ts, offset, search, callback) {
         query += " WHERE s.service LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY service ASC LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };

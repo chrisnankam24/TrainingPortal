@@ -153,7 +153,7 @@ exports.all_training_queryBuilder = function (start_ts, offset, search, callback
         query += " WHERE t.training_name LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY training_name ASC LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };
@@ -172,7 +172,7 @@ exports.all_ptTraining_queryBuilder = function (start_ts, offset, search, callba
         query += " WHERE t.training_name LIKE '%" + search + "%'";
     }
 
-    query += " LIMIT 10 OFFSET " + offset;
+    query += " ORDER BY startDate DESC LIMIT 10 OFFSET " + offset;
 
     db_conn.query(query, callback);
 };
@@ -328,9 +328,11 @@ exports.insert_training_session = function (start_date, end_date, trainingLocati
 
     if(trainingLocationID == -1) {
 
-        query = "INSERT INTO training_session(startTS, endTS, trainingLocationID) VALUES ('" + start_date + "', '" + end_date + "', 1)";
+        query = "INSERT INTO training_session(startTS, endTS, trainingLocationID) VALUES ('" + start_date + "', '" + end_date + "', NULL)";
 
     }
+
+    console.log(query);
 
     db_conn.query(query, callback);
 
@@ -467,6 +469,8 @@ exports.users_training_table = function (date, services, callback) {
 
     query +=  " GROUP BY uts.cuid";
 
+    console.log(query);
+
     db_conn.query(query, callback);
 
 };
@@ -477,8 +481,8 @@ exports.training_table = function (callback) {
         "(SELECT startDate FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID LIMIT 1) AS startDate, " +
         "(SELECT endDate FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID LIMIT 1) AS endDate, " +
         "(SELECT sessionDuration FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID LIMIT 1) AS sessionDuration, " +
-        "(SELECT town FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID LIMIT 1) AS town, " +
-        "(SELECT site FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID LIMIT 1) AS site, " +
+        "(SELECT GROUP_CONCAT(DISTINCT town SEPARATOR ',') FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID) AS town, " +
+        "(SELECT GROUP_CONCAT(DISTINCT site SEPARATOR ',') FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID) AS site, " +
         "(SELECT COUNT(*) FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID) AS total_expected, " +
         "(SELECT COUNT(*) FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID AND gender = '1') AS men_expected, " +
         "(SELECT COUNT(*) FROM admin_pt_users_view WHERE plannedTrainingID = tp.plannedTrainingID AND gender = '0') AS women_expected, " +
@@ -497,5 +501,6 @@ exports.get_all_eval_reports = function (callback) {
 };
 
 exports.pt_users = function (pt_id, callback) {
-    db_conn.query("SELECT * FROM user_pt_view WHERE plannedTrainingID = " + pt_id, callback);
+    var res = db_conn.query("SELECT * FROM user_pt_view WHERE plannedTrainingID = " + pt_id, callback);
+    console.log(res.sql);
 };

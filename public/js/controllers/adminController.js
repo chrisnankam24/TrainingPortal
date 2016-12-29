@@ -11,19 +11,19 @@ $('#training_link').click();
 $('#users_link').click();
 $('#posts_link').click();
 
-$('#resource-table').slimScroll({height: '428px'});
-$('#post-table').slimScroll({height: '428px'});
-$('#service-table').slimScroll({height: '428px'});
-$('#department-table').slimScroll({height: '428px'});
-$('#direction-table').slimScroll({height: '428px'});
-$('#training-table').slimScroll({height: '428px'});
-$('#training_location-table').slimScroll({height: '428px'});
-$('#user_location-table').slimScroll({height: '428px'});
-$('#exTrainer-table').slimScroll({height: '428px'});
-$('#user-table').slimScroll({height: '428px'});
-$('#user_post-table').slimScroll({height: '428px'});
-$('#quiz-table').slimScroll({height: '428px'});
-$('#planned-training-table').slimScroll({height: '428px'});
+//$('#resource-table').slimScroll({height: '425px'});
+$('#post-table').slimScroll({height: '425px'});
+$('#service-table').slimScroll({height: '425px'});
+$('#department-table').slimScroll({height: '425px'});
+$('#direction-table').slimScroll({height: '425px'});
+$('#training-table').slimScroll({height: '425px'});
+$('#training_location-table').slimScroll({height: '425px'});
+$('#user_location-table').slimScroll({height: '425px'});
+$('#exTrainer-table').slimScroll({height: '425px'});
+//$('#user-table').slimScroll({height: '425px'});
+$('#user_post-table').slimScroll({height: '425px'});
+$('#quiz-table').slimScroll({height: '425px'});
+$('#planned-training-table').slimScroll({height: '425px'});
 
 $('#resource-type').dropdown();
 $('#resource-visibility').dropdown();
@@ -142,7 +142,16 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
             "region": "North"
         },
         {
-            "region": "NA"
+            "region": "Far North"
+        },
+        {
+            "region": "South"
+        },
+        {
+            "region": "East"
+        },
+        {
+            "region": "Adamawa"
         }
         ];
 
@@ -163,10 +172,25 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
             "town": "Baffoussam"
         },
         {
+            "town": "Bertoua"
+        },
+        {
+            "town": "Ebolowa"
+        },
+        {
             "town": "Garoua"
         },
         {
-            "town": "NA"
+            "town": "Kousseri"
+        },
+        {
+            "town": "Kumba"
+        },
+        {
+            "town": "Maroua"
+        },
+        {
+            "town": "Ngaoundére"
         }
     ];
 
@@ -187,7 +211,25 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
             "town": "Baffoussam"
         },
         {
+            "town": "Bertoua"
+        },
+        {
+            "town": "Ebolowa"
+        },
+        {
             "town": "Garoua"
+        },
+        {
+            "town": "Kousseri"
+        },
+        {
+            "town": "Kumba"
+        },
+        {
+            "town": "Maroua"
+        },
+        {
+            "town": "Ngaoundére"
         }
     ];
 
@@ -219,10 +261,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
             contract: 'Interim'
         },
         {
-            contract: 'CDD'
-        },
-        {
-            contract: 'CDI'
+            contract: 'Employee'
         }
     ];
 
@@ -407,7 +446,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
             };
 
             // Make Image POST request
-            $http.post('/api/v1/resource/resourceList', params)
+            $http.post('/api/v1/resource/adminResourceList', params)
                 .success(function (data, status, headers, config) {
                     $('#content-lists').dimmer('hide');
                     $scope.resources_list = data.data;
@@ -1117,6 +1156,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
     };
 
     $scope.startModifyResource = function (resource) {
+
+        console.log(resource);
 
         $scope.addModifText = 'Modify';
 
@@ -2496,6 +2537,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                 $rootScope.CONFIG.user = data.data;
 
+
             }).error(function (data, status, headers, config) {
 
         });
@@ -2645,8 +2687,6 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                     $scope.is_userform_loading = false;
 
-                    $('#users-list').dimmer('hide');
-
                 });
             }else{
                 params.user_id = $scope.user_cuid;
@@ -2667,8 +2707,6 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                     alert('Addition Failed');
 
                     $scope.is_userform_loading = false;
-
-                    $('#users-list').dimmer('hide');
 
                 });
             }
