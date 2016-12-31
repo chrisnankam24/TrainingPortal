@@ -35,7 +35,7 @@
                     <div style="padding-bottom: 1px; font-size: x-small; "><em>{{QUIZ_INFO.num_questions}} Question(s)</em></div>
                     <div style="padding-bottom: 1px; font-size: x-small; "><em>{{QUIZ_INFO.creationDate | date: "MMM, d, yyyy"}}</em></div>
                 </div>
-                <div class="five wide column ui blurring" ng-hide="SHOW_TAKE_QUIZ">
+                <div class="five wide column ui blurring" ng-show="$rootScope.QUIZ_INFO.quizTaken">
                     <div class="ui inverted dimmer">
                         <div class="ui text loader">Registering</div>
                     </div>
@@ -45,6 +45,22 @@
                     </div>
                     <div>
                         <label class="ui massive circular label orange">{{QUIZ_INFO.score + '/20'}}</label>
+                    </div>
+                </div>
+                <div class="five wide column ui blurring" ng-show="!QUIZ_INFO.quizTaken && QUIZ_INFO.trainingEndDate != null && !SHOW_TAKE_QUIZ">
+                    <div>
+                        <i class="smile orange huge icon" style="margin-right: 0px;"></i>
+                    </div>
+                    <div>
+                        <label class="ui small label" style="margin-top: 5px;">Upcoming Quiz</label>
+                    </div>
+                </div>
+                <div class="five wide column ui blurring" ng-show="!QUIZ_INFO.quizTaken && QUIZ_INFO.num_questions < 1">
+                    <div>
+                        <i class="meh orange huge icon" style="margin-right: 0px;"></i>
+                    </div>
+                    <div>
+                        <label class="ui small label" style="margin-top: 5px;">No Questions yet</label>
                     </div>
                 </div>
             </div>

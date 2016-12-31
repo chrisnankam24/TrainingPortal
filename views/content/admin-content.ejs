@@ -1,6 +1,6 @@
-<div class="thirteen wide column">
+<div class="thirteen wide column" style="width: 78.85%!important; padding-right: 0px;">
     <div class="row" style="margin-top: -30px;">
-        <div class="ui blurring segment no_padding" id="content-lists" style="margin-top: 8.8%; margin-left: 7%; height: 100%; width: 98%;">
+        <div class="ui blurring segment no_padding" id="content-lists" style="margin-top: 8.8%; margin-left: 1.5%; height: 100%; width: 98%;">
             <div class="ui inverted dimmer white-background">
                 <div class="ui loader"></div>
             </div>
@@ -25,7 +25,7 @@
 
                                             <div class="ui tab" data-tab="posts">
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="posts-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -151,15 +151,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="post-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                        <table id="post-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
-                                                                <th class="sort-header">ID</th>
-                                                                <th class="sort-header">Posts</th>
-                                                                <th class="sort-header">Level</th>
-                                                                <th class="sort-header">Service</th>
+                                                                <th>ID</th>
+                                                                <th>Posts</th>
+                                                                <th>Level</th>
+                                                                <th>Service</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
@@ -179,6 +179,7 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -189,7 +190,7 @@
 
                                             <div class="ui tab" data-tab="services">
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="services-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -265,9 +266,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="service-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                        <table id="service-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -291,17 +291,19 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
+
                                                 </div>
                                             </div>
 
                                             <div class="ui tab" data-tab="departments">
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="departments-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -377,9 +379,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="department-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                        <table id="department-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -403,6 +404,7 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -413,7 +415,7 @@
 
                                             <div class="ui tab" data-tab="directions">
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="directions-list">
                                                     <div class="ui inverted dimmer white-background white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -474,9 +476,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="direction-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                        <table id="direction-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -498,6 +500,7 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -528,7 +531,7 @@
                                             <div class="ui tab" data-tab="users">
 
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="users-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -755,25 +758,24 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="user-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px; display: block; overflow-y: auto; height: 420px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
+                                                        <table id="user-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
-                                                            <tr class="center aligned">
-                                                                <th class="sort-header">CUID</th>
-                                                                <th class="sort-header">First Name</th>
-                                                                <th class="sort-header">Last Name</th>
-                                                                <th class="sort-header">Email</th>
-                                                                <th class="sort-header">Gender</th>
-                                                                <th class="sort-header">MSISDN</th>
-                                                                <th class="sort-header">Matricule</th>
-                                                                <th class="sort-header">Status</th>
-                                                                <th class="sort-header">Contract Type</th>
+                                                            <tr>
+                                                                <th>CUID</th>
+                                                                <th>First Name</th>
+                                                                <th>Last Name</th>
+                                                                <th>Email</th>
+                                                                <th>Gender</th>
+                                                                <th>MSISDN</th>
+                                                                <th>Matricule</th>
+                                                                <th>Status</th>
+                                                                <th>Contract Type</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr class="center aligned" ng-repeat="user in user_list">
+                                                            <tr ng-repeat="user in user_list">
                                                                 <td ng-bind="user.cuid"></td>
                                                                 <td ng-bind="user.firstName"></td>
                                                                 <td ng-bind="user.lastName"></td>
@@ -792,18 +794,18 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
-
                                             </div>
 
                                             <div class="ui tab" data-tab="user-location">
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="user_location-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -894,26 +896,25 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="user_location-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                        <table id="user_location-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
-                                                            <tr class="center aligned">
-                                                                <th class="sort-header">ID</th>
-                                                                <th class="sort-header">Site</th>
-                                                                <th class="sort-header">Town</th>
-                                                                <th class="sort-header">Region</th>
+                                                            <tr>
+                                                                <th>ID</th>
+                                                                <th>Site</th>
+                                                                <th>Town</th>
+                                                                <th>Region</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr class="center aligned" ng-repeat="userLocation in user_location_list">
-                                                                <!--<td ng-bind="userLocation.userLocationID"></td>-->
+                                                            <tr ng-repeat="userLocation in user_location_list">
                                                                 <td ng-bind="$index + user_location_list_min"></td>
                                                                 <td ng-bind="userLocation.site"></td>
                                                                 <td ng-bind="userLocation.town"></td>
                                                                 <td ng-bind="userLocation.region"></td>
-                                                                <td>
+                                                                <td class="center aligned">
                                                                     <div class="ui icon mini buttons">
                                                                         <button class="ui button" ng-click="startModifyUserLocation(userLocation)"><i
                                                                                     class="write link icon"></i>
@@ -922,6 +923,7 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -932,7 +934,7 @@
 
                                             <div class="ui tab" data-tab="user-post">
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="user_post-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -1017,15 +1019,16 @@
 
                                                         </div>
                                                     </div>
-                                                    <div id="user_post-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+
+                                                        <table id="user_post-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
-                                                                <th class="sort-header">CUID</th>
-                                                                <th class="sort-header">FirstName</th>
-                                                                <th class="sort-header">LastName</th>
-                                                                <th class="sort-header">Post</th>
+                                                                <th>CUID</th>
+                                                                <th>FirstName</th>
+                                                                <th>LastName</th>
+                                                                <th>Post</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
@@ -1041,11 +1044,13 @@
                                                                                     class="write link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
+
                                                 </div>
                                             </div>
 
@@ -1072,7 +1077,7 @@
                                             <div class="ui tab" data-tab="training">
 
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="training-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -1091,21 +1096,7 @@
                                                                                name="">
                                                                     </div>
                                                                 </div>
-                                                                <div class="field required" ng-show="is_add">
-                                                                    <label style="font-size: 12px; text-align: left;">Resources</label>
-                                                                    <div class="ui fluid multiple search selection dropdown"
-                                                                         id="training_resources">
-                                                                        <input type="hidden" name="">
-                                                                        <i class="dropdown icon"></i>
-                                                                        <div class="default text">Resources</div>
-                                                                        <div class="menu">
-                                                                            <div class="item" ng-repeat="resource in CONFIG.resources"
-                                                                                 data-value="{{resource.resourceID}}">
-                                                                                {{resource.resource_name}}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+
                                                                 <input type="hidden" name="" id="training_id" value="{{training_id}}">
                                                                 <div class="ui container">
                                                                     <div class="ui submit right floated primary mini button " ng-click="addModifyTraining()">
@@ -1148,9 +1139,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="training-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                        <table id="training-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -1172,6 +1163,7 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -1184,7 +1176,7 @@
                                             <div class="ui tab" data-tab="training-location">
 
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="training_location-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -1275,9 +1267,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="training_location-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                        <table id="training_location-table" class="ui celled table" cellspacing="0" width="100%">
+
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -1302,9 +1295,11 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
+
                                                         </table>
                                                     </div>
                                                 </div>
@@ -1314,7 +1309,7 @@
                                             <div class="ui tab" data-tab="ex-trainers">
 
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="ex_trainers-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -1399,9 +1394,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="exTrainer-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                        <table id="exTrainer-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -1426,13 +1421,13 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -1453,7 +1448,7 @@
                                             </div>
                                             <div class="ui tab" data-tab="planned-training">
 
-                                                <div class="ui blurring" id="planned-training-list" style="height: 473px;">
+                                                <div class="ui blurring" id="planned-training-list" style="min-height: 483px">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
                                                     </div>
@@ -1489,60 +1484,60 @@
                                                         </div>
                                                     </div>
 
-                                                    <div id="planned-training-table" style="margin-left: 5px; margin-right: 5px;">
-                                                    <table class="ui very basic left small selectable aligned table"
-                                                           id="post-table" style="font-size: 11px; display: block; overflow-x: auto; height: 425px;">
-                                                        <thead>
-                                                        <tr class="center aligned">
-                                                            <th class="sort-header">ID</th>
-                                                            <th class="sort-header">Name</th>
-                                                            <th class="sort-header">Start</th>
-                                                            <th class="sort-header">End</th>
-                                                            <th class="sort-header">Mode</th>
-                                                            <th class="sort-header">Type</th>
-                                                            <th class="sort-header">Code</th>
-                                                            <th class="sort-header">Session Duration</th>
-                                                            <th class="sort-header">Sessions</th>
-                                                            <th></th>
-                                                            <th></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr class="center aligned" ng-repeat="pt in pt_list">
-                                                            <!--<td ng-bind="pt.plannedTrainingID"></td>-->
-                                                            <td ng-bind="$index + pt_list_min"></td>
-                                                            <td ng-bind="pt.training_name"></td>
-                                                            <td ng-bind="pt.startDate | date : 'EEE dd, MMM, yyyy'"></td>
-                                                            <td ng-bind="pt.endDate | date : 'EEE dd, MMM, yyyy'"></td>
-                                                            <td ng-bind="pt.transmissionMode"></td>
-                                                            <td ng-bind="pt.trainingType"></td>
-                                                            <td ng-bind="pt.trainingCode"></td>
-                                                            <td ng-bind="pt.sessionDuration"></td>
-                                                            <td>
-                                                                <button class="ui mini primary button" ng-click="startPtSessions(pt)">Sessions</i>
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <button class="ui mini primary button" ng-click="notifyTraining(pt.plannedTrainingID)">Notify</i>
-                                                                </button>
-                                                            </td>
-                                                            <td>
-                                                                <div class="ui icon mini buttons">
-                                                                    <button class="ui button" disabled  ng-click="startModifyPt(pt)"><i
-                                                                                class="write link icon"></i>
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
+                                                        <table id="planned-training-table" class="ui celled table" cellspacing="0" width="100%">
+
+                                                            <thead>
+                                                            <tr class="center aligned">
+                                                                <th class="sort-header">ID</th>
+                                                                <th class="sort-header">Name</th>
+                                                                <th class="sort-header">Start</th>
+                                                                <th class="sort-header">End</th>
+                                                                <th class="sort-header">Mode</th>
+                                                                <th class="sort-header">Type</th>
+                                                                <th class="sort-header">Code</th>
+                                                                <th class="sort-header">Session Duration</th>
+                                                                <th class="sort-header">Sessions</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr class="center aligned" ng-repeat="pt in pt_list">
+                                                                <!--<td ng-bind="pt.plannedTrainingID"></td>-->
+                                                                <td ng-bind="$index + pt_list_min"></td>
+                                                                <td ng-bind="pt.training_name"></td>
+                                                                <td ng-bind="pt.startDate | date : 'EEE dd, MMM, yyyy'"></td>
+                                                                <td ng-bind="pt.endDate | date : 'EEE dd, MMM, yyyy'"></td>
+                                                                <td ng-bind="pt.transmissionMode"></td>
+                                                                <td ng-bind="pt.trainingType"></td>
+                                                                <td ng-bind="pt.trainingCode"></td>
+                                                                <td ng-bind="pt.sessionDuration"></td>
+                                                                <td>
+                                                                    <button class="ui mini primary button" ng-click="startPtSessions(pt)">Sessions</i>
                                                                     </button>
-                                                                    <button class="ui grey button" ng-click="deletePt(pt)"><i
-                                                                                class="remove link icon"></i>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="ui mini primary button" ng-click="notifyTraining(pt.plannedTrainingID)">Notify</i>
                                                                     </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="ui icon mini buttons">
+                                                                        <button class="ui button" disabled  ng-click="startModifyPt(pt)"><i
+                                                                                    class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui grey button" ng-click="deletePt(pt)"><i
+                                                                                    class="remove link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                    {{$last ? initTable() : ""}}
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+
+                                                        </table>
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -1564,7 +1559,7 @@
                                             <div class="ui tab" data-tab="quiz">
 
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="quiz-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -1599,9 +1594,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="quiz-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="post-table" style="font-size: 11px; margin-top: 5px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
+                                                        <table id="quiz-table" class="ui celled table" cellspacing="0" width="100%">
+
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -1624,7 +1620,7 @@
                                                                 <td ng-bind="quiz.subCategory"></td>
                                                                 <td>
                                                                     <button class="ui mini primary button" ng-click="startQuizQuestions(quiz)"> Questions
-                                                                        </button>
+                                                                    </button>
                                                                 </td>
                                                                 <td>
                                                                     <button class="ui mini primary button" ng-click="startQuizResults(quiz)"> Results
@@ -1639,13 +1635,14 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
+
                                                         </table>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -1667,7 +1664,7 @@
 
                                             <div class="ui tab" data-tab="resources">
                                                 <div class="ui blurring container bottom-bordered"
-                                                     style=""
+                                                     style="min-height: 483px"
                                                      id="resources-list">
                                                     <div class="ui inverted dimmer white-background">
                                                         <!--<div class="ui text loader">Loading</div>-->
@@ -1788,9 +1785,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div id="resource-table" style="margin-left: 5px; margin-right: 5px;">
-                                                        <table class="ui very basic left small selectable aligned table sort"
-                                                               id="resource-table" style="font-size: 11px; margin-top: 5px; display: block; overflow-x: auto; height: 425px;">
+
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
+                                                        <table id="resource-table" class="ui celled table" cellspacing="0" width="100%">
+
                                                             <thead>
                                                             <tr class="center aligned">
                                                                 <th class="sort-header">ID</th>
@@ -1822,6 +1820,7 @@
                                                                                     class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
+                                                                    {{$last ? initTable() : ""}}
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -1829,7 +1828,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

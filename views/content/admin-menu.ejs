@@ -1,66 +1,71 @@
-<div class="three wide column" style="margin-left: -25px; margin-top: -5px;">
-    <div class="row" style="width: 127.5%;">
-        <div class="ui horizontal section divider no_margin full_width">
-            <h5>
-                <small>Administration Groups</small>
-            </h5>
-        </div>
-        <div class="ui segment" style="margin-top: 7px;">
-            <div>
-                <div id="admin-tab">
-                    <div class="ui secondary vertical pointing menu" style="height: 185px;">
-                        <a class="item" data-tab="admin-posts"
-                           style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('posts')">Posts</a>
-                        <a class="item" data-tab="admin-users"
-                           style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('users')">Users</a>
-                        <a class="item" data-tab="admin-training"
-                           style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('training')">Training</a>
-                        <a class="active item" data-tab="admin-planned-training"
-                           style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('planned training')">Planned
-                            Training</a>
-                        <a class="item" data-tab="admin-quiz"
-                           style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('quiz')">Quiz</a>
-                        <a class="item" data-tab="admin-resources"
-                           style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('resources')">Resources</a>
-                    </div>
+<div class="three wide column" style="margin-left: -25px; margin-top: -5px; width: 23.3%!important">
 
-                    <div class="ui tab" data-tab="admin-posts">
+    <div class="adminMenu">
 
-                    </div>
-                    <div class="ui tab" data-tab="admin-users">
+        <div class="row">
+            <div class="ui horizontal section divider no_margin full_width">
+                <h5>
+                    <small>Administration Groups</small>
+                </h5>
+            </div>
+            <div class="ui segment" style="margin-top: 7px;">
+                <div>
+                    <div id="admin-tab">
+                        <div class="ui secondary vertical pointing menu" style="height: 185px;">
+                            <a class="item" data-tab="admin-posts"
+                               style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('posts')">Posts</a>
+                            <a class="item" data-tab="admin-users"
+                               style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('users')">Users</a>
+                            <a class="item" data-tab="admin-training"
+                               style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('training')">Training</a>
+                            <a class="active item" data-tab="admin-planned-training"
+                               style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('planned training')">Planned
+                                Training</a>
+                            <a class="item" data-tab="admin-quiz"
+                               style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('quiz')">Quiz</a>
+                            <a class="item" data-tab="admin-resources"
+                               style="padding-top: 8px; padding-bottom: 8px; font-size: small;" ng-click="changePage('resources')">Resources</a>
+                        </div>
 
-                    </div>
-                    <div class="ui tab" data-tab="admin-training">
+                        <div class="ui tab" data-tab="admin-posts">
 
-                    </div>
-                    <div class="ui tab" data-tab="admin-planned-training">
+                        </div>
+                        <div class="ui tab" data-tab="admin-users">
 
-                    </div>
-                    <div class="ui tab" data-tab="admin-quiz">
+                        </div>
+                        <div class="ui tab" data-tab="admin-training">
 
-                    </div>
-                    <div class="ui tab" data-tab="admin-resources">
+                        </div>
+                        <div class="ui tab" data-tab="admin-planned-training">
 
+                        </div>
+                        <div class="ui tab" data-tab="admin-quiz">
+
+                        </div>
+                        <div class="ui tab" data-tab="admin-resources">
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row" style="width: 127.5%; margin-top: -20px;">
-        <div class="ui horizontal section divider no_margin full_width">
-            <h5>
-                <small>Admin Stats</small>
-            </h5>
-        </div>
-        <div class="ui segment" style="height: 259px; margin-top: 7px;">
-            <!--<div>
-                <button class="ui fluid mini button">User Evolution</button>
-            </div>-->
-            <div style="margin-top: 5px;">
-                <button class="ui fluid mini button" ng-click="showReports()">Reports</button>
+        <div class="row" style="margin-top: -20px;">
+            <div class="ui horizontal section divider no_margin full_width">
+                <h5>
+                    <small>Admin Stats</small>
+                </h5>
+            </div>
+            <div class="ui segment" style="height: 259px; margin-top: 7px;">
+                <!--<div>
+                    <button class="ui fluid mini button">User Evolution</button>
+                </div>-->
+                <div style="margin-top: 5px;">
+                    <button class="ui fluid mini button" ng-click="showReports()">Reports</button>
+                </div>
             </div>
         </div>
+
     </div>
 
 </div>

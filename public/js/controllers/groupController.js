@@ -772,6 +772,10 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
 
                         $rootScope.TRAINING_INFO = data.data;
 
+                        if($rootScope.TRAINING_INFO.evaluationFormID == null) {
+                            $rootScope.SHOW_TAKE_EVALUATION = false;
+                        }
+
                         var img = document.createElement("img");
                         img.className = 'large_profile';
                         img.id = 'ppic';
@@ -798,7 +802,7 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
 
                                         $rootScope.TRAINING_TRAINERS = $rootScope.TRAINING_TRAINERS.concat(data.data);
 
-                                        if($rootScope.TRAINING_TRAINERS.length > 6) {
+                                        if($rootScope.TRAINING_TRAINERS.length > 0) {
                                             $rootScope.SHOW_TRAINERS_NAV_BUT = true;
                                         }
 
@@ -826,7 +830,7 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
 
                                                 $rootScope.TRAINING_RESOURCES = data.data;
 
-                                                if($rootScope.TRAINING_RESOURCES.length > 6) {
+                                                if($rootScope.TRAINING_RESOURCES.length > 0) {
                                                     $rootScope.SHOW_RESOURCES_NAV_BUT = true;
                                                 }
 
@@ -855,7 +859,7 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
 
                                                         $rootScope.TRAINING_QUIZ = data.data;
 
-                                                        if($rootScope.TRAINING_QUIZ.length > 6) {
+                                                        if($rootScope.TRAINING_QUIZ.length > 0) {
                                                             $rootScope.SHOW_QUIZ_NAV_BUT = true;
                                                         }
 
@@ -921,7 +925,10 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
         $http.post('/api/v1/quiz/quizDetails', params)
             .success(function (data, status, headers, config) {
                 $rootScope.QUIZ_INFO = data.data;
-                $rootScope.SHOW_TAKE_QUIZ = !$rootScope.QUIZ_INFO.quizTaken && $rootScope.QUIZ_INFO.num_questions > 0;
+
+                console.log($rootScope.QUIZ_INFO);
+
+                $rootScope.SHOW_TAKE_QUIZ = !$rootScope.QUIZ_INFO.quizTaken && $rootScope.QUIZ_INFO.num_questions > 0 && $rootScope.QUIZ_INFO.can_still_take;
 
                 var img = document.createElement("img");
                 img.className = 'quiz_large_profile';

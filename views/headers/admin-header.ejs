@@ -1,4 +1,4 @@
-<div class="ui fixed inverted menu" ng-controller="headerController">
+<div class="ui masthead fixed inverted menu" ng-controller="headerController">
     <div class="ui container full_width">
         <a href="#" class="header item borderless_right">
             <img class="logo" src="/images/orange-logo.png">
@@ -107,6 +107,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <% if (params.is_trainer) {%>
+                            <div style="float: right;">
+                                <div class="ui item admin-configuration"
+                                     style="margin-left: 100px; margin-right: 0px; margin-top: 7px; padding-right: 0px;">
+                                    <a href="#" id="config-icon"><i class="setting link icon large"></i></a>
+                                </div>
+                                <div class="ui flowing admin-configuration basic popup"
+                                     style="width: 150px; padding: 10px 7px 3px;">
+                                    <div>
+                                        <div style="height: 28px; margin-top: 0px; " ng-click="goToTrainee()">
+                                            <div class="ui small label fluid button">Personal View</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
                         </div>
                     </div>
                     <div class="second side">

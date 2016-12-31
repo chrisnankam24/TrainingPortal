@@ -47,8 +47,6 @@ app.controller("quizFormController", function ($scope, $rootScope, $http) {
             planned_trining_id: planned_training_id
         };
 
-        console.log(params);
-
         $http.post('/api/v1/quiz/quizForm', params)
             .success(function (data, status, headers, config) {
                 var res = data.data;

@@ -134,8 +134,21 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
             errors.push('Question text not set');
         }
         if(isMCQ == true && $scope.proposition_list.length < 2){
-            errors.push('Question is MCQ but not enough propositions set');
+            errors.push('Insufficient number of propositions');
         }
+
+        var checked_response = false;
+        for(var i = 0; i < $scope.proposition_list.length; i++){
+            var proposition = $scope.proposition_list[i];
+            if(proposition.checked){
+                checked_response = true;
+            }
+        }
+
+        if(!checked_response){
+            errors.push('No proposition is checked');
+        }
+
         if(errors.length > 0){
             alert(errors)
         }else{
@@ -147,7 +160,7 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
                 propositions: $scope.proposition_list
             };
 
-            if($scope.isModif == false){
+           if($scope.isModif == false){
 
                 $http.post('/api/v1/quiz/question', params).success(function (data, status, headers, config) {
                     alert('Addition successful');
@@ -212,15 +225,17 @@ app.controller("quizQuestionsController", function ($scope, $rootScope, $http) {
             $http.post('/api/v1/quiz/questionPropositions', params).success(function (data, status, headers, config) {
                 $scope.proposition_list = data.data;
 
-                for(var i = 0; i < $scope.proposition_list.length; i++){
-                    $('#' + $scope.proposition_list[i].id).prop('checked', $scope.proposition_list[i].checked);
-                }
-
             }).error(function (data, status, headers, config) {
 
             });
         }
 
+    };
+
+    $scope.setAnswer = function () {
+        for(var i = 0; i < $scope.proposition_list.length; i++){
+            $('#' + $scope.proposition_list[i].id).prop('checked', $scope.proposition_list[i].checked);
+        }
     };
 
     $scope.clear = function () {

@@ -85,6 +85,17 @@ exports.get_quiz_details = function(req, res){
             rows[0].quiz_hidden = rows[0].quiz_hidden.readUIntBE(0, 1);
             rows[0].quizTaken = rows[0].quizTaken.readUIntBE(0, 1);
 
+            rows[0].can_still_take = true;
+
+            if(rows[0].trainingEndDate != null){
+                var current_date = new Date();
+                var end_date = new Date(rows[0].trainingEndDate);
+
+                if( +end_date > +current_date){
+                    rows[0].can_still_take = false;
+                }
+            }
+
             res.json({
                 success: true,
                 data: rows[0]

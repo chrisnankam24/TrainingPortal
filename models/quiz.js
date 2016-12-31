@@ -48,9 +48,7 @@ exports.user_quiz_queryBuilder = function (user_id, group, show_hidden, quiz_cat
 
     total_query = buildQuizQuery(total_query, group, show_hidden, quiz_category, quiz_sub_category, start_ts, search);
 
-    var query = "SELECT uqv.`user_quiz_ID`, uqv.cuid, uqv.`quizID`, uqv.`dateTakingQuiz`, uqv.quiz_hidden, uqv.`plannedTrainingID`, " +
-        "uqv.score, uqv.`quizTaken`, uqv.quiz_name, uqv.`creationDate`, uqv.`subCategoryID`, uqv.`subCategory`, " +
-        "uqv.`categoryID`, uqv.category, uqv.`quizType`, uqv.training_name, uqv.num_questions, uqv.training_taken, (" + total_query + ") AS total " +
+    var query = "SELECT *, (" + total_query + ") AS total " +
         "FROM dv_portal_db.user_quiz_view uqv WHERE uqv.cuid = '" + user_id + "'";
 
 

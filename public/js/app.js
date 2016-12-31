@@ -3,6 +3,3 @@
  */
 // Create app object
 var app = angular.module("DVPortalApp", []);
-
-// Constants
-app.constant("ACCESS_TOKEN", '');

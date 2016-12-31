@@ -138,7 +138,7 @@ app.get('/trainer', function (req, res) {
                         params: {
                             header : {
                                 title: "Portal",
-                                subtitle: "Sales Training",
+                                subtitle: "Training Management",
                                 menu: {
                                     administration: "Administration"
                                 }
@@ -231,7 +231,7 @@ app.get('/trainee', function (req, res) {
                   params: {
                       header : {
                           title: "Portal",
-                          subtitle: "Sales Training",
+                          subtitle: "Training Management",
                           menu: {
                               training: "Training",
                               quiz: "Quiz",

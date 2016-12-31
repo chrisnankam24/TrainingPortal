@@ -177,11 +177,12 @@ exports.all_ptTraining_queryBuilder = function (start_ts, offset, search, callba
     db_conn.query(query, callback);
 };
 
-exports.insert_training_resources = function (training_id, resources_id, callback) {
-    var query = "INSERT INTO resource_training(trainingID, resourceID) VALUES (" + training_id + ", " + resources_id[0] + ")";
+exports.insert_training_resources = function (pt_id, resources_id, callback) {
+
+    var query = "INSERT INTO resource_training(plannedtrainingid, resourceID) VALUES (" + pt_id + ", " + resources_id[0] + ")";
 
     for(var i = 1; i < resources_id.length; i++){
-        query += ",(" + training_id + ", " + resources_id[i] + ")";
+        query += ",(" + pt_id + ", " + resources_id[i] + ")";
     }
 
     db_conn.query(query, callback);
@@ -203,7 +204,7 @@ exports.session_training_info = function (user_id, session_id, callback) {
 
     var query = "SELECT utv.cuid, utv.`sessionID`, utv.`trainingTaken`, utv.hidden, utv.`dateTaken`, utv.`startTS`, " +
         "utv.`endTS`, utv.region, utv.town, utv.site, utv.`sessionDuration`, utv.total_takers, utv.`conferenceNumber`, " +
-        "utv.`trainingType`, utv.`transmissionMode`, utv.training_name, utv.`trainingID` " +
+        "utv.`trainingType`, utv.`transmissionMode`, utv.training_name, utv.evaluationFormID, utv.`trainingID` " +
         "FROM dv_portal_db.user_training_view utv WHERE utv.cuid = '" + user_id + "' " +
         "AND utv.sessionID = " + session_id;
 
@@ -313,10 +314,21 @@ exports.insert_user_training_criteria = function (user_id, session_id, user_resp
 // Insert Planned Training
 exports.insert_planned_training = function (training_type, trans_mode, start_date, end_date, session_duration, conference_num, training_id, training_code, evaluation_id, training_audience, callback) {
 
-    var query = "INSERT INTO planned_training(trainingType, transmissionMode, startDate, endDate, sessionDuration, " +
-        "conferenceNumber, trainingID, trainingCode, evaluationFormID, trainingAudience) " +
-        "VALUES ('" + training_type + "', '" + trans_mode + "', '" + start_date + "', '" + end_date + "', " + session_duration + ", '" +
-        "" + conference_num + "', " + training_id + ", '" + training_code + "', " + evaluation_id + ",  '" + training_audience + "')";
+    var query = "";
+    if(evaluation_id != -1) {
+        query = "INSERT INTO planned_training(trainingType, transmissionMode, startDate, endDate, sessionDuration, " +
+            "conferenceNumber, trainingID, trainingCode, evaluationFormID, trainingAudience) " +
+            "VALUES ('" + training_type + "', '" + trans_mode + "', '" + start_date + "', '" + end_date + "', " + session_duration + ", '" +
+            "" + conference_num + "', " + training_id + ", '" + training_code + "', " + evaluation_id + ",  '" + training_audience + "')";
+    }else{
+        query = "INSERT INTO planned_training(trainingType, transmissionMode, startDate, endDate, sessionDuration, " +
+            "conferenceNumber, trainingID, trainingCode, evaluationFormID, trainingAudience) " +
+            "VALUES ('" + training_type + "', '" + trans_mode + "', '" + start_date + "', '" + end_date + "', " + session_duration + ", '" +
+            "" + conference_num + "', " + training_id + ", '" + training_code + "', NULL, '" + training_audience + "')";
+
+    }
+
+    console.log(query);
 
     db_conn.query(query, callback);
 

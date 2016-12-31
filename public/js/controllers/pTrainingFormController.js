@@ -447,19 +447,22 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
     };
 
+    var initCount = 0;
+
     $scope.initForm = function () {
 
-
         try {
-            if($('#pt_eval_form').dropdown('get value') == '') {
 
-                $('#pt_eval_form').dropdown('set selected', 1);
+            if(initCount < 10) {
+
                 $('#pt_training_audience').dropdown('set selected', 'INTERNE');
                 $('#pt_training_type').dropdown('set selected', $scope.CONFIG.training_types[0].trainingType);
                 $('#pt_trans_mode').dropdown('set selected', $scope.CONFIG.trans_modes[0].transmissionMode);
                 $('#pt-training').dropdown('set selected', $scope.CONFIG.training[0].trainingID);
+                initCount++;
 
             }
+
         }catch (error){
 
         }
@@ -487,7 +490,6 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
     $scope.initialise = function () {
         //// Initialise Trans mode and training audience
-        console.log('Initializing');
         $('#pt_trans_mode').dropdown('set selected', 1);
         $('#pt_training_audience').dropdown('set selected', 1);
         $('#pt-details-tab .menu .item').tab();
@@ -498,8 +500,12 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
                 flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_start_date', {enableTime: true, minDate: new Date()});
                 flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_end_date', {enableTime: true, minDate: new Date()});
                 $("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_trainers').dropdown({forceSelection: false});
-                flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_start_date', {enableTime: true, minDate: new Date()}).setDate(new Date($scope.site_session_participants[i].site_sessions[j].session_start_date));
-                flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_end_date', {enableTime: true, minDate: new Date()}).setDate(new Date($scope.site_session_participants[i].site_sessions[j].session_end_date));
+                try {
+                    flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_start_date', {enableTime: true, minDate: new Date()}).setDate(new Date($scope.site_session_participants[i].site_sessions[j].session_start_date));
+                    flatpickr("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_end_date', {enableTime: true, minDate: new Date()}).setDate(new Date($scope.site_session_participants[i].site_sessions[j].session_end_date));
+                }catch (ex){
+
+                }
 
             }
         }
@@ -593,6 +599,9 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
 
                 var trainers =  $("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_trainers').dropdown('get value').split(',');
 
+                $scope.site_session_participants[i].site_sessions[j].session_start_date = $("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_start_date').val();
+                $scope.site_session_participants[i].site_sessions[j].session_end_date = $("#" + $scope.site_session_participants[i].site_sessions[j].session_id + '_end_date').val();
+
                 for(var k = 0; k < trainers.length; k++){
                     for(var t = 0; t < $scope.CONFIG.trainers.length; t++) {
                         if($scope.CONFIG.trainers[t].id == trainers[k]){
@@ -616,9 +625,9 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
             alert(error);
         }else{
 
-            //alert('Form OK');
-
             $('#planned-training-form').dimmer('show');
+
+            var resource_ids= $('#training_resources').dropdown('get value');
 
             var params = {
                 'trainingID': $('#pt-training').dropdown('get value'),
@@ -630,11 +639,12 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
                 training_code: $scope.training_code,
                 'session_duration': $scope.session_duration,
                 'training_audience': $('#pt_training_audience').dropdown('get value'),
-                'evaluationFormID': $('#pt_eval_form').dropdown('get value'),
-                'training_sites': $scope.site_session_participants
+                'evaluationFormID': $('#pt_eval_form').dropdown('get value') == '' ? -1 : $('#pt_eval_form').dropdown('get value'),
+                'training_sites': $scope.site_session_participants,
+                resource_ids: resource_ids.split(',')
             };
 
-            $http.post('/api/v1/training/PTraining', params)
+           $http.post('/api/v1/training/PTraining', params)
                 .success(function (data, status, headers, config) {
 
                     $.fn.fullpage.destroy('all');

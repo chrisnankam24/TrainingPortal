@@ -11,20 +11,6 @@ $('#training_link').click();
 $('#users_link').click();
 $('#posts_link').click();
 
-//$('#resource-table').slimScroll({height: '425px'});
-$('#post-table').slimScroll({height: '425px'});
-$('#service-table').slimScroll({height: '425px'});
-$('#department-table').slimScroll({height: '425px'});
-$('#direction-table').slimScroll({height: '425px'});
-$('#training-table').slimScroll({height: '425px'});
-$('#training_location-table').slimScroll({height: '425px'});
-$('#user_location-table').slimScroll({height: '425px'});
-$('#exTrainer-table').slimScroll({height: '425px'});
-//$('#user-table').slimScroll({height: '425px'});
-$('#user_post-table').slimScroll({height: '425px'});
-$('#quiz-table').slimScroll({height: '425px'});
-$('#planned-training-table').slimScroll({height: '425px'});
-
 $('#resource-type').dropdown();
 $('#resource-visibility').dropdown();
 
@@ -92,6 +78,14 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
         {
             "trainingTypeID": 3,
             "trainingType": "TRANSVERSES"
+        },
+        {
+            "trainingTypeID": 4,
+            "trainingType": "MANAGEMENT"
+        },
+        {
+            "trainingTypeID": 5,
+            "trainingType": "APPLICATION"
         }
     ];
 
@@ -428,6 +422,70 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
     };
 
+    $scope.initTable = function () {
+
+        var params = {
+            "scrollX": true,
+            "paging":   false,
+            "searching":   false,
+            "info":     false
+        };
+
+        if(active_page == 'users'){
+            $('#user-table').DataTable({}).destroy();
+            $('#user-table').DataTable(params);
+        }else if(active_page == 'user location'){
+            $('#user_location-table').DataTable({}).destroy();
+            $('#user_location-table').DataTable(params);
+        }else if(active_page == 'user post'){
+            $('#user_post-table').DataTable({}).destroy();
+            $('#user_post-table').DataTable(params);
+        }else if (active_page == 'resources') {
+            $('#resource-table').DataTable({}).destroy();
+            $('#resource-table').DataTable(params);
+        }
+        else if(active_page == 'posts'){
+            $('#post-table').DataTable({}).destroy();
+            $('#post-table').DataTable(params);
+        }
+        else if(active_page == 'services') {
+            $('#service-table').DataTable({}).destroy();
+            $('#service-table').DataTable(params);
+        }
+        else if(active_page == 'departments') {
+            $('#department-table').DataTable({}).destroy();
+            $('#department-table').DataTable(params);
+        }
+        else if(active_page == 'directions') {
+            $('#direction-table').DataTable({}).destroy();
+            $('#direction-table').DataTable(params);
+        }
+        else if(active_page == 'training') {
+            $('#training-table').DataTable({}).destroy();
+            $('#training-table').DataTable(params);
+        }
+        else if(active_page == 'planned training') {
+            $('#planned-training-table').DataTable({}).destroy();
+            $('#planned-training-table').DataTable(params);
+        }
+        else if(active_page == 'training location') {
+            $('#training_location-table').DataTable({}).destroy();
+            $('#training_location-table').DataTable(params);
+        }
+        else if(active_page == 'ex_trainers') {
+            $('#exTrainer-table').DataTable({}).destroy();
+            $('#exTrainer-table').DataTable(params);
+        }
+        else if(active_page == 'quiz') {
+            $('#quiz-table').DataTable({}).destroy();
+            $('#quiz-table').DataTable(params);
+        }
+
+        $('.dtWrapper .grid .row').addClass('left aligned');
+        $('.dtWrapper .grid').css('margin-top', '-21px');
+
+    };
+
     $rootScope.loadItems = function () {
 
         // Show list loader
@@ -484,6 +542,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                     $('#content-lists').dimmer('hide');
 
+                    $('#resource-table').DataTable({}).destroy();
+
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
             });
@@ -538,6 +598,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                     $('#content-lists').dimmer('hide');
 
+                    $('#post-table').DataTable({}).destroy();
+
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
             });
@@ -585,6 +647,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                     }
 
                     $('#content-lists').dimmer('hide');
+
+                    $('#service-table').DataTable({}).destroy();
 
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
@@ -634,6 +698,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                     $('#content-lists').dimmer('hide');
 
+                    $('#department-table').DataTable({}).destroy();
+
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
             });
@@ -681,6 +747,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                     }
 
                     $('#content-lists').dimmer('hide');
+
+                    $('#direction-table').DataTable({}).destroy();
 
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
@@ -730,6 +798,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                     $('#content-lists').dimmer('hide');
 
+                    $('#training-table').DataTable({}).destroy();
+
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
             });
@@ -777,6 +847,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                     }
 
                     $('#content-lists').dimmer('hide');
+
+                    $('#planned-training-table').DataTable({}).destroy();
 
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
@@ -826,6 +898,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                     $('#content-lists').dimmer('hide');
 
+                    $('#training_location-table').DataTable({}).destroy();
+
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
             });
@@ -874,6 +948,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                     $('#content-lists').dimmer('hide');
 
+                    $('#exTrainer-table').DataTable({}).destroy();
+
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
             });
@@ -920,6 +996,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                         $scope.user_list_total = 0;
                     }
 
+                    $('#user-table').DataTable({}).destroy();
                     $('#content-lists').dimmer('hide');
 
                 }).error(function (data, status, headers, config) {
@@ -970,6 +1047,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                     }
 
                     $('#content-lists').dimmer('hide');
+                    $('#user_location-table').DataTable({}).destroy();
 
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
@@ -1018,6 +1096,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                     }
 
                     $('#content-lists').dimmer('hide');
+                    $('#user_post-table').DataTable({}).destroy();
 
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
@@ -1065,6 +1144,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                     }
 
                     $('#content-lists').dimmer('hide');
+
+                    $('#quiz-table').DataTable({}).destroy();
 
                 }).error(function (data, status, headers, config) {
                 $('#content-lists').dimmer('hide');
@@ -1939,16 +2020,6 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
         $scope.training_name = '';
 
-        // Load Resources
-        $http.get('/api/v1/resource?id=all')
-            .success(function (data, status, headers, config) {
-
-                $rootScope.CONFIG.resources = data.data;
-
-            }).error(function (data, status, headers, config) {
-
-        });
-
     };
 
     $scope.startModifyTraining = function (training) {
@@ -1968,7 +2039,6 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
         var training_id = $('#training_id').val();
         var training_name = $scope.training_name;
-        var resource_ids= $('#training_resources').dropdown('get value');
 
         var error = [];
 
@@ -1981,8 +2051,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
         } else {
             var params = {
                 training_id: training_id,
-                training_name: training_name,
-                resource_ids: resource_ids.split(',')
+                training_name: training_name
             };
 
             $scope.is_trainingform_loading = true;
@@ -3017,6 +3086,15 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
             .success(function (data, status, headers, config) {
 
                 $rootScope.CONFIG.evaluation_forms = data.data;
+
+            }).error(function (data, status, headers, config) {
+
+        });
+        // Load Resources
+        $http.get('/api/v1/resource?id=all')
+            .success(function (data, status, headers, config) {
+
+                $rootScope.CONFIG.resources = data.data;
 
             }).error(function (data, status, headers, config) {
 

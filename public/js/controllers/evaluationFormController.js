@@ -81,7 +81,7 @@ app.controller("evaluationFormController", function ($scope, $rootScope, $http) 
                             gps.push(createPropGroupElmt(propElmts[t], propElmts[t+1]));
                             t += 2;
                         }
-                        var question = createQuestion(j+1, res.criteria[j].criteriaText, gps);
+                        var question = createQuestion(j+1, res.criteria[j].criteriaText, gps, res.criteria[j].criteriaID);
 
                         $('#question-list').append(question);
                     }
@@ -89,7 +89,7 @@ app.controller("evaluationFormController", function ($scope, $rootScope, $http) 
                     $scope.LOADING_STATE = 'Loading comment element';
 
                     // Create comment and append
-                    $('#form-group').append(createCommentElmt());
+                    //$('#form-group').append(createCommentElmt('form-comment'));
 
                     // Hide form loader UI
                     $('#evaluation-form').dimmer('hide');
@@ -129,7 +129,7 @@ app.controller("evaluationFormController", function ($scope, $rootScope, $http) 
         return group;
     }
 
-    function createQuestion(index, criteriaText, groups) {
+    function createQuestion(index, criteriaText, groups, criteriaID) {
 
         var gps = "";
 
@@ -146,17 +146,22 @@ app.controller("evaluationFormController", function ($scope, $rootScope, $http) 
                                     "<div class='grouped fields'>" + gps  + "</div>" +
                                 "</div>" +
                             "</div>" +
+                            "<div class='ui form commentElement' style='margin-bottom: 10px;'>" +
+                                "<div class='field'> " +
+                                    "<textarea placeholder='Drop in your comment' rows='1' id='" + criteriaID + '_form_comment' + "'></textarea>" +
+                                "</div>" +
+                            "</div>" +
                         "</div>" +
                         "<div class='ui divider questionElement'></div>";
 
         return question;
     }
 
-    function createCommentElmt() {
+    function createCommentElmt(id) {
         var elmt = "<div class='ui form commentElement' style='margin-bottom: 10px;'>" +
                         "<div class='field'> " +
                             "<label><em>Comment</em></label> " +
-                            "<textarea id='form-comment'></textarea>" +
+                            "<textarea placeholder='Drop in your comment' rows='2' id='" + id + "'></textarea>" +
                         "</div>" +
                     "</div>";
 
@@ -168,12 +173,17 @@ app.controller("evaluationFormController", function ($scope, $rootScope, $http) 
         $scope.LOADING_STATE = 'Submitting form';
 
         // Show form loader UI
-        $('#evaluation-form').dimmer('show');
+        //$('#evaluation-form').dimmer('show');
+
+        var comment = "";
+        for(var i = 0; i < $scope.PARAMS.criteria.length; i++){
+            comment += "###" + $('#' + $scope.PARAMS.criteria[i].criteriaID + '_form_comment').val();
+        }
 
         var params = {
             session_id: session_id,
             evaluationFormID: $scope.PARAMS.evaluationFormID,
-            comment: $('#form-comment').val(),
+            comment: comment,
             user_response: PROPOSITION_MAPPER
         };
 

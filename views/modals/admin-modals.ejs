@@ -159,7 +159,7 @@
 
                                                 <div class="fields">
 
-                                                    <div class="eight wide field required">
+                                                    <div class="eight wide field">
                                                         <label style="font-size: 12px; float: left;">Evaluation Form</label>
                                                         <input type="hidden" name="">
                                                         <div class="ui fluid search selection dropdown"
@@ -168,6 +168,9 @@
                                                             <div class="default text">Evaluation Form
                                                             </div>
                                                             <div class="menu">
+                                                                <div class="item" data-value="-1">
+                                                                    None
+                                                                </div>
                                                                 <div class="item" ng-repeat="evaluation_form in CONFIG.evaluation_forms"
                                                                      data-value={{evaluation_form.evaluationFormID}}>
                                                                     {{evaluation_form.formName}}
@@ -234,6 +237,22 @@
                                                             <div class="item" ng-click="processService(service.serviceID)" ng-repeat="service in CONFIG.services"
                                                                  data-value={{service.serviceID}}>
                                                                 {{service.service}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="field">
+                                                    <label style="font-size: 12px; text-align: left;">Resources</label>
+                                                    <div class="ui fluid multiple search selection dropdown"
+                                                         id="training_resources">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Resources</div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-repeat="resource in CONFIG.resources"
+                                                                 data-value="{{resource.resourceID}}">
+                                                                {{resource.resource_name}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -602,7 +621,7 @@
                                         </div>
                                         <div class="three wide field">
                                             <div class="ui checkbox fluid" id="quiz_question_type" style="margin-top: 21px;">
-                                                <input type="checkbox" name="" ng-model="isMCQ" ng-click="showPropositions()">
+                                                <input type="checkbox" name="" disabled ng-model="isMCQ" ng-click="showPropositions()">
                                                 <label style="font-size: small;">MCQ</label>
                                             </div>
                                         </div>
@@ -629,6 +648,7 @@
                                                                        name="">
                                                             </div>
                                                             <div class="ui mini primary right floated refresh" style="margin-left: 5px; margin-right: 0px; margin-top: 1px;" ng-click="deleteProposition(proposition.id)"><i class="remove orange icon"></i></div>
+                                                            {{$last && isModif ? setAnswer() : ''}}
                                                         </div>
                                                     </div>
                                                 </div>

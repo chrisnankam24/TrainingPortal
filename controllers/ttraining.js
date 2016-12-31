@@ -49,7 +49,6 @@ exports.get_training = function (req, res) {
 exports.add_training = function (req, res) {
 
     var training_name = req.body.training_name;
-    var resource_ids = req.body.resource_ids;
 
     trainingModel.add_training(training_name, function (err, rows) {
         if(err){
@@ -60,28 +59,10 @@ exports.add_training = function (req, res) {
             });
         }else{
 
-            var training_id = rows.insertId;
-            if(resource_ids[0] != ''){
-                trainingModel.insert_training_resources(training_id, resource_ids, function (err, rows) {
-                    if(err){
-                        // Error querying DB
-                        res.status(403).send({
-                            success: false,
-                            message: err
-                        });
-                    }else{
-                        res.json({
-                            success: true,
-                            data: rows
-                        });
-                    }
-                });
-            }else{
-                res.json({
-                    success: true,
-                    data: rows
-                });
-            }
+            res.json({
+                success: true,
+                data: rows
+            });
         }
     });
 };
@@ -140,6 +121,7 @@ exports.set_pt_training = function (req, res) {
     var training_sites = req.body.training_sites; // site_id, site_sessions
     var conference_num = req.body.conference_no;
     var e_learning = req.body.e_learning;
+    var resource_ids = req.body.resource_ids;
 
     if(trans_mode == 'E-LEARNING'){
         conference_num = e_learning;
@@ -184,6 +166,10 @@ exports.set_pt_training = function (req, res) {
                         trainingModel.insert_training_session(session_start_date, session_end_date, trainingLocationID, get_callback(participants, pt_id, trainers, req, res));
 
                     }
+                }
+
+                if(resource_ids[0] != ''){
+                    trainingModel.insert_training_resources(pt_id, resource_ids, function (err, rows) {});
                 }
             }
 
@@ -614,13 +600,13 @@ exports.get_sessionTrainingInfo = function (req, res) {
             var end_date = new Date(training.endTS);
 
             if(training.trainingTaken == 0 && +start_date <= +current_date && +end_date >= +current_date){
-                can_take = 1;
+                can_take = 1; // Can register
             }else if(training.trainingTaken == 1){
-                can_take = 0;
+                can_take = 0; // Training Registered
             }else if(training.trainingTaken == 0 && +end_date < +current_date){
-                can_take = 2;
+                can_take = 2; // Training Overdue
             }else if(training.trainingTaken == 0 && +start_date > +current_date){
-                can_take = 3;
+                can_take = 3; // Upcoming training
             }
 
             training.can_still_take = can_take;

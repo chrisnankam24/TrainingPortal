@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/semantic/dist/semantic.min.css">
     <link rel="stylesheet" href="/js/vendor/flatpickr/flatpickr.min.css">
     <link rel="stylesheet" href="/js/vendor/perfect-scrollbar/perfect-scrollbar.min.css">
+    <link rel="stylesheet" href="/js/vendor/DataTables-1.10.13/css/dataTables.semanticui.min.css">
 
     <link rel="stylesheet" href="/css/style.css">
 
@@ -48,6 +49,17 @@
             background-color: white!important;
         }
 
+        .adminMenu.fixed {
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+            margin-top: 35px;
+            width: 19%;
+            transition: margin-top 0.5s ease;
+        }
+
+        .hidden.menu {
+            display: none;
+        }
+
     </style>
 
 </head>
@@ -63,7 +75,7 @@
 </div>
 
 <div class="ui center aligned container" style="margin-top: 40px;">
-    <div class="ui stackable inverted divided grid" ng-controller="adminController">
+    <div class="ui stackable inverted divided grid" ng-controller="adminController" style="margin-right: -20px;">
 
         <!--Include Admin Menu. This is the first column of the admin UI-->
 
@@ -93,6 +105,8 @@
 <script src="/js/vendor/sortable/Sortable.min.js"></script>
 <script src="/js/vendor/crossroads/signals.min.js"></script>
 <script src="/js/vendor/crossroads/crossroads.min.js"></script>
+<script src="/js/vendor/DataTables-1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="/js/vendor/DataTables-1.10.13/js/dataTables.semanticui.min.js"></script>
 <script src="/semantic/dist/semantic.min.js"></script>
 <script src="/js/admin-init.js"></script>
 <script src="/js/main.js"></script>

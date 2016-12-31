@@ -95,26 +95,6 @@ flatpickr(".flatpickr", {
     }
 });
 
-
-$('#post-table').tablesort();
-$('#service-table').tablesort();
-$('#department-table').tablesort();
-$('#direction-table').tablesort();
-$('#user-table').tablesort();
-$('#user-location-table').tablesort();
-$('#contract-type-table').tablesort();
-$('#training-table').tablesort();
-$('#resource-visibility-table').tablesort();
-$('#resource-type-table').tablesort();
-$('#resource-table').tablesort();
-$('#qr-details-table').tablesort();
-$('#qr-table').tablesort();
-$('#qr-status-table').tablesort();
-$('#question-type-table').tablesort();
-$('#quiz-type-table').tablesort();
-$('#proposition-table').tablesort();
-$('#quiz-table').tablesort();
-
 /*
 //{id} is required, :date: is optional
 crossroads.addRoute('/news/{id}/:date:', function(id, date){
@@ -149,3 +129,29 @@ function parseHash(newHash, oldHash){
 hasher.initialized.add(parseHash); //parse initial hash
 hasher.changed.add(parseHash); //parse hash changes
 hasher.init(); //start listening for history change*/
+
+//$('#example').DataTable({});
+
+//$('.dtWrapper .grid .row').addClass('left aligned');
+
+$.fn.dataTable.ext.errMode = 'none';
+
+// fix main menu to page on passing
+$('.adminMenu').visibility({
+    type: 'fixed'
+
+});
+
+
+// fix menu when passed
+$('.masthead')
+    .visibility({
+        once: false,
+        onBottomPassed: function() {
+            //$('.masthead.menu').addClass('card');
+        },
+        onBottomPassedReverse: function() {
+            //$('.masthead.menu').removeClass('card');
+        }
+    })
+;

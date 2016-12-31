@@ -58,6 +58,23 @@ flatpickr("#pt_start_date", {
     minDate: new Date()
 });
 
+// Initialize admin config
+$('.admin-configuration').popup({
+    //boundary: ""
+    inline     : true,
+    hoverable  : false,
+    position   : 'bottom center',
+    delay: {
+        show: 300,
+        hide: 0
+    },
+    on: 'click',
+    transition: 'horizontal flip',
+    lastResort: 'bottom center',
+    closable: true,
+    hideOnScroll: false,
+    variation: 'wide'
+});
 
 $('.notif.button').popup({
     //boundary: ""
@@ -115,23 +132,6 @@ $('.clear-notification').popup({
     popup: '.delete-notification.popup',
     hoverable  : false,
     position   : 'left center',
-    delay: {
-        show: 300,
-        hide: 0
-    },
-    on: 'click',
-    transition: 'horizontal flip',
-    lastResort: 'bottom center',
-    closable: true,
-    hideOnScroll: false,
-    variation: 'wide'
-});
-
-$('.admin-configuration').popup({
-    //boundary: ""
-    inline     : true,
-    hoverable  : false,
-    position   : 'bottom center',
     delay: {
         show: 300,
         hide: 0
