@@ -808,8 +808,8 @@
     </div>
 
     <div class="actions">
-        <div class="ui mini deny  button" ng-click="doCancel()">Cancel</div>
-        <div class="ui mini approve primary button" ng-click="addModifyQuiz()">Done</div>
+        <div class="ui mini deny  button">Cancel</div>
+        <div class="ui mini approve primary button">Done</div>
     </div>
 </div>
 
@@ -914,62 +914,66 @@
                 <div id="report_tab">
                     <div class="ui small top attached tabular menu"
                          style="margin-bottom: 3px;" >
-                        <a class="item" data-tab="report_1" id="report_1" ng-click="updateContent()">KPI 1</a>
-                        <a class="item" data-tab="report_2" id="report_2"  ng-click="updateContent()">KPI 2</a>
+                        <a class="item" data-tab="report_1" id="report_1" ng-click="updateContent('kpi1')">KPI 1</a>
+                        <a class="item" data-tab="report_2" id="report_2"  ng-click="updateContent('kpi2')">KPI 2</a>
                     </div>
                     <div class="ui tab" data-tab="report_1">
                         <div id="q_page" style="height: 50%!important;">
                             <div class="section fp-auto-height" style="height: 100%;">
                                 <div class="slide round_radius">
                                     <div id="kpi_1" style=" margin-top: 15px;">
-                                        <table class="ui very celled structured left small selectable aligned table"
-                                               id="post-table" style="font-size: 11px;">
-                                            <thead>
-                                            <tr class="center aligned">
-                                                <th class="sort-header" rowspan="3" colspan="1">Training Name</th>
-                                                <th class="sort-header" rowspan="3" colspan="1">Training Location</th>
-                                                <th class="sort-header" rowspan="1" colspan="2"></th>
-                                                <th class="sort-header" rowspan="3" colspan="1">Audience (Services)</th>
-                                                <th class="sort-header" rowspan="1" colspan="6">Participants</th>
-                                            </tr>
-                                            <tr class="center aligned">
-                                                <th class="sort-header" rowspan="2" colspan="1">Dates</th>
-                                                <th class="sort-header" rowspan="2" colspan="1">Session Duration</th>
-                                                <th class="sort-header" rowspan="1" colspan="3">Expected</th>
-                                                <th class="sort-header" rowspan="1" colspan="3">Attended</th>
-                                            </tr>
-                                            <tr class="center aligned">
-                                                <th class="sort-header" rowspan="1" colspan="1">Women</th>
-                                                <th class="sort-header" rowspan="1" colspan="1">Men</th>
-                                                <th class="sort-header" rowspan="1" colspan="1">Total</th>
-                                                <th class="sort-header" rowspan="1" colspan="1">Women</th>
-                                                <th class="sort-header" rowspan="1" colspan="1">Men</th>
-                                                <th class="sort-header" rowspan="1" colspan="1">Total</th>
-                                                <!--<th class="sort-header" rowspan="1" colspan="1">Expected</th>-->
-                                                <!--<th class="sort-header" rowspan="1" colspan="1">Realized</th>-->
-                                                <!--<th class="sort-header" rowspan="1" colspan="1">Expected</th>-->
-                                                <!--<th class="sort-header" rowspan="1" colspan="1">Realized</th>-->
-                                                <!--<th class="sort-header" rowspan="1" colspan="1">Women</th>-->
-                                                <!--<th class="sort-header" rowspan="1" colspan="1">Men</th>-->
-                                                <!--<th class="sort-header" rowspan="1" colspan="1">Total</th>-->
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="center aligned refresh" ng-repeat="training in CONFIG.training_kpi_list">
-                                                <td ng-bind="training.training_name"></td>
-                                                <td ng-bind="training.site + ', ' + training.town"></td>
-                                                <td ng-bind="(training.startDate | date : 'EEE dd, MMM') + ' - ' + (training.endDate | date : 'EEE dd, MMM')"></td>
-                                                <td ng-bind="training.sessionDuration"></td>
-                                                <td ng-bind="training.services"></td>
-                                                <td ng-bind="training.women_expected"></td>
-                                                <td ng-bind="training.men_expected"></td>
-                                                <td ng-bind="training.total_expected"></td>
-                                                <td ng-bind="training.women_attended"></td>
-                                                <td ng-bind="training.men_attended"></td>
-                                                <td ng-bind="training.total_attended"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
+                                            <table class="ui celled table display nowrap"
+                                                   id="kpi1-table" width="100%"  style="font-size: 11px;">
+                                                <thead>
+                                                <tr class="center aligned">
+                                                    <th class="sort-header" rowspan="3" colspan="1">Training Name</th>
+                                                    <th class="sort-header" rowspan="3" colspan="1">Training Location</th>
+                                                    <th class="sort-header" rowspan="1" colspan="2"></th>
+                                                    <th class="sort-header" rowspan="3" colspan="1">Audience (Services)</th>
+                                                    <th class="sort-header" rowspan="1" colspan="6">Participants</th>
+                                                    <th class="sort-header" rowspan="2" colspan="3">Cumul</th>
+                                                </tr>
+                                                <tr class="center aligned">
+                                                    <th class="sort-header" rowspan="2" colspan="1">Dates</th>
+                                                    <th class="sort-header" rowspan="2" colspan="1">Session Duration</th>
+                                                    <th class="sort-header" rowspan="1" colspan="3">Expected</th>
+                                                    <th class="sort-header" rowspan="1" colspan="3">Attended</th>
+                                                </tr>
+                                                <tr class="center aligned">
+                                                    <th class="sort-header" rowspan="1" colspan="1">Women</th>
+                                                    <th class="sort-header" rowspan="1" colspan="1">Men</th>
+                                                    <th class="sort-header" rowspan="1" colspan="1">Total</th>
+                                                    <th class="sort-header" rowspan="1" colspan="1">Women</th>
+                                                    <th class="sort-header" rowspan="1" colspan="1">Men</th>
+                                                    <th class="sort-header" rowspan="1" colspan="1">Total</th>
+                                                    <th class="sort-header" rowspan="1" colspan="1">Women</th>
+                                                    <th class="sort-header" rowspan="1" colspan="1">Men</th>
+                                                    <th class="sort-header" rowspan="1" colspan="1">Total</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="center aligned refresh" ng-repeat="training in CONFIG.training_kpi_list">
+                                                    <td ng-bind="training.training_name"></td>
+                                                    <td ng-bind=" training_site != null ? training.site + ', ' + training.town : ''"></td>
+                                                    <td ng-bind="(training.startDate | date : 'EEE dd, MMM') + ' - ' + (training.endDate | date : 'EEE dd, MMM')"></td>
+                                                    <td ng-bind="training.sessionDuration"></td>
+                                                    <td ng-bind="training.services"></td>
+                                                    <td ng-bind="training.women_expected"></td>
+                                                    <td ng-bind="training.men_expected"></td>
+                                                    <td ng-bind="training.total_expected"></td>
+                                                    <td ng-bind="training.women_attended"></td>
+                                                    <td ng-bind="training.men_attended"></td>
+                                                    <td ng-bind="training.total_attended"></td>
+                                                    <td ng-bind="0"></td>
+                                                    <td ng-bind="0"></td>
+                                                    <td ng-bind="0">
+                                                        {{$last ? initTable('kpi1') : ""}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -979,43 +983,194 @@
                         <div id="q_page" style="height: 50%!important;">
                             <div class="section fp-auto-height" style="height: 100%;">
                                 <div class="slide round_radius">
+                                    <div  id="kpi_2" style=" margin-top: 15px;">
+                                        <div  class="bottom-bordered" style="margin-bottom: 15px;">
+                                            <div>
+                                                <form class="ui form mini" style="margin-top: -5px;">
+                                                    <div class="fields">
+                                                        <div class="three wide field">
+                                                            <div class="ui fluid search selection dropdown"
+                                                                 id="kpi2_year">
+                                                                <input type="hidden" name="">
+                                                                <i class="dropdown icon"></i>
+                                                                <div class="default text">Year
+                                                                </div>
+                                                                <div class="menu">
+                                                                    <div class="item" ng-repeat="year in trainingYears"
+                                                                         data-value={{year}}>
+                                                                        {{year}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ten wide field">
+                                                            <div class="ui fluid search multiple selection dropdown"
+                                                                 id="kpi2_services" style="clear:both;" ng-class="{'disabled': all_serv}">
+                                                                <input type="hidden" name="">
+                                                                <i class="dropdown icon"></i>
+                                                                <div class="default text">Service(s)
+                                                                </div>
+                                                                <div class="menu">
+                                                                    <div class="item" ng-repeat="service in CONFIG.services"
+                                                                         data-value={{service.serviceID}}>
+                                                                        {{service.service}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="two wide field">
+                                                            <div class="ui toggle checkbox" id="all_services" style="margin-top: 4px;" ng-click="loadAllServices()">
+                                                                <input type="checkbox" ng-model="all_serv" tabindex="0" class="hidden">
+                                                                <label style="font-size: x-small">All Services</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="one wide field">
+                                                            <button class="ui primary mini button" ng-click="updateContent('kpi2')">
+                                                                Load
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
+                                            <table class="ui celled table display nowrap" id="kpi2-table" width="100%"  style="font-size: 11px;">
+                                                <thead>
+                                                <tr class="center aligned">
+                                                    <th class="sort-header">Name</th>
+                                                    <th class="sort-header">Post</th>
+                                                    <th class="sort-header">January</th>
+                                                    <th class="sort-header">Febuary</th>
+                                                    <th class="sort-header">March</th>
+                                                    <th class="sort-header">April</th>
+                                                    <th class="sort-header">May</th>
+                                                    <th class="sort-header">June</th>
+                                                    <th class="sort-header">July</th>
+                                                    <th class="sort-header">August</th>
+                                                    <th class="sort-header">September</th>
+                                                    <th class="sort-header">October</th>
+                                                    <th class="sort-header">November</th>
+                                                    <th class="sort-header">December</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="center aligned refresh" ng-repeat="stat in CONFIG.users_training_list">
+                                                    <td ng-bind="stat.firstName + ' ' + stat.lastName"></td>
+                                                    <td ng-bind="stat.post_name"></td>
+                                                    <td ng-bind="stat.January"></td>
+                                                    <td ng-bind="stat.Febuary"></td>
+                                                    <td ng-bind="stat.March"></td>
+                                                    <td ng-bind="stat.April"></td>
+                                                    <td ng-bind="stat.May"></td>
+                                                    <td ng-bind="stat.June"></td>
+                                                    <td ng-bind="stat.July"></td>
+                                                    <td ng-bind="stat.August"></td>
+                                                    <td ng-bind="stat.September"></td>
+                                                    <td ng-bind="stat.October"></td>
+                                                    <td ng-bind="stat.November"></td>
+                                                    <td ng-bind="stat.December">
+                                                        {{$last ? initTable('kpi2') : ""}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button" ng-click="doCancel()">Cancel</div>
+        <div class="ui mini approve primary button" ng-click="addModifyQuiz()">Done</div>
+    </div>
+</div>
+
+<div class="ui evaluation long fullscreen modal scrolling" ng-controller="pTrainingFormController" id="pt-evaluation">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
+        <span>Training Evaluation</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui blurring" id="content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <div id="eval_page" style="height: 50%!important;">
+                    <div class="section fp-auto-height" style="height: 100%;">
+                        <div class="slide round_radius">
+                            <div class="ui grid" style="height: 100%; margin: 0px;">
+                                <div class="column" style="width: 40%; padding: 0px 14px;">
                                     <div>
-                                        <table class="ui very celled structured left small selectable aligned table"
+                                        <h4 class="ui dividing header"
+                                            style="font-size: small; text-align: center;">
+                                            Criteria</h4>
+                                    </div>
+                                    <div>
+                                        <table class="ui very basic left small selectable aligned table"
                                                id="post-table" style="font-size: 11px; margin-top: 15px;">
                                             <thead>
                                             <tr class="center aligned">
-                                                <th class="sort-header">Name</th>
-                                                <th class="sort-header">Post</th>
-                                                <th class="sort-header">January</th>
-                                                <th class="sort-header">Febuary</th>
-                                                <th class="sort-header">March</th>
-                                                <th class="sort-header">April</th>
-                                                <th class="sort-header">May</th>
-                                                <th class="sort-header">June</th>
-                                                <th class="sort-header">July</th>
-                                                <th class="sort-header">August</th>
-                                                <th class="sort-header">September</th>
-                                                <th class="sort-header">October</th>
-                                                <th class="sort-header">November</th>
-                                                <th class="sort-header">December</th>
+                                                <th></th>
+                                                <th>Propostion 1</th>
+                                                <th>Propostion 2</th>
+                                                <th>Propostion 3</th>
+                                                <th>Propostion 4</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr class="center aligned refresh" ng-repeat="stat in CONFIG.users_training_list">
-                                                <td ng-bind="stat.firstName + ' ' + stat.lastName"></td>
-                                                <td ng-bind="stat.post_name"></td>
-                                                <td ng-bind="stat.January"></td>
-                                                <td ng-bind="stat.Febuary"></td>
-                                                <td ng-bind="stat.March"></td>
-                                                <td ng-bind="stat.April"></td>
-                                                <td ng-bind="stat.May"></td>
-                                                <td ng-bind="stat.June"></td>
-                                                <td ng-bind="stat.July"></td>
-                                                <td ng-bind="stat.August"></td>
-                                                <td ng-bind="stat.September"></td>
-                                                <td ng-bind="stat.October"></td>
-                                                <td ng-bind="stat.November"></td>
-                                                <td ng-bind="stat.December"></td>
+                                            <tr class="center aligned refresh" ng-repeat="criteria in CONFIG.pt_evaluation.criteriaInfo">
+                                                <td ng-bind="'Criteria' + ($index + 1)"></td>
+                                                <td ng-bind="criteria.proposition1Count"></td>
+                                                <td ng-bind="criteria.proposition2Count"></td>
+                                                <td ng-bind="criteria.proposition3Count"></td>
+                                                <td ng-bind="criteria.proposition4Count"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <h4 class="ui dividing header"
+                                            style="font-size: x-small; text-align: left;">Details</h4>
+                                        <div class="evaluation-details-block">
+                                            <div ng-repeat="criteria in CONFIG.pt_evaluation.criteriaInfo" style="margin-bottom: 5px;">
+                                                <label ng-bind = "'Criteria' + ($index + 1)"></label>
+                                                <span class="ui circular label" ng-bind="criteria.criteriaText"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column" style="width: 60%; padding: 0px 14px;">
+                                    <h4 class="ui dividing header" style="font-size: small; text-align: center;">
+                                        Comments
+                                    </h4>
+                                    <div class="evaluation-configuration-block">
+                                        <table class="ui very basic left small selectable aligned table"
+                                               id="post-table" style="font-size: 11px;">
+                                            <thead>
+                                            <tr class="center aligned">
+                                                <th class="sort-header">First Name</th>
+                                                <th class="sort-header">Last Name</th>
+                                                <th class="sort-header">Comments</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="center aligned" ng-repeat="participant in CONFIG.pt_evaluation.userInfo">
+                                                <td ng-bind="participant.firstName"></td>
+                                                <td ng-bind="participant.lastName"></td>
+                                                <td>
+                                                    <span class="ui mini circular label" ng-bind="participant.comment1"></span>
+                                                    <span class="ui mini circular label" ng-bind="participant.comment2"></span>
+                                                    <span class="ui mini circular label" ng-bind="participant.comment3"></span>
+                                                    <span class="ui mini circular label" ng-bind="participant.comment4"></span>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -1034,7 +1189,7 @@
     </div>
 
     <div class="actions">
-        <div class="ui mini deny  button" ng-click="doCancel()">Cancel</div>
-        <div class="ui mini approve primary button" ng-click="addModifyQuiz()">Done</div>
+        <div class="ui mini deny  button">Cancel</div>
+        <div class="ui mini approve primary button">Done</div>
     </div>
 </div>

@@ -144,11 +144,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddPost()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddPost()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -171,12 +169,12 @@
                                                                 <td ng-bind="post.level"></td>
                                                                 <td ng-bind="post.service"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyPost(post)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyPost(post)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deletePost(post)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deletePost(post)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -259,11 +257,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddService()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddService()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                     <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
@@ -283,12 +279,12 @@
                                                                 <td ng-bind="service.service"></td>
                                                                 <td ng-bind="service.department"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyService(service)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyService(service)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteService(service)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteService(service)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -372,11 +368,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddDepartment()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddDepartment()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                     <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
@@ -396,12 +390,12 @@
                                                                 <td ng-bind="department.department"></td>
                                                                 <td ng-bind="department.direction"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyDepartment(department)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyDepartment(department)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteDepartment(department)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteDepartment(department)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -469,11 +463,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddDirection()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddDirection()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -492,12 +484,12 @@
                                                                 <td ng-bind="$index + directions_list_min"></td>
                                                                 <td ng-bind="direction.direction"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyDirection(direction)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyDirection(direction)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteDirection(direction)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteDirection(direction)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -751,11 +743,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddUser()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddUser()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                     <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
@@ -786,12 +776,12 @@
                                                                 <td ng-bind="user.userStatus"></td>
                                                                 <td ng-bind="user.contractType"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyUser(user)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyUser(user)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteUser(user)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteUser(user)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -889,11 +879,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddUserLocation()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddUserLocation()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -915,12 +903,12 @@
                                                                 <td ng-bind="userLocation.town"></td>
                                                                 <td ng-bind="userLocation.region"></td>
                                                                 <td class="center aligned">
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyUserLocation(userLocation)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyUserLocation(userLocation)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteUserLocation(userLocation)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteUserLocation(userLocation)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -1039,9 +1027,9 @@
                                                                 <td ng-bind="userPost.lastName"></td>
                                                                 <td ng-bind="userPost.post_name"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui grey button" ng-click="startReassignUserPost(userPost)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div>
+                                                                        <button class="ui mini grey circular icon button" ng-click="startReassignUserPost(userPost)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -1132,11 +1120,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddTraining()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddTraining()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -1155,12 +1141,12 @@
                                                                 <td ng-bind="$index + training_list_min"></td>
                                                                 <td ng-bind="training.training_name"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyTraining(training)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyTraining(training)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteTraining(training)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteTraining(training)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -1260,11 +1246,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddTrainingLocation()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddTrainingLocation()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -1287,12 +1271,12 @@
                                                                 <td ng-bind="trainingLocation.town"></td>
                                                                 <td ng-bind="trainingLocation.region"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyTrainingLocation(trainingLocation)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyTrainingLocation(trainingLocation)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteTrainingLocation(trainingLocation)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteTrainingLocation(trainingLocation)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -1387,11 +1371,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddExTrainer()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddExTrainer()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -1413,12 +1395,12 @@
                                                                 <td ng-bind="ex_trainer.lastName"></td>
                                                                 <td ng-bind="ex_trainer.gender == 1 ? 'Male' : 'Female'"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyExTrainer(ex_trainer)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyExTrainer(ex_trainer)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteExTrainer(ex_trainer)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteExTrainer(ex_trainer)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -1476,11 +1458,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddPt()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddPt()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -1514,20 +1494,31 @@
                                                                 <td ng-bind="pt.trainingCode"></td>
                                                                 <td ng-bind="pt.sessionDuration"></td>
                                                                 <td>
-                                                                    <button class="ui mini primary button" ng-click="startPtSessions(pt)">Sessions</i>
-                                                                    </button>
-                                                                </td>
-                                                                <td>
-                                                                    <button class="ui mini primary button" ng-click="notifyTraining(pt.plannedTrainingID)">Notify</i>
-                                                                    </button>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" disabled  ng-click="startModifyPt(pt)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular primary icon button" ng-click="startPtSessions(pt)">
+                                                                            <i class="unhide link icon"></i>
+                                                                            </i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deletePt(pt)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-class="{'invisible': pt.evaluationFormID == null}" ng-click="ptEvaluation(pt)">
+                                                                            <i class="talk link icon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="ui vertical animated mini primary button" tabindex="0"  ng-click="notifyTraining(pt.plannedTrainingID)">
+                                                                        <div class="hidden content">By  Mail</div>
+                                                                        <div class="visible content">
+                                                                            Notify
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" disabled  ng-click="startModifyPt(pt)">
+                                                                            <i class="write link icon"></i>
+                                                                        </button>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deletePt(pt)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -1587,11 +1578,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddQuiz()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular large primary ui icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddQuiz()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -1627,12 +1616,12 @@
                                                                     </button>
                                                                 </td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyQuiz(quiz)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyQuiz(quiz)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteQuiz(quiz)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteQuiz(quiz)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -1778,11 +1767,9 @@
                                                         </div>
                                                         <div class="four wide column"
                                                              style="padding: 10px 10px 6px 14px;">
-                                                            <div class="ui mini buttons" style="float: right;">
-                                                                <button class="ui mini primary button" style="padding-right: 5px; padding-left: 10px;" ng-click="startAddResource()"><i
-                                                                            class="plus icon"></i>
-                                                                </button>
-                                                            </div>
+                                                            <button class="circular ui inverted large primary icon button" style="float: right; margin-top: -5px; margin-bottom: -5px;" ng-click="startAddResource()">
+                                                                <i class="icon plus"></i>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -1812,12 +1799,12 @@
                                                                 <td ng-bind="resource.num_downloads"></td>
                                                                 <td ng-bind="resource.addition_date | date : 'EEE dd, MMM, yyyy'"></td>
                                                                 <td>
-                                                                    <div class="ui icon mini buttons">
-                                                                        <button class="ui button" ng-click="startModifyResource(resource)"><i
-                                                                                    class="write link icon"></i>
+                                                                    <div style="min-width: 66px;">
+                                                                        <button class="ui mini circular icon button" ng-click="startModifyResource(resource)">
+                                                                            <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui grey button" ng-click="deleteResource(resource)"><i
-                                                                                    class="remove link icon"></i>
+                                                                        <button class="ui mini grey circular icon button" ng-click="deleteResource(resource)">
+                                                                            <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}

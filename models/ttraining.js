@@ -73,9 +73,7 @@ exports.user_training_queryBuilder = function (user_id, group, show_hidden, filt
 
     total_query = buildTrainingQuery(total_query, group, show_hidden, filter_type, start_ts, end_ts, search);
 
-    var query = "SELECT utv.cuid, utv.sessionID, utv.`trainingTaken`, utv.hidden, utv.`dateTaken`, utv.`startTS`, utv.`endTS`, " +
-        "utv.region, utv.town, utv.site, utv.`sessionDuration`, utv.total_takers, utv.`conferenceNumber`, utv.`trainingCode`, " +
-        "utv.`trainingType`, utv.`transmissionMode`, utv.training_name, utv.trainingID, (" + total_query + ") AS total " +
+    var query = "SELECT *, (" + total_query + ") AS total " +
         "FROM dv_portal_db.user_training_view utv WHERE " +
         "utv.cuid = '" + user_id + "'";
 
@@ -283,29 +281,29 @@ exports.training_evaluation_form = function (session_id, callback) {
 };
 
 // Get Verify if has evaluated training session
-exports.has_evaluated = function (user_id, session_id, callback) {
+exports.has_evaluated = function (user_id, planned_training_id, callback) {
 
-    var query = "SELECT * FROM dv_portal_db.user_training_evaluation ute WHERE ute.sessionID = ? AND ute.cuid = ?";
+    var query = "SELECT * FROM dv_portal_db.user_training_evaluation ute WHERE ute.plannedtrainingid = ? AND ute.cuid = ?";
 
-    db_conn.query(query, [session_id, user_id], callback);
+    db_conn.query(query, [planned_training_id, user_id], callback);
 };
 
 // Insert User Form Evaluation Comment
-exports.insert_user_training_comment = function (user_id, session_id, evaluationFormID, trainingComment, callback) {
+exports.insert_user_training_comment = function (user_id, plannedTrainingID, evaluationFormID, callback) {
 
-    var query = "INSERT INTO user_training_evaluation(cuid, evaluationFormID, trainingComment, sessionID) VALUES (?, ?, ?, ?)";
+    var query = "INSERT INTO user_training_evaluation(cuid, evaluationFormID, plannedtrainingid) VALUES (?, ?, ?)";
 
-    db_conn.query(query, [user_id, evaluationFormID, trainingComment, session_id], callback);
+    db_conn.query(query, [user_id, evaluationFormID, plannedTrainingID], callback);
 };
 
 // Insert User Form Evaluation Criteria
-exports.insert_user_training_criteria = function (user_id, session_id, user_response, callback) {
+exports.insert_user_training_criteria = function (user_id, plannedTrainingID, user_response, callback) {
 
     var query = "INSERT INTO user_evaluation_criteria(cuid, evaluationCriteriaID, criteriaPropositionID, " +
-        "sessionID) VALUES ('" + user_id + "', " + user_response[0].criteriaID + ", " + user_response[0].propositionID + ", " + session_id + ")";
+        "plannedtrainingid, criteriacomment) VALUES ('" + user_id + "', " + user_response[0].criteriaID + ", " + user_response[0].propositionID + ", " + plannedTrainingID + ", '" + user_response[0].criteriaComment + "')";
 
     for(var i = 1; i < user_response.length; i++){
-        query += ",('" + user_id + "', " + user_response[i].criteriaID + ", " + user_response[i].propositionID + ", " + session_id + ")";
+        query += ",('" + user_id + "', " + user_response[i].criteriaID + ", " + user_response[i].propositionID + ", " + plannedTrainingID + ", '" + user_response[i].criteriaComment + "')";
     }
 
     db_conn.query(query, callback);
@@ -374,8 +372,6 @@ exports.insert_user_training_session = function (parts, ss_id, callback) {
 };
 
 exports.insert_session_trainers = function (ss_id, trainers, callback) {
-
-    console.log(trainers);
 
     var query = "";
 
@@ -476,7 +472,7 @@ exports.users_training_table = function (date, services, callback) {
         " WHERE uts.trainingTaken = '1'";
 
     if(services != 'all'){
-        query += " AND (SELECT _serviceID FROM user_admin_view WHERE cuid = uts.cuid) IN (" +  services.join(',') + ")";
+        query += " AND (SELECT _serviceID FROM user_admin_view WHERE cuid = uts.cuid) IN (" +  services + ")";
     }
 
     query +=  " GROUP BY uts.cuid";
@@ -513,6 +509,21 @@ exports.get_all_eval_reports = function (callback) {
 };
 
 exports.pt_users = function (pt_id, callback) {
-    var res = db_conn.query("SELECT * FROM user_pt_view WHERE plannedTrainingID = " + pt_id, callback);
-    console.log(res.sql);
+    db_conn.query("SELECT * FROM user_pt_view WHERE plannedTrainingID = " + pt_id, callback);
+};
+
+exports.pt_evaluation = function (pt_id, callback) {
+
+    var query = "SELECT * FROM user_pt_evaluation_view WHERE plannedtrainingid = " + pt_id;
+
+    db_conn.query(query, callback);
+};
+
+exports.pt_evaluation_criteria_propositions = function (eval_form_id, callback) {
+
+    var query = "SELECT * FROM evaluation_form_criteria_view WHERE evaluationFormID = " + eval_form_id;
+
+    console.log(query);
+
+    db_conn.query(query, callback);
 };

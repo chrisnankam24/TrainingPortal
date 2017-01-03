@@ -54,7 +54,8 @@ app.controller("evaluationFormController", function ($scope, $rootScope, $http) 
                         // Set first criteria proposition as active
                         PROPOSITION_MAPPER.push({
                             criteriaID: res.criteria[i].criteriaID,
-                            propositionID: res.criteria[i].criteriaPropositions[0].propositionID
+                            propositionID: res.criteria[i].criteriaPropositions[0].propositionID,
+                            criteriaComment: ''
                         });
                     }
 
@@ -175,15 +176,14 @@ app.controller("evaluationFormController", function ($scope, $rootScope, $http) 
         // Show form loader UI
         //$('#evaluation-form').dimmer('show');
 
-        var comment = "";
-        for(var i = 0; i < $scope.PARAMS.criteria.length; i++){
-            comment += "###" + $('#' + $scope.PARAMS.criteria[i].criteriaID + '_form_comment').val();
+
+        for(var i = 0; i < PROPOSITION_MAPPER.length; i++){
+            PROPOSITION_MAPPER[i].criteriaComment = $('#' + PROPOSITION_MAPPER[i].criteriaID + '_form_comment').val();
         }
 
         var params = {
-            session_id: session_id,
+            plannedTrainingID: $scope.PARAMS.plannedTrainingID,
             evaluationFormID: $scope.PARAMS.evaluationFormID,
-            comment: comment,
             user_response: PROPOSITION_MAPPER
         };
 

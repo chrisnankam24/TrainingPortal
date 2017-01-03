@@ -286,6 +286,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
     $rootScope.CONFIG.training_kpi_list = [];
 
+    $rootScope.CONFIG.pt_evaluation = [];
+
     var active_page = 'posts';
 
     $scope.RESOURCES_OFFSET = 0;
@@ -3126,6 +3128,26 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
         });// Load services
 
         $('.sessions.long.modal').modal('show');
+
+    };
+
+    $scope.ptEvaluation = function (pt) {
+
+        var params = {
+            plannedTrainingID:  pt.plannedTrainingID
+        };
+
+        // Load PT evaluation
+        $http.post('/api/v1/training/adminTrainingEvaluation', params)
+            .success(function (data, status, headers, config) {
+
+                $rootScope.CONFIG.pt_evaluation = data.data;
+
+            }).error(function (data, status, headers, config) {
+
+        });// Load services
+
+        $('.evaluation.long.modal').modal('show');
 
     };
 

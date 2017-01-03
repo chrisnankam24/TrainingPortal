@@ -79,4 +79,7 @@ trainingRouter.route('/pt/')
 trainingRouter.route('/eval_report/')
     .get(trainingController.get_training_report);
 
+trainingRouter.route('/adminTrainingEvaluation/')
+    .post(trainingController.admin_training_evaluation);
+
 module.exports = trainingRouter;

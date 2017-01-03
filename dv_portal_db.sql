@@ -2,10 +2,10 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 29, 2016 at 10:28 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Client :  127.0.0.1
+-- Généré le :  Mar 03 Janvier 2017 à 07:56
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `dv_portal_db`
+-- Base de données :  `dv_portal_db`
 --
+
+DELIMITER $$
+--
+-- Procédures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `previous_taken_count`(IN ptId INT)
+    READS SQL DATA
+BEGIN
+    SELECT apuv.gender, (SELECT COUNT(plannedTrainingID) FROM admin_pt_users_view WHERE plannedTrainingID < ptId AND cuid = apuv.cuid AND trainingTaken = 1) AS previous_taken_count FROM admin_pt_users_view apuv GROUP BY apuv.cuid;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `admin_pt_sessions_view`
+-- Doublure de structure pour la vue `admin_pt_sessions_view`
 --
 CREATE TABLE IF NOT EXISTS `admin_pt_sessions_view` (
 `sessionID` int(11)
@@ -36,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `admin_pt_sessions_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `admin_pt_users_view`
+-- Doublure de structure pour la vue `admin_pt_users_view`
 --
 CREATE TABLE IF NOT EXISTS `admin_pt_users_view` (
 `cuid` varchar(10)
@@ -56,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `admin_pt_users_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `admin_quiz_takers_view`
+-- Doublure de structure pour la vue `admin_quiz_takers_view`
 --
 CREATE TABLE IF NOT EXISTS `admin_quiz_takers_view` (
 `cuid` varchar(10)
@@ -70,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `admin_quiz_takers_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `admin_quiz_view`
+-- Doublure de structure pour la vue `admin_quiz_view`
 --
 CREATE TABLE IF NOT EXISTS `admin_quiz_view` (
 `quizID` int(11)
@@ -85,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `admin_quiz_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `admin_session_participants_view`
+-- Doublure de structure pour la vue `admin_session_participants_view`
 --
 CREATE TABLE IF NOT EXISTS `admin_session_participants_view` (
 `cuid` varchar(10)
@@ -99,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `admin_session_participants_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `admin_user_current_post_view`
+-- Doublure de structure pour la vue `admin_user_current_post_view`
 --
 CREATE TABLE IF NOT EXISTS `admin_user_current_post_view` (
 `assignationDate` date
@@ -113,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `admin_user_current_post_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Structure de la table `category`
 --
 
 CREATE TABLE IF NOT EXISTS `category` (
@@ -124,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `category`
+-- Contenu de la table `category`
 --
 
 INSERT INTO `category` (`categoryID`, `category`) VALUES
@@ -133,7 +145,7 @@ INSERT INTO `category` (`categoryID`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `criteria_proposition`
+-- Structure de la table `criteria_proposition`
 --
 
 CREATE TABLE IF NOT EXISTS `criteria_proposition` (
@@ -145,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `criteria_proposition` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
--- Dumping data for table `criteria_proposition`
+-- Contenu de la table `criteria_proposition`
 --
 
 INSERT INTO `criteria_proposition` (`criteriaPropositionID`, `criteria_proposition`, `evaluationCriteriaID`) VALUES
@@ -173,7 +185,7 @@ INSERT INTO `criteria_proposition` (`criteriaPropositionID`, `criteria_propositi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `department`
+-- Structure de la table `department`
 --
 
 CREATE TABLE IF NOT EXISTS `department` (
@@ -186,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `department` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
--- Dumping data for table `department`
+-- Contenu de la table `department`
 --
 
 INSERT INTO `department` (`departmentID`, `department`, `directionID`) VALUES
@@ -209,7 +221,7 @@ INSERT INTO `department` (`departmentID`, `department`, `directionID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `direction`
+-- Structure de la table `direction`
 --
 
 CREATE TABLE IF NOT EXISTS `direction` (
@@ -220,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `direction` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `direction`
+-- Contenu de la table `direction`
 --
 
 INSERT INTO `direction` (`directionID`, `direction`) VALUES
@@ -232,7 +244,7 @@ INSERT INTO `direction` (`directionID`, `direction`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evaluationform_evaluationcriteria`
+-- Structure de la table `evaluationform_evaluationcriteria`
 --
 
 CREATE TABLE IF NOT EXISTS `evaluationform_evaluationcriteria` (
@@ -244,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `evaluationform_evaluationcriteria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `evaluationform_evaluationcriteria`
+-- Contenu de la table `evaluationform_evaluationcriteria`
 --
 
 INSERT INTO `evaluationform_evaluationcriteria` (`evaluationFormID`, `evaluationCriteriaID`) VALUES
@@ -257,7 +269,7 @@ INSERT INTO `evaluationform_evaluationcriteria` (`evaluationFormID`, `evaluation
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evaluation_criteria`
+-- Structure de la table `evaluation_criteria`
 --
 
 CREATE TABLE IF NOT EXISTS `evaluation_criteria` (
@@ -267,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `evaluation_criteria` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `evaluation_criteria`
+-- Contenu de la table `evaluation_criteria`
 --
 
 INSERT INTO `evaluation_criteria` (`evaluationCriteriaID`, `criteria`) VALUES
@@ -280,7 +292,7 @@ INSERT INTO `evaluation_criteria` (`evaluationCriteriaID`, `criteria`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `evaluation_form`
+-- Structure de la table `evaluation_form`
 --
 
 CREATE TABLE IF NOT EXISTS `evaluation_form` (
@@ -291,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `evaluation_form` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `evaluation_form`
+-- Contenu de la table `evaluation_form`
 --
 
 INSERT INTO `evaluation_form` (`evaluationFormID`, `formName`) VALUES
@@ -300,7 +312,20 @@ INSERT INTO `evaluation_form` (`evaluationFormID`, `formName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `external_trainer`
+-- Doublure de structure pour la vue `evaluation_form_criteria_view`
+--
+CREATE TABLE IF NOT EXISTS `evaluation_form_criteria_view` (
+`evaluationFormID` int(11)
+,`formName` varchar(255)
+,`evaluationCriteriaID` int(11)
+,`criteria` varchar(255)
+,`criteriaPropositionID` int(11)
+,`criteria_proposition` varchar(255)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `external_trainer`
 --
 
 CREATE TABLE IF NOT EXISTS `external_trainer` (
@@ -314,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `external_trainer` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `ext_trainers_view`
+-- Doublure de structure pour la vue `ext_trainers_view`
 --
 CREATE TABLE IF NOT EXISTS `ext_trainers_view` (
 `sessionID` int(11)
@@ -328,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `ext_trainers_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `initial_training`
+-- Structure de la table `initial_training`
 --
 
 CREATE TABLE IF NOT EXISTS `initial_training` (
@@ -342,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `initial_training` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `int_trainers_view`
+-- Doublure de structure pour la vue `int_trainers_view`
 --
 CREATE TABLE IF NOT EXISTS `int_trainers_view` (
 `sessionID` int(11)
@@ -356,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `int_trainers_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notification`
+-- Structure de la table `notification`
 --
 
 CREATE TABLE IF NOT EXISTS `notification` (
@@ -373,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `planned_training`
+-- Structure de la table `planned_training`
 --
 
 CREATE TABLE IF NOT EXISTS `planned_training` (
@@ -386,24 +411,27 @@ CREATE TABLE IF NOT EXISTS `planned_training` (
   `conferenceNumber` varchar(255) DEFAULT NULL,
   `trainingID` int(11) NOT NULL,
   `trainingCode` varchar(255) NOT NULL,
-  `evaluationFormID` int(11) NOT NULL,
+  `evaluationFormID` int(11) DEFAULT NULL,
   `trainingAudience` varchar(255) NOT NULL COMMENT '\nInternal Training\nExternal Training\n ',
   PRIMARY KEY (`plannedTrainingID`),
   KEY `FKPlanned_Tr138439` (`trainingID`),
   KEY `FKPlanned_Tr35709` (`evaluationFormID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
--- Dumping data for table `planned_training`
+-- Contenu de la table `planned_training`
 --
 
 INSERT INTO `planned_training` (`plannedTrainingID`, `trainingType`, `transmissionMode`, `startDate`, `endDate`, `sessionDuration`, `conferenceNumber`, `trainingID`, `trainingCode`, `evaluationFormID`, `trainingAudience`) VALUES
-(15, 'METIERS', 'PRESENTIEL', '2016-12-29 07:00:00', '2016-12-29 09:00:00', 2, '0', 25, 'ABC2345', 1, 'INTERNE');
+(18, 'APPLICATION', 'E-LEARNING', '2016-12-31 07:00:00', '2016-12-31 09:00:00', 2, 'http://google.com', 7, 'ABC2345', NULL, 'INTERNE'),
+(19, 'MANAGEMENT', 'E-LEARNING', '2016-12-31 07:00:00', '2016-12-31 09:00:00', 2, 'http://google.com/anglais', 49, 'ABC2345', 1, 'INTERNE'),
+(20, 'METIERS', 'PRESENTIEL', '2017-01-02 07:00:00', '2017-01-02 09:00:00', 2, '0', 24, 'ABC2345', 1, 'INTERNE'),
+(22, 'TRANSVERSES', 'VIDEO-CONFERENCE', '2017-01-02 07:00:00', '2017-01-02 11:00:00', 2, '7889', 4, 'qsdABC2345', 1, 'INTERNE');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post`
+-- Structure de la table `post`
 --
 
 CREATE TABLE IF NOT EXISTS `post` (
@@ -412,12 +440,11 @@ CREATE TABLE IF NOT EXISTS `post` (
   `level` int(11) DEFAULT NULL,
   `serviceID` int(11) NOT NULL,
   PRIMARY KEY (`postID`),
-  UNIQUE KEY `post_name` (`post_name`),
   KEY `FKPost39315` (`serviceID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `post`
+-- Contenu de la table `post`
 --
 
 INSERT INTO `post` (`postID`, `post_name`, `level`, `serviceID`) VALUES
@@ -432,7 +459,7 @@ INSERT INTO `post` (`postID`, `post_name`, `level`, `serviceID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post_user`
+-- Structure de la table `post_user`
 --
 
 CREATE TABLE IF NOT EXISTS `post_user` (
@@ -444,10 +471,10 @@ CREATE TABLE IF NOT EXISTS `post_user` (
   UNIQUE KEY `user_post_id` (`user_post_id`),
   KEY `FKPost_User171273` (`cuid`),
   KEY `FKPost_User612219` (`postID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
--- Dumping data for table `post_user`
+-- Contenu de la table `post_user`
 --
 
 INSERT INTO `post_user` (`user_post_id`, `postID`, `cuid`, `assignationDate`) VALUES
@@ -473,7 +500,7 @@ INSERT INTO `post_user` (`user_post_id`, `postID`, `cuid`, `assignationDate`) VA
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `post_view`
+-- Doublure de structure pour la vue `post_view`
 --
 CREATE TABLE IF NOT EXISTS `post_view` (
 `postID` int(11)
@@ -489,7 +516,7 @@ CREATE TABLE IF NOT EXISTS `post_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proposition`
+-- Structure de la table `proposition`
 --
 
 CREATE TABLE IF NOT EXISTS `proposition` (
@@ -499,12 +526,22 @@ CREATE TABLE IF NOT EXISTS `proposition` (
   `isCorrect` int(11) DEFAULT NULL,
   PRIMARY KEY (`propositionID`),
   KEY `FKPropositio705986` (`questionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+
+--
+-- Contenu de la table `proposition`
+--
+
+INSERT INTO `proposition` (`propositionID`, `proposition_title`, `questionID`, `isCorrect`) VALUES
+(48, 'Enter Proposition', 12, 0),
+(49, 'Enter Proposition', 12, 0),
+(50, 'Enter Proposition', 12, 1),
+(51, 'Enter Proposition', 12, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `question`
+-- Structure de la table `question`
 --
 
 CREATE TABLE IF NOT EXISTS `question` (
@@ -514,12 +551,19 @@ CREATE TABLE IF NOT EXISTS `question` (
   `question_type` varchar(255) NOT NULL COMMENT 'QCM / Ouvert',
   PRIMARY KEY (`questionID`),
   KEY `FKQuestion124206` (`quizID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- Contenu de la table `question`
+--
+
+INSERT INTO `question` (`questionID`, `question_title`, `quizID`, `question_type`) VALUES
+(12, 'Question 1', 6, 'MCQ');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quiz`
+-- Structure de la table `quiz`
 --
 
 CREATE TABLE IF NOT EXISTS `quiz` (
@@ -535,22 +579,19 @@ CREATE TABLE IF NOT EXISTS `quiz` (
   KEY `FKQuiz687124` (`plannedTrainingID`),
   KEY `FKQuiz795813` (`creator`),
   KEY `FKQuiz953395` (`subCategoryID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `quiz`
+-- Contenu de la table `quiz`
 --
 
 INSERT INTO `quiz` (`quizID`, `quiz_name`, `creationDate`, `plannedTrainingID`, `subCategoryID`, `quizType`, `creator`) VALUES
-(5, 'Quiz III', '2016-12-20', NULL, 1, 'Open', 'WLJD8430'),
-(6, 'Quiz IIII', '2016-12-20', NULL, 1, 'Open', 'WLJD8430'),
-(9, 'Quiz V', '2016-12-20', NULL, 1, 'Open', 'WLJD8430'),
-(10, 'Test', '2016-12-28', NULL, 1, 'Open', 'WLJD8430');
+(6, 'Quiz IIII', '2016-12-20', NULL, 1, 'Open', 'WLJD8430');
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `quiz_form_view`
+-- Doublure de structure pour la vue `quiz_form_view`
 --
 CREATE TABLE IF NOT EXISTS `quiz_form_view` (
 `quizID` int(11)
@@ -569,7 +610,7 @@ CREATE TABLE IF NOT EXISTS `quiz_form_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resource`
+-- Structure de la table `resource`
 --
 
 CREATE TABLE IF NOT EXISTS `resource` (
@@ -584,20 +625,20 @@ CREATE TABLE IF NOT EXISTS `resource` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `resource`
+-- Contenu de la table `resource`
 --
 
 INSERT INTO `resource` (`resourceID`, `resource_name`, `link`, `resourceType`, `resourceVisibility`, `num_downloads`, `addition_date`) VALUES
 (1, 'Resource 1', 'http://google.com', 'Document', b'1', 4, '2016-12-19'),
 (3, 'Management de projet vidéo 1', 'https://www.youtube.com/watch?v=AaVyozm42Rc', 'Video', b'0', 0, '2016-12-23'),
-(4, 'management de projet vidéo 2', 'https://www.youtube.com/watch?v=AaVyozm42Rc', 'Video', b'0', 2, '2016-12-23'),
-(5, 'management de projet Cours', 'https://www.cairn.info/revue-informations-sociales-2011-5-page-72.htm', 'Document', b'0', 1, '2016-12-23'),
+(4, 'management de projet vidéo 2', 'https://www.youtube.com/watch?v=AaVyozm42Rc', 'Video', b'1', 0, '2016-12-23'),
+(5, 'management de projet Cours', 'https://www.cairn.info/revue-informations-sociales-2011-5-page-72.htm', 'Document', b'0', 0, '2016-12-23'),
 (6, 'Pilotage de projet cours', 'http://gestiondeprojet.pm/pilotage-et-management/', 'Document', b'0', 1, '2016-12-23');
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `resources_view`
+-- Doublure de structure pour la vue `resources_view`
 --
 CREATE TABLE IF NOT EXISTS `resources_view` (
 `resourceID` int(11)
@@ -611,34 +652,33 @@ CREATE TABLE IF NOT EXISTS `resources_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resource_training`
+-- Structure de la table `resource_training`
 --
 
 CREATE TABLE IF NOT EXISTS `resource_training` (
   `resourceID` int(11) NOT NULL,
-  `trainingID` int(11) NOT NULL,
-  PRIMARY KEY (`resourceID`,`trainingID`),
+  `plannedtrainingid` int(11) NOT NULL,
+  PRIMARY KEY (`resourceID`,`plannedtrainingid`),
   KEY `FKResource_T357364` (`resourceID`),
-  KEY `FKResource_T767352` (`trainingID`)
+  KEY `FKResource_T767352` (`plannedtrainingid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `resource_training`
+-- Contenu de la table `resource_training`
 --
 
-INSERT INTO `resource_training` (`resourceID`, `trainingID`) VALUES
-(1, 1),
-(1, 2),
-(3, 55),
-(3, 56),
-(4, 55),
-(5, 55),
-(6, 55);
+INSERT INTO `resource_training` (`resourceID`, `plannedtrainingid`) VALUES
+(1, 18),
+(1, 19),
+(3, 18),
+(3, 19),
+(4, 18),
+(4, 19);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `service`
+-- Structure de la table `service`
 --
 
 CREATE TABLE IF NOT EXISTS `service` (
@@ -651,7 +691,7 @@ CREATE TABLE IF NOT EXISTS `service` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
--- Dumping data for table `service`
+-- Contenu de la table `service`
 --
 
 INSERT INTO `service` (`serviceID`, `service`, `departmentID`) VALUES
@@ -680,7 +720,7 @@ INSERT INTO `service` (`serviceID`, `service`, `departmentID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sessions`
+-- Structure de la table `sessions`
 --
 
 CREATE TABLE IF NOT EXISTS `sessions` (
@@ -691,18 +731,19 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sessions`
+-- Contenu de la table `sessions`
 --
 
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('MLWZMBntE33HcUD1d_l-H2_iEcsJmrHp', 1483017298, '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"}}'),
-('wJUCYQ1rr_8nOz96P0qmxMTwdoU_TR3y', 1483089973, '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"data":{"email":"chrisnankam24@gmail.com","cuid":"WLJD8430","firstName":"Happi ","lastName":"Christian","gender":1,"status":"TRAINER","image":"none","iat":1483001616,"exp":1483865616}}'),
-('yPAaIfQAM2p_aLLTKE8nFCjI085h8XIG', 1483090042, '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"data":{"email":"christian.nankam@orange.com","cuid":"WLJD8430","firstName":"Happi ","lastName":"Christian","gender":1,"status":"TRAINER","image":"none","iat":1482931007,"exp":1483795007}}');
+('ip5ikTbfUVOoOczsBzH0WX3vIUpZD8Gw', 1483512826, '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"data":{"email":"christian.nankam@orange.com","cuid":"WLJD8430","firstName":"Happi ","lastName":"Christian","gender":1,"status":"TRAINER","image":"none","iat":1483373566,"exp":1484237566}}'),
+('PXb2YXTBnu8nOd8ELqBGoiT--GPKWYaG', 1483471311, '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"data":{"email":"christian.nankam@orange.com","cuid":"WLJD8430","firstName":"Happi ","lastName":"Christian","gender":1,"status":"TRAINER","image":"none","iat":1483346461,"exp":1484210461}}'),
+('QNtL6U7z1M1bI088fgxVj0AyMqhWl7Xn', 1483469678, '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"}}'),
+('y0Wqqj6EMQcwSAablTLCq6U84Fc-S9xM', 1483472240, '{"cookie":{"originalMaxAge":null,"expires":null,"httpOnly":true,"path":"/"},"data":{"email":"christian.nankam@orange.com","cuid":"WLJD8430","firstName":"Happi ","lastName":"Christian","gender":1,"status":"TRAINER","image":"none","iat":1483384943,"exp":1484248943}}');
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `subs_quiz_view`
+-- Doublure de structure pour la vue `subs_quiz_view`
 --
 CREATE TABLE IF NOT EXISTS `subs_quiz_view` (
 `dateTakingQuiz` date
@@ -715,7 +756,7 @@ CREATE TABLE IF NOT EXISTS `subs_quiz_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sub_category`
+-- Structure de la table `sub_category`
 --
 
 CREATE TABLE IF NOT EXISTS `sub_category` (
@@ -728,7 +769,7 @@ CREATE TABLE IF NOT EXISTS `sub_category` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `sub_category`
+-- Contenu de la table `sub_category`
 --
 
 INSERT INTO `sub_category` (`subCategoryID`, `subCategory`, `categoryID`) VALUES
@@ -737,7 +778,7 @@ INSERT INTO `sub_category` (`subCategoryID`, `subCategory`, `categoryID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `trainer_trainingsession`
+-- Structure de la table `trainer_trainingsession`
 --
 
 CREATE TABLE IF NOT EXISTS `trainer_trainingsession` (
@@ -751,10 +792,10 @@ CREATE TABLE IF NOT EXISTS `trainer_trainingsession` (
   KEY `FKTrainer_Tr305950` (`sessionID`),
   KEY `FKTrainer_Tr575785` (`exTrainerID`),
   KEY `FKTrainer_Tr948124` (`cuid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
--- Dumping data for table `trainer_trainingsession`
+-- Contenu de la table `trainer_trainingsession`
 --
 
 INSERT INTO `trainer_trainingsession` (`trainer_ts_id`, `sessionID`, `exTrainerID`, `trainerType`, `cuid`) VALUES
@@ -766,26 +807,42 @@ INSERT INTO `trainer_trainingsession` (`trainer_ts_id`, `sessionID`, `exTrainerI
 (7, 5, NULL, b'0', 'BQWQ3370'),
 (8, 6, NULL, b'0', 'RQSJ9562'),
 (9, 7, NULL, b'0', 'GxxQ0172'),
-(10, 8, NULL, b'0', 'TSKC5238'),
-(11, 9, NULL, b'0', 'MDJN0026'),
-(12, 9, NULL, b'0', 'TCBX4728'),
-(13, 13, NULL, b'0', 'GxxQ0172'),
-(14, 14, NULL, b'0', 'MDJN0026'),
-(15, 15, NULL, b'0', 'RQSJ9562'),
-(16, 16, NULL, b'0', 'TCBX4728'),
-(17, 20, NULL, b'0', 'MDJN0026'),
-(18, 20, NULL, b'0', 'TCBX4728'),
-(19, 21, NULL, b'0', 'GxxQ0172'),
-(20, 22, NULL, b'0', 'RQSJ9562'),
-(21, 23, NULL, b'0', 'GxxQ0172'),
-(22, 24, NULL, b'0', 'GxxQ0172'),
-(23, 25, NULL, b'0', 'GxxQ0172'),
-(24, 26, NULL, b'0', 'GxxQ0172');
+(10, 8, NULL, b'0', 'MDJN0026'),
+(11, 8, NULL, b'0', 'RQSJ9562'),
+(12, 9, NULL, b'0', 'MDJN0026'),
+(13, 9, NULL, b'0', 'TCBX4728'),
+(14, 10, NULL, b'0', 'TCBX4728'),
+(15, 10, NULL, b'0', 'GxxQ0172'),
+(16, 11, NULL, b'0', 'MDJN0026'),
+(17, 11, NULL, b'0', 'RQSJ9562'),
+(18, 12, NULL, b'0', 'TSKC5238'),
+(19, 12, NULL, b'0', 'BQWQ3370'),
+(20, 13, NULL, b'0', 'GxxQ0172'),
+(21, 13, NULL, b'0', 'RQSJ9562'),
+(22, 14, NULL, b'0', 'RQSJ9562'),
+(23, 15, NULL, b'0', 'GxxQ0172'),
+(24, 16, NULL, b'0', 'RQSJ9562'),
+(25, 16, NULL, b'0', 'BQWQ3370'),
+(26, 18, NULL, b'0', 'MDJN0026'),
+(27, 18, NULL, b'0', 'TCBX4728'),
+(28, 19, NULL, b'0', 'RQSJ9562'),
+(29, 19, NULL, b'0', 'TCBX4728'),
+(30, 20, NULL, b'0', 'RQSJ9562'),
+(31, 20, NULL, b'0', 'MDJN0026'),
+(32, 21, NULL, b'0', 'RQSJ9562'),
+(33, 22, NULL, b'0', 'RQSJ9562'),
+(34, 22, NULL, b'0', 'TSKC5238'),
+(35, 23, NULL, b'0', 'RQSJ9562'),
+(36, 23, NULL, b'0', 'MDJN0026'),
+(37, 24, NULL, b'0', 'GxxQ0172'),
+(38, 24, NULL, b'0', 'RQSJ9562'),
+(39, 25, NULL, b'0', 'TSKC5238'),
+(40, 25, NULL, b'0', 'BQWQ3370');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `training`
+-- Structure de la table `training`
 --
 
 CREATE TABLE IF NOT EXISTS `training` (
@@ -796,7 +853,7 @@ CREATE TABLE IF NOT EXISTS `training` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=57 ;
 
 --
--- Dumping data for table `training`
+-- Contenu de la table `training`
 --
 
 INSERT INTO `training` (`trainingID`, `training_name`) VALUES
@@ -859,7 +916,7 @@ INSERT INTO `training` (`trainingID`, `training_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `trainingsession_plannedtraining`
+-- Structure de la table `trainingsession_plannedtraining`
 --
 
 CREATE TABLE IF NOT EXISTS `trainingsession_plannedtraining` (
@@ -871,17 +928,20 @@ CREATE TABLE IF NOT EXISTS `trainingsession_plannedtraining` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `trainingsession_plannedtraining`
+-- Contenu de la table `trainingsession_plannedtraining`
 --
 
 INSERT INTO `trainingsession_plannedtraining` (`sessionID`, `plannedTrainingID`) VALUES
-(26, 15),
-(27, 15);
+(22, 18),
+(23, 19),
+(24, 20),
+(26, 22),
+(27, 22);
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `training_evaluation_view`
+-- Doublure de structure pour la vue `training_evaluation_view`
 --
 CREATE TABLE IF NOT EXISTS `training_evaluation_view` (
 `sessionID` int(11)
@@ -896,7 +956,7 @@ CREATE TABLE IF NOT EXISTS `training_evaluation_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `training_location`
+-- Structure de la table `training_location`
 --
 
 CREATE TABLE IF NOT EXISTS `training_location` (
@@ -908,7 +968,7 @@ CREATE TABLE IF NOT EXISTS `training_location` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
--- Dumping data for table `training_location`
+-- Contenu de la table `training_location`
 --
 
 INSERT INTO `training_location` (`trainingLocationID`, `region`, `town`, `site`) VALUES
@@ -931,7 +991,7 @@ INSERT INTO `training_location` (`trainingLocationID`, `region`, `town`, `site`)
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `training_quiz_view`
+-- Doublure de structure pour la vue `training_quiz_view`
 --
 CREATE TABLE IF NOT EXISTS `training_quiz_view` (
 `sessionID` int(11)
@@ -947,7 +1007,7 @@ CREATE TABLE IF NOT EXISTS `training_quiz_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `training_resources_view`
+-- Doublure de structure pour la vue `training_resources_view`
 --
 CREATE TABLE IF NOT EXISTS `training_resources_view` (
 `sessionID` int(11)
@@ -961,7 +1021,7 @@ CREATE TABLE IF NOT EXISTS `training_resources_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `training_session`
+-- Structure de la table `training_session`
 --
 
 CREATE TABLE IF NOT EXISTS `training_session` (
@@ -974,7 +1034,7 @@ CREATE TABLE IF NOT EXISTS `training_session` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
--- Dumping data for table `training_session`
+-- Contenu de la table `training_session`
 --
 
 INSERT INTO `training_session` (`sessionID`, `startTS`, `endTS`, `trainingLocationID`) VALUES
@@ -984,31 +1044,31 @@ INSERT INTO `training_session` (`sessionID`, `startTS`, `endTS`, `trainingLocati
 (5, '2016-12-21 11:00:00', '2016-12-20 11:00:00', 2),
 (6, '2016-12-20 11:00:00', '2016-12-20 11:00:00', 7),
 (7, '2016-12-28 07:00:00', '2016-12-28 10:00:00', 6),
-(8, '2016-12-28 07:00:00', '2016-12-28 09:00:00', NULL),
-(9, '2016-12-28 11:00:00', '2016-12-29 01:00:00', NULL),
-(10, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 2),
-(11, '2016-12-29 09:00:00', '2016-12-29 11:00:00', 2),
-(12, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 3),
-(13, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 3),
-(14, '2016-12-29 09:00:00', '2016-12-29 11:00:00', 3),
-(15, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 4),
-(16, '2016-12-29 09:00:00', '2016-12-29 11:00:00', 4),
-(17, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 3),
-(18, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 4),
-(19, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 2),
-(20, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 3),
-(21, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 3),
-(22, '2016-12-29 07:00:00', '2016-12-29 09:00:00', NULL),
-(23, '2016-12-29 09:00:00', '2016-12-29 11:00:00', NULL),
-(24, '2016-12-29 07:00:00', '2016-12-29 09:00:00', NULL),
-(25, '2016-12-29 09:00:00', '2016-12-29 11:00:00', NULL),
-(26, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 3),
-(27, '2016-12-29 07:00:00', '2016-12-29 09:00:00', 2);
+(8, '2016-12-30 07:00:00', '2016-12-30 09:00:00', 3),
+(9, '2016-12-30 07:00:00', '2016-12-30 09:00:00', 3),
+(10, '2016-12-30 07:00:00', '2016-12-30 09:00:00', 8),
+(11, '2016-12-30 07:00:00', '2016-12-30 09:00:00', 3),
+(12, '2016-12-30 07:00:00', '2016-12-30 09:00:00', 8),
+(13, '2016-12-30 07:00:00', '2016-12-30 09:00:00', 3),
+(14, '2016-12-30 07:00:00', '2016-12-30 09:00:00', 8),
+(15, '2016-12-30 07:00:00', '2016-12-30 09:00:00', 3),
+(16, '2016-12-30 16:00:00', '2016-12-30 18:00:00', 3),
+(17, '2016-12-30 07:00:00', '2016-12-30 09:00:00', NULL),
+(18, '2016-12-30 06:00:00', '2016-12-30 06:50:00', NULL),
+(19, '2016-12-31 06:00:00', '2016-12-31 06:55:00', NULL),
+(20, '2016-12-31 07:00:00', '2016-12-31 09:00:00', NULL),
+(21, '2016-12-31 07:00:00', '2016-12-31 09:00:00', NULL),
+(22, '2016-12-31 07:00:00', '2016-12-31 09:00:00', NULL),
+(23, '2016-12-31 07:00:00', '2016-12-31 09:00:00', NULL),
+(24, '2017-01-02 07:00:00', '2017-01-02 09:00:00', 3),
+(25, '2017-01-03 07:00:00', '2017-01-03 11:00:00', NULL),
+(26, '2017-01-02 07:00:00', '2017-01-02 09:00:00', NULL),
+(27, '2017-01-02 09:00:00', '2017-01-02 11:00:00', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Structure de la table `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -1030,7 +1090,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`cuid`, `firstName`, `lastName`, `gender`, `employmentDate`, `number`, `email`, `matricule`, `bossID`, `userStatus`, `userLocationID`, `contractType`, `usr_img`) VALUES
@@ -1047,13 +1107,13 @@ INSERT INTO `user` (`cuid`, `firstName`, `lastName`, `gender`, `employmentDate`,
 ('TGJW6042', 'MBOCK BASSEEG', 'Arnie Frank', b'1', '2016-12-01', 0, 'frank.basseeg@orange.com', 'TGJW6042', 'KVRZ7896', 'TRAINEE', 1, 'Interim', 'none'),
 ('TSKC5238', 'BANGOURA', 'Souhaib', b'1', '2016-12-01', 699940012, 'souhaibdeen.bangoura@orange.co', 'TSKC5238', 'DGJH3510', 'TRAINER', 8, 'CDI', 'none'),
 ('WFSDFSD', 'Fometio', 'Sidoin', b'1', '2016-11-27', 234234, 'sidoin.fometio@orange.com', '24324', 'WLJD8430', 'MANAGER', 1, 'Interim', 'none'),
-('WLJD8430', 'Happi ', 'Christian', b'1', '2016-12-14', 694975166, 'chrisnankam24@gmail.com', '234', '', 'TRAINER', 1, 'Interim', 'none'),
+('WLJD8430', 'Happi ', 'Christian', b'1', '2016-12-15', 694975166, 'christian.nankam@orange.com', '234', 'WLJD8430', 'TRAINER', 1, 'Interim', 'none'),
 ('ZMGL6389', 'TINDJOU TATODJI', 'Joserph Stephane', b'1', '2016-11-29', 0, 'stephane.tindjou@orange.com', 'ZMGL6389', 'KVRZ7896', 'TRAINEE', 1, 'Interim', 'none');
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `user_admin_view`
+-- Doublure de structure pour la vue `user_admin_view`
 --
 CREATE TABLE IF NOT EXISTS `user_admin_view` (
 `cuid` varchar(10)
@@ -1071,7 +1131,7 @@ CREATE TABLE IF NOT EXISTS `user_admin_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_evaluation_criteria`
+-- Structure de la table `user_evaluation_criteria`
 --
 
 CREATE TABLE IF NOT EXISTS `user_evaluation_criteria` (
@@ -1079,29 +1139,40 @@ CREATE TABLE IF NOT EXISTS `user_evaluation_criteria` (
   `cuid` varchar(10) NOT NULL,
   `evaluationCriteriaID` int(11) NOT NULL,
   `criteriaPropositionID` int(11) NOT NULL,
-  `sessionID` int(11) NOT NULL,
+  `plannedtrainingid` int(11) NOT NULL,
+  `criteriacomment` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userEvaluationCriteriaID`),
-  KEY `FKUser_Evalu208930` (`sessionID`),
+  KEY `FKUser_Evalu208930` (`plannedtrainingid`),
   KEY `FKUser_Evalu286162` (`evaluationCriteriaID`),
   KEY `FKUser_Evalu348802` (`criteriaPropositionID`),
   KEY `FKUser_Evalu566755` (`cuid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 --
--- Dumping data for table `user_evaluation_criteria`
+-- Contenu de la table `user_evaluation_criteria`
 --
 
-INSERT INTO `user_evaluation_criteria` (`userEvaluationCriteriaID`, `cuid`, `evaluationCriteriaID`, `criteriaPropositionID`, `sessionID`) VALUES
-(6, 'WLJD8430', 1, 1, 9),
-(7, 'WLJD8430', 2, 6, 9),
-(8, 'WLJD8430', 3, 12, 9),
-(9, 'WLJD8430', 4, 16, 9),
-(10, 'WLJD8430', 5, 20, 9);
+INSERT INTO `user_evaluation_criteria` (`userEvaluationCriteriaID`, `cuid`, `evaluationCriteriaID`, `criteriaPropositionID`, `plannedtrainingid`, `criteriacomment`) VALUES
+(21, 'PEPED', 1, 1, 20, 'PEPED Proposition 1'),
+(22, 'PEPED', 2, 6, 20, 'PEPED Proposition 2'),
+(23, 'PEPED', 3, 11, 20, 'PEPED Proposition 3'),
+(24, 'PEPED', 4, 16, 20, 'PEPED Proposition 4'),
+(25, 'PEPED', 5, 17, 20, 'PEPED Proposition 5'),
+(26, 'WLJD8430', 1, 1, 19, 'NS Proposition 1'),
+(27, 'WLJD8430', 2, 6, 19, 'NS Proposition 2'),
+(28, 'WLJD8430', 3, 11, 19, 'NS Proposition 3'),
+(29, 'WLJD8430', 4, 16, 19, 'NS Proposition 4'),
+(30, 'WLJD8430', 5, 17, 19, 'NS Proposition 5'),
+(31, 'WLJD8430', 1, 2, 20, 'CHRIS Comment 1'),
+(32, 'WLJD8430', 2, 7, 20, 'CHRIS Comment 2'),
+(33, 'WLJD8430', 3, 12, 20, 'CHRIS Comment 3'),
+(34, 'WLJD8430', 4, 13, 20, 'CHRIS Comment 4'),
+(35, 'WLJD8430', 5, 18, 20, 'CHRIS Comment 5');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_location`
+-- Structure de la table `user_location`
 --
 
 CREATE TABLE IF NOT EXISTS `user_location` (
@@ -1113,7 +1184,7 @@ CREATE TABLE IF NOT EXISTS `user_location` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
 
 --
--- Dumping data for table `user_location`
+-- Contenu de la table `user_location`
 --
 
 INSERT INTO `user_location` (`userLocationID`, `region`, `town`, `site`) VALUES
@@ -1171,7 +1242,7 @@ INSERT INTO `user_location` (`userLocationID`, `region`, `town`, `site`) VALUES
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `user_management_view`
+-- Doublure de structure pour la vue `user_management_view`
 --
 CREATE TABLE IF NOT EXISTS `user_management_view` (
 `cuid` varchar(10)
@@ -1196,7 +1267,24 @@ CREATE TABLE IF NOT EXISTS `user_management_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `user_pt_view`
+-- Doublure de structure pour la vue `user_pt_evaluation_view`
+--
+CREATE TABLE IF NOT EXISTS `user_pt_evaluation_view` (
+`cuid` varchar(10)
+,`evaluationCriteriaID` int(11)
+,`criteriaPropositionID` int(11)
+,`plannedtrainingid` int(11)
+,`criteriacomment` varchar(255)
+,`firstName` varchar(30)
+,`lastName` varchar(30)
+,`criteria` varchar(255)
+,`criteria_proposition` varchar(255)
+,`evaluationFormID` int(11)
+);
+-- --------------------------------------------------------
+
+--
+-- Doublure de structure pour la vue `user_pt_view`
 --
 CREATE TABLE IF NOT EXISTS `user_pt_view` (
 `plannedTrainingID` int(11)
@@ -1214,7 +1302,7 @@ CREATE TABLE IF NOT EXISTS `user_pt_view` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_question`
+-- Structure de la table `user_question`
 --
 
 CREATE TABLE IF NOT EXISTS `user_question` (
@@ -1236,7 +1324,7 @@ CREATE TABLE IF NOT EXISTS `user_question` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_quiz`
+-- Structure de la table `user_quiz`
 --
 
 CREATE TABLE IF NOT EXISTS `user_quiz` (
@@ -1252,75 +1340,72 @@ CREATE TABLE IF NOT EXISTS `user_quiz` (
   KEY `FKUser_Quiz250403` (`plannedTrainingID`),
   KEY `FKUser_Quiz728969` (`cuid`),
   KEY `FKUser_Quiz846109` (`quizID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data for table `user_quiz`
+-- Contenu de la table `user_quiz`
 --
 
 INSERT INTO `user_quiz` (`user_quiz_ID`, `cuid`, `quizID`, `dateTakingQuiz`, `plannedTrainingID`, `score`, `quizTaken`, `quiz_hidden`) VALUES
-(2, 'WFSDFSD', 5, NULL, NULL, 0, b'0', b'0'),
-(3, 'WLJD8430', 5, NULL, NULL, 0, b'0', b'1'),
 (4, 'WFSDFSD', 6, NULL, NULL, 0, b'0', b'0'),
-(5, 'WLJD8430', 6, NULL, NULL, 0, b'0', b'0'),
-(10, 'WFSDFSD', 9, NULL, NULL, 0, b'0', b'0'),
-(11, 'WLJD8430', 9, NULL, NULL, 0, b'0', b'1'),
-(12, 'WLJD8430', 10, NULL, NULL, 0, b'0', b'0');
+(5, 'WLJD8430', 6, NULL, NULL, 0, b'0', b'0');
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `user_quiz_view`
+-- Doublure de structure pour la vue `user_quiz_view`
 --
 CREATE TABLE IF NOT EXISTS `user_quiz_view` (
 `user_quiz_ID` int(11)
+,`quiz_name` varchar(255)
+,`creationDate` date
 ,`cuid` varchar(10)
 ,`quizID` int(11)
 ,`dateTakingQuiz` date
-,`quiz_hidden` bit(1)
 ,`plannedTrainingID` int(11)
 ,`score` int(11)
 ,`quizTaken` bit(1)
-,`quiz_name` varchar(255)
-,`creationDate` date
+,`quiz_hidden` bit(1)
+,`quizType` varchar(255)
 ,`subCategoryID` int(11)
 ,`subCategory` varchar(255)
-,`categoryID` int(11)
 ,`category` varchar(255)
-,`quizType` varchar(255)
 ,`training_name` varchar(255)
+,`sessionID` int(11)
+,`trainingEndDate` timestamp
 ,`num_questions` bigint(21)
 ,`training_taken` int(1) unsigned
 );
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_training_evaluation`
+-- Structure de la table `user_training_evaluation`
 --
 
 CREATE TABLE IF NOT EXISTS `user_training_evaluation` (
   `userTrainingEvalID` int(11) NOT NULL AUTO_INCREMENT,
   `cuid` varchar(10) NOT NULL,
   `evaluationFormID` int(11) NOT NULL,
-  `trainingComment` varchar(255) DEFAULT NULL,
-  `sessionID` int(11) NOT NULL,
+  `plannedtrainingid` int(11) NOT NULL,
   PRIMARY KEY (`userTrainingEvalID`),
   KEY `FKUser_Train17992` (`cuid`),
   KEY `FKUser_Train30449` (`evaluationFormID`),
-  KEY `FKUser_Train311424` (`sessionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  KEY `FKUser_Train311424` (`plannedtrainingid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `user_training_evaluation`
+-- Contenu de la table `user_training_evaluation`
 --
 
-INSERT INTO `user_training_evaluation` (`userTrainingEvalID`, `cuid`, `evaluationFormID`, `trainingComment`, `sessionID`) VALUES
-(2, 'WLJD8430', 1, 'Great Project', 9);
+INSERT INTO `user_training_evaluation` (`userTrainingEvalID`, `cuid`, `evaluationFormID`, `plannedtrainingid`) VALUES
+(5, 'PEPED', 1, 20),
+(6, 'WLJD8430', 1, 19),
+(7, 'WLJD8430', 1, 20);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_training_session`
+-- Structure de la table `user_training_session`
 --
 
 CREATE TABLE IF NOT EXISTS `user_training_session` (
@@ -1336,81 +1421,98 @@ CREATE TABLE IF NOT EXISTS `user_training_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_training_session`
+-- Contenu de la table `user_training_session`
 --
 
 INSERT INTO `user_training_session` (`cuid`, `sessionID`, `userCurrentPostID`, `trainingTaken`, `hidden`, `dateTaken`) VALUES
-('BMHB8456', 3, 1, b'0', b'0', NULL),
-('BMHB8456', 5, 1, b'0', b'0', NULL),
-('BMHB8456', 7, 1, b'0', b'0', NULL),
-('BMHB8456', 8, 1, b'0', b'0', NULL),
-('BMHB8456', 9, 1, b'1', b'0', '2016-12-28 22:15:17'),
+('BMHB8456', 10, 1, b'0', b'0', NULL),
+('BMHB8456', 12, 1, b'0', b'0', NULL),
 ('BMHB8456', 13, 1, b'0', b'0', NULL),
-('BMHB8456', 22, 1, b'0', b'0', NULL),
+('BMHB8456', 17, 1, b'0', b'0', NULL),
+('BMHB8456', 18, 1, b'0', b'0', NULL),
+('BMHB8456', 19, 1, b'0', b'0', NULL),
+('BMHB8456', 20, 1, b'0', b'0', NULL),
+('BMHB8456', 21, 1, b'0', b'0', NULL),
+('BMHB8456', 22, 1, b'1', b'0', '2017-01-02 06:47:17'),
+('BMHB8456', 23, 1, b'0', b'0', NULL),
 ('BMHB8456', 24, 1, b'0', b'0', NULL),
+('BMHB8456', 25, 1, b'0', b'0', NULL),
 ('BMHB8456', 27, 1, b'0', b'0', NULL),
-('BQWQ3370', 17, 3, b'0', b'0', NULL),
-('DGJH3510', 15, 2, b'0', b'0', NULL),
-('DGJH3510', 18, 2, b'0', b'0', NULL),
-('Gxx0172', 19, 3, b'0', b'0', NULL),
 ('GxxQ0172', 4, 1, b'0', b'0', NULL),
 ('GxxQ0172', 5, 1, b'0', b'0', NULL),
-('GxxQ0172', 8, 1, b'0', b'0', NULL),
-('GxxQ0172', 9, 1, b'0', b'0', NULL),
 ('GxxQ0172', 14, 1, b'0', b'0', NULL),
-('GxxQ0172', 23, 1, b'0', b'0', NULL),
+('GxxQ0172', 17, 1, b'0', b'0', NULL),
+('GxxQ0172', 18, 1, b'0', b'0', NULL),
+('GxxQ0172', 22, 1, b'1', b'0', '2017-01-02 06:47:10'),
+('GxxQ0172', 23, 1, b'1', b'0', '2017-01-01 07:21:02'),
+('GxxQ0172', 24, 1, b'0', b'0', NULL),
 ('GxxQ0172', 25, 1, b'0', b'0', NULL),
 ('GxxQ0172', 26, 1, b'0', b'0', NULL),
-('KVRZ7896', 16, 7, b'0', b'0', NULL),
-('KVRZ7896', 17, 7, b'0', b'0', NULL),
-('MDJN0026', 18, 4, b'0', b'0', NULL),
 ('PEPED', 4, 1, b'0', b'0', NULL),
 ('PEPED', 6, 1, b'0', b'0', NULL),
-('PEPED', 8, 1, b'0', b'0', NULL),
-('PEPED', 9, 1, b'0', b'0', NULL),
-('PEPED', 13, 1, b'0', b'0', NULL),
-('PEPED', 23, 1, b'0', b'0', NULL),
+('PEPED', 14, 1, b'0', b'0', NULL),
+('PEPED', 17, 1, b'0', b'0', NULL),
+('PEPED', 18, 1, b'0', b'0', NULL),
+('PEPED', 19, 1, b'0', b'0', NULL),
+('PEPED', 20, 1, b'0', b'0', NULL),
+('PEPED', 21, 1, b'0', b'0', NULL),
+('PEPED', 22, 1, b'0', b'0', NULL),
+('PEPED', 23, 1, b'1', b'0', '2017-01-01 07:21:37'),
+('PEPED', 24, 1, b'1', b'0', '2017-01-02 16:11:55'),
 ('PEPED', 25, 1, b'0', b'0', NULL),
 ('PEPED', 26, 1, b'0', b'0', NULL),
-('RQSJ9562', 19, 3, b'0', b'0', NULL),
-('TCBX4728', 15, 7, b'0', b'0', NULL),
-('TCBX4728', 17, 7, b'0', b'0', NULL),
 ('TGJW6042', 3, 1, b'0', b'0', NULL),
 ('TGJW6042', 5, 1, b'0', b'0', NULL),
-('TGJW6042', 8, 1, b'0', b'0', NULL),
-('TGJW6042', 9, 1, b'0', b'0', NULL),
 ('TGJW6042', 14, 1, b'0', b'0', NULL),
+('TGJW6042', 17, 1, b'0', b'0', NULL),
+('TGJW6042', 18, 1, b'0', b'0', NULL),
+('TGJW6042', 19, 1, b'0', b'0', NULL),
+('TGJW6042', 20, 1, b'0', b'0', NULL),
+('TGJW6042', 21, 1, b'0', b'0', NULL),
+('TGJW6042', 22, 1, b'0', b'0', NULL),
 ('TGJW6042', 23, 1, b'0', b'0', NULL),
+('TGJW6042', 24, 1, b'0', b'0', NULL),
 ('TGJW6042', 25, 1, b'0', b'0', NULL),
 ('TGJW6042', 26, 1, b'0', b'0', NULL),
-('TSKC5238', 16, 6, b'0', b'0', NULL),
-('TSKC5238', 18, 6, b'0', b'0', NULL),
 ('WFSDFSD', 2, 1, b'0', b'0', NULL),
 ('WLJD8430', 2, 1, b'0', b'1', NULL),
 ('WLJD8430', 3, 1, b'0', b'0', NULL),
 ('WLJD8430', 6, 1, b'0', b'0', NULL),
 ('WLJD8430', 8, 1, b'0', b'0', NULL),
-('WLJD8430', 9, 1, b'1', b'0', '2016-12-28 22:08:12'),
+('WLJD8430', 9, 1, b'0', b'0', NULL),
+('WLJD8430', 11, 1, b'0', b'0', NULL),
 ('WLJD8430', 13, 1, b'0', b'0', NULL),
+('WLJD8430', 15, 1, b'0', b'0', NULL),
+('WLJD8430', 16, 1, b'1', b'0', '2016-12-30 16:06:04'),
+('WLJD8430', 17, 1, b'1', b'0', '2016-12-30 06:38:30'),
+('WLJD8430', 18, 1, b'0', b'0', NULL),
+('WLJD8430', 19, 1, b'0', b'0', NULL),
 ('WLJD8430', 20, 1, b'0', b'0', NULL),
 ('WLJD8430', 21, 1, b'0', b'0', NULL),
-('WLJD8430', 22, 1, b'0', b'0', NULL),
-('WLJD8430', 24, 1, b'0', b'0', NULL),
+('WLJD8430', 22, 1, b'1', b'0', '2017-01-01 07:20:48'),
+('WLJD8430', 23, 1, b'1', b'0', '2017-01-01 07:21:33'),
+('WLJD8430', 24, 1, b'1', b'0', '2017-01-02 12:14:32'),
+('WLJD8430', 25, 1, b'0', b'0', NULL),
 ('WLJD8430', 27, 1, b'0', b'0', NULL),
 ('ZMGL6389', 4, 1, b'0', b'1', NULL),
 ('ZMGL6389', 5, 1, b'0', b'0', NULL),
 ('ZMGL6389', 7, 1, b'0', b'0', NULL),
-('ZMGL6389', 8, 1, b'0', b'0', NULL),
-('ZMGL6389', 9, 1, b'0', b'0', NULL),
-('ZMGL6389', 15, 1, b'0', b'0', NULL),
+('ZMGL6389', 13, 1, b'0', b'0', NULL),
+('ZMGL6389', 17, 1, b'0', b'0', NULL),
+('ZMGL6389', 18, 1, b'0', b'0', NULL),
+('ZMGL6389', 19, 1, b'0', b'0', NULL),
+('ZMGL6389', 20, 1, b'0', b'0', NULL),
+('ZMGL6389', 21, 1, b'0', b'0', NULL),
 ('ZMGL6389', 22, 1, b'0', b'0', NULL),
+('ZMGL6389', 23, 1, b'0', b'0', NULL),
 ('ZMGL6389', 24, 1, b'0', b'0', NULL),
+('ZMGL6389', 25, 1, b'0', b'0', NULL),
 ('ZMGL6389', 27, 1, b'0', b'0', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `user_training_view`
+-- Doublure de structure pour la vue `user_training_view`
 --
 CREATE TABLE IF NOT EXISTS `user_training_view` (
 `cuid` varchar(10)
@@ -1428,6 +1530,7 @@ CREATE TABLE IF NOT EXISTS `user_training_view` (
 ,`total_takers` bigint(21)
 ,`conferenceNumber` varchar(255)
 ,`trainingCode` varchar(255)
+,`evaluationFormID` int(11)
 ,`trainingType` varchar(255)
 ,`transmissionMode` varchar(255)
 ,`training_name` varchar(255)
@@ -1436,7 +1539,7 @@ CREATE TABLE IF NOT EXISTS `user_training_view` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `user_view`
+-- Doublure de structure pour la vue `user_view`
 --
 CREATE TABLE IF NOT EXISTS `user_view` (
 `cuid` varchar(10)
@@ -1459,7 +1562,7 @@ CREATE TABLE IF NOT EXISTS `user_view` (
 -- --------------------------------------------------------
 
 --
--- Structure for view `admin_pt_sessions_view`
+-- Structure de la vue `admin_pt_sessions_view`
 --
 DROP TABLE IF EXISTS `admin_pt_sessions_view`;
 
@@ -1468,16 +1571,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `admin_pt_users_view`
+-- Structure de la vue `admin_pt_users_view`
 --
 DROP TABLE IF EXISTS `admin_pt_users_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_pt_users_view` AS select `uts`.`cuid` AS `cuid`,`uts`.`trainingTaken` AS `trainingTaken`,`tp`.`plannedTrainingID` AS `plannedTrainingID`,`pt`.`startDate` AS `startDate`,`pt`.`endDate` AS `endDate`,`pt`.`sessionDuration` AS `sessionDuration`,`t`.`training_name` AS `training_name`,`tl`.`town` AS `town`,`tl`.`site` AS `site`,`u`.`firstName` AS `firstName`,`u`.`lastName` AS `lastName`,`u`.`gender` AS `gender`,(select `post_view`.`service` from `post_view` where (`post_view`.`postID` = `uts`.`userCurrentPostID`)) AS `service` from ((((((`user_training_session` `uts` join `training_session` `ts` on((`uts`.`sessionID` = `ts`.`sessionID`))) join `trainingsession_plannedtraining` `tp` on((`ts`.`sessionID` = `tp`.`sessionID`))) join `planned_training` `pt` on((`tp`.`plannedTrainingID` = `pt`.`plannedTrainingID`))) join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`))) join `training_location` `tl` on((`ts`.`trainingLocationID` = `tl`.`trainingLocationID`))) join `user` `u` on((`uts`.`cuid` = `u`.`cuid`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_pt_users_view` AS select `uts`.`cuid` AS `cuid`,`uts`.`trainingTaken` AS `trainingTaken`,`tp`.`plannedTrainingID` AS `plannedTrainingID`,`pt`.`startDate` AS `startDate`,`pt`.`endDate` AS `endDate`,`pt`.`sessionDuration` AS `sessionDuration`,`t`.`training_name` AS `training_name`,`tl`.`town` AS `town`,`tl`.`site` AS `site`,`u`.`firstName` AS `firstName`,`u`.`lastName` AS `lastName`,`u`.`gender` AS `gender`,(select `post_view`.`service` from `post_view` where (`post_view`.`postID` = `uts`.`userCurrentPostID`)) AS `service` from ((((((`user_training_session` `uts` join `training_session` `ts` on((`uts`.`sessionID` = `ts`.`sessionID`))) join `trainingsession_plannedtraining` `tp` on((`ts`.`sessionID` = `tp`.`sessionID`))) join `planned_training` `pt` on((`tp`.`plannedTrainingID` = `pt`.`plannedTrainingID`))) join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`))) left join `training_location` `tl` on((`ts`.`trainingLocationID` = `tl`.`trainingLocationID`))) join `user` `u` on((`uts`.`cuid` = `u`.`cuid`)));
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `admin_quiz_takers_view`
+-- Structure de la vue `admin_quiz_takers_view`
 --
 DROP TABLE IF EXISTS `admin_quiz_takers_view`;
 
@@ -1486,7 +1589,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `admin_quiz_view`
+-- Structure de la vue `admin_quiz_view`
 --
 DROP TABLE IF EXISTS `admin_quiz_view`;
 
@@ -1495,7 +1598,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `admin_session_participants_view`
+-- Structure de la vue `admin_session_participants_view`
 --
 DROP TABLE IF EXISTS `admin_session_participants_view`;
 
@@ -1504,7 +1607,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `admin_user_current_post_view`
+-- Structure de la vue `admin_user_current_post_view`
 --
 DROP TABLE IF EXISTS `admin_user_current_post_view`;
 
@@ -1513,7 +1616,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `ext_trainers_view`
+-- Structure de la vue `evaluation_form_criteria_view`
+--
+DROP TABLE IF EXISTS `evaluation_form_criteria_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `evaluation_form_criteria_view` AS select `ef`.`evaluationFormID` AS `evaluationFormID`,`ef`.`formName` AS `formName`,`ec`.`evaluationCriteriaID` AS `evaluationCriteriaID`,`ec`.`criteria` AS `criteria`,`cp`.`criteriaPropositionID` AS `criteriaPropositionID`,`cp`.`criteria_proposition` AS `criteria_proposition` from (((`evaluation_form` `ef` join `evaluationform_evaluationcriteria` `ee` on((`ef`.`evaluationFormID` = `ee`.`evaluationFormID`))) join `evaluation_criteria` `ec` on((`ee`.`evaluationCriteriaID` = `ec`.`evaluationCriteriaID`))) join `criteria_proposition` `cp` on((`ec`.`evaluationCriteriaID` = `cp`.`evaluationCriteriaID`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `ext_trainers_view`
 --
 DROP TABLE IF EXISTS `ext_trainers_view`;
 
@@ -1522,7 +1634,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `int_trainers_view`
+-- Structure de la vue `int_trainers_view`
 --
 DROP TABLE IF EXISTS `int_trainers_view`;
 
@@ -1531,7 +1643,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `post_view`
+-- Structure de la vue `post_view`
 --
 DROP TABLE IF EXISTS `post_view`;
 
@@ -1540,7 +1652,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `quiz_form_view`
+-- Structure de la vue `quiz_form_view`
 --
 DROP TABLE IF EXISTS `quiz_form_view`;
 
@@ -1549,7 +1661,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `resources_view`
+-- Structure de la vue `resources_view`
 --
 DROP TABLE IF EXISTS `resources_view`;
 
@@ -1558,7 +1670,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `subs_quiz_view`
+-- Structure de la vue `subs_quiz_view`
 --
 DROP TABLE IF EXISTS `subs_quiz_view`;
 
@@ -1567,7 +1679,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `training_evaluation_view`
+-- Structure de la vue `training_evaluation_view`
 --
 DROP TABLE IF EXISTS `training_evaluation_view`;
 
@@ -1576,7 +1688,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `training_quiz_view`
+-- Structure de la vue `training_quiz_view`
 --
 DROP TABLE IF EXISTS `training_quiz_view`;
 
@@ -1585,16 +1697,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `training_resources_view`
+-- Structure de la vue `training_resources_view`
 --
 DROP TABLE IF EXISTS `training_resources_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `training_resources_view` AS select `tp`.`sessionID` AS `sessionID`,`tp`.`plannedTrainingID` AS `plannedTrainingID`,`r`.`resourceID` AS `resourceID`,`r`.`link` AS `link`,`r`.`resource_name` AS `resource_name`,`r`.`resourceType` AS `resourceType`,`r`.`resourceVisibility` AS `resourceVisibility` from ((((`trainingsession_plannedtraining` `tp` join `planned_training` `pt` on((`tp`.`plannedTrainingID` = `pt`.`plannedTrainingID`))) join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`))) join `resource_training` `rt` on((`t`.`trainingID` = `rt`.`trainingID`))) join `resource` `r` on((`rt`.`resourceID` = `r`.`resourceID`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `training_resources_view` AS select `tp`.`sessionID` AS `sessionID`,`tp`.`plannedTrainingID` AS `plannedTrainingID`,`r`.`resourceID` AS `resourceID`,`r`.`link` AS `link`,`r`.`resource_name` AS `resource_name`,`r`.`resourceType` AS `resourceType`,`r`.`resourceVisibility` AS `resourceVisibility` from ((((`trainingsession_plannedtraining` `tp` join `planned_training` `pt` on((`tp`.`plannedTrainingID` = `pt`.`plannedTrainingID`))) join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`))) join `resource_training` `rt` on((`tp`.`plannedTrainingID` = `rt`.`plannedtrainingid`))) join `resource` `r` on((`rt`.`resourceID` = `r`.`resourceID`)));
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `user_admin_view`
+-- Structure de la vue `user_admin_view`
 --
 DROP TABLE IF EXISTS `user_admin_view`;
 
@@ -1603,7 +1715,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `user_management_view`
+-- Structure de la vue `user_management_view`
 --
 DROP TABLE IF EXISTS `user_management_view`;
 
@@ -1612,109 +1724,118 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `user_pt_view`
+-- Structure de la vue `user_pt_evaluation_view`
+--
+DROP TABLE IF EXISTS `user_pt_evaluation_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_pt_evaluation_view` AS select `uec`.`cuid` AS `cuid`,`uec`.`evaluationCriteriaID` AS `evaluationCriteriaID`,`uec`.`criteriaPropositionID` AS `criteriaPropositionID`,`uec`.`plannedtrainingid` AS `plannedtrainingid`,`uec`.`criteriacomment` AS `criteriacomment`,`u`.`firstName` AS `firstName`,`u`.`lastName` AS `lastName`,`ec`.`criteria` AS `criteria`,`cp`.`criteria_proposition` AS `criteria_proposition`,`ef`.`evaluationFormID` AS `evaluationFormID` from (((((`user_evaluation_criteria` `uec` join `user` `u` on((`uec`.`cuid` = `u`.`cuid`))) join `evaluation_criteria` `ec` on((`uec`.`evaluationCriteriaID` = `ec`.`evaluationCriteriaID`))) join `criteria_proposition` `cp` on((`uec`.`criteriaPropositionID` = `cp`.`criteriaPropositionID`))) join `planned_training` `pt` on((`uec`.`plannedtrainingid` = `pt`.`plannedTrainingID`))) join `evaluation_form` `ef` on((`pt`.`evaluationFormID` = `ef`.`evaluationFormID`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `user_pt_view`
 --
 DROP TABLE IF EXISTS `user_pt_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_pt_view` AS select `pt`.`plannedTrainingID` AS `plannedTrainingID`,`t`.`training_name` AS `training_name`,`ts`.`startTS` AS `startDate`,`ts`.`endTS` AS `endDate`,`uts`.`cuid` AS `cuid`,`u`.`firstName` AS `firstName`,`u`.`lastName` AS `lastName`,`u`.`email` AS `email`,`ul`.`region` AS `region`,`ul`.`town` AS `town`,`ul`.`site` AS `site` from ((((((`planned_training` `pt` join `trainingsession_plannedtraining` `tp` on((`pt`.`plannedTrainingID` = `tp`.`plannedTrainingID`))) join `training_session` `ts` on((`tp`.`sessionID` = `ts`.`sessionID`))) join `user_training_session` `uts` on((`ts`.`sessionID` = `uts`.`sessionID`))) join `user` `u` on((`uts`.`cuid` = `u`.`cuid`))) join `user_location` `ul` on((`u`.`userLocationID` = `ul`.`userLocationID`))) join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_pt_view` AS select `pt`.`plannedTrainingID` AS `plannedTrainingID`,`t`.`training_name` AS `training_name`,`pt`.`startDate` AS `startDate`,`pt`.`endDate` AS `endDate`,`uts`.`cuid` AS `cuid`,`u`.`firstName` AS `firstName`,`u`.`lastName` AS `lastName`,`u`.`email` AS `email`,`ul`.`region` AS `region`,`ul`.`town` AS `town`,`ul`.`site` AS `site` from ((((((`planned_training` `pt` join `trainingsession_plannedtraining` `tp` on((`pt`.`plannedTrainingID` = `tp`.`plannedTrainingID`))) join `training_session` `ts` on((`tp`.`sessionID` = `ts`.`sessionID`))) join `user_training_session` `uts` on((`ts`.`sessionID` = `uts`.`sessionID`))) join `user` `u` on((`uts`.`cuid` = `u`.`cuid`))) join `user_location` `ul` on((`u`.`userLocationID` = `ul`.`userLocationID`))) join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`)));
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `user_quiz_view`
+-- Structure de la vue `user_quiz_view`
 --
 DROP TABLE IF EXISTS `user_quiz_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_quiz_view` AS select `uq`.`user_quiz_ID` AS `user_quiz_ID`,`uq`.`cuid` AS `cuid`,`uq`.`quizID` AS `quizID`,`uq`.`dateTakingQuiz` AS `dateTakingQuiz`,`uq`.`quiz_hidden` AS `quiz_hidden`,`uq`.`plannedTrainingID` AS `plannedTrainingID`,`uq`.`score` AS `score`,`uq`.`quizTaken` AS `quizTaken`,`q`.`quiz_name` AS `quiz_name`,`q`.`creationDate` AS `creationDate`,`q`.`subCategoryID` AS `subCategoryID`,`sc`.`subCategory` AS `subCategory`,`sc`.`categoryID` AS `categoryID`,`c`.`category` AS `category`,`q`.`quizType` AS `quizType`,`t`.`training_name` AS `training_name`,(select count(0) from `question` `qs` where (`qs`.`quizID` = `uq`.`quizID`)) AS `num_questions`,(select `utv`.`trainingTaken` from `user_training_view` `utv` where ((`utv`.`plannedTrainingID` = `uq`.`plannedTrainingID`) and (`utv`.`cuid` = `uq`.`cuid`))) AS `training_taken` from (((((`user_quiz` `uq` join `quiz` `q` on((`uq`.`quizID` = `q`.`quizID`))) join `sub_category` `sc` on((`q`.`subCategoryID` = `sc`.`subCategoryID`))) join `category` `c` on((`sc`.`categoryID` = `c`.`categoryID`))) left join `planned_training` `pt` on((`q`.`plannedTrainingID` = `pt`.`plannedTrainingID`))) left join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_quiz_view` AS select `uq`.`user_quiz_ID` AS `user_quiz_ID`,`q`.`quiz_name` AS `quiz_name`,`q`.`creationDate` AS `creationDate`,`uq`.`cuid` AS `cuid`,`uq`.`quizID` AS `quizID`,`uq`.`dateTakingQuiz` AS `dateTakingQuiz`,`uq`.`plannedTrainingID` AS `plannedTrainingID`,`uq`.`score` AS `score`,`uq`.`quizTaken` AS `quizTaken`,`uq`.`quiz_hidden` AS `quiz_hidden`,`q`.`quizType` AS `quizType`,`sc`.`subCategoryID` AS `subCategoryID`,`sc`.`subCategory` AS `subCategory`,`c`.`category` AS `category`,`t`.`training_name` AS `training_name`,`tp`.`sessionID` AS `sessionID`,`ts`.`endTS` AS `trainingEndDate`,(select count(0) from `question` `qs` where (`qs`.`quizID` = `uq`.`quizID`)) AS `num_questions`,(select `utv`.`trainingTaken` from `user_training_view` `utv` where ((`utv`.`plannedTrainingID` = `uq`.`plannedTrainingID`) and (`utv`.`cuid` = `uq`.`cuid`))) AS `training_taken` from (((((((`user_quiz` `uq` join `quiz` `q` on((`uq`.`quizID` = `q`.`quizID`))) join `sub_category` `sc` on((`q`.`subCategoryID` = `sc`.`subCategoryID`))) join `category` `c` on((`sc`.`categoryID` = `c`.`categoryID`))) left join `planned_training` `pt` on((`uq`.`plannedTrainingID` = `pt`.`plannedTrainingID`))) left join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`))) left join `trainingsession_plannedtraining` `tp` on((`pt`.`plannedTrainingID` = `tp`.`plannedTrainingID`))) left join `training_session` `ts` on((`tp`.`sessionID` = `ts`.`sessionID`)));
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `user_training_view`
+-- Structure de la vue `user_training_view`
 --
 DROP TABLE IF EXISTS `user_training_view`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_training_view` AS select `uts`.`cuid` AS `cuid`,`uts`.`sessionID` AS `sessionID`,`uts`.`trainingTaken` AS `trainingTaken`,`uts`.`hidden` AS `hidden`,`uts`.`dateTaken` AS `dateTaken`,`ts`.`startTS` AS `startTS`,`ts`.`endTS` AS `endTS`,`tl`.`region` AS `region`,`tl`.`town` AS `town`,`tl`.`site` AS `site`,`pt`.`sessionDuration` AS `sessionDuration`,`pt`.`plannedTrainingID` AS `plannedTrainingID`,(select count(0) from `user_training_session` `uts2` where (`uts2`.`sessionID` = `uts`.`sessionID`)) AS `total_takers`,`pt`.`conferenceNumber` AS `conferenceNumber`,`pt`.`trainingCode` AS `trainingCode`,`pt`.`trainingType` AS `trainingType`,`pt`.`transmissionMode` AS `transmissionMode`,`t`.`training_name` AS `training_name`,`t`.`trainingID` AS `trainingID` from (((((`user_training_session` `uts` join `training_session` `ts` on((`uts`.`sessionID` = `ts`.`sessionID`))) left join `training_location` `tl` on((`ts`.`trainingLocationID` = `tl`.`trainingLocationID`))) join `trainingsession_plannedtraining` `tp` on((`ts`.`sessionID` = `tp`.`sessionID`))) join `planned_training` `pt` on((`tp`.`plannedTrainingID` = `pt`.`plannedTrainingID`))) join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`))) order by `uts`.`sessionID` desc;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_training_view` AS select `uts`.`cuid` AS `cuid`,`uts`.`sessionID` AS `sessionID`,`uts`.`trainingTaken` AS `trainingTaken`,`uts`.`hidden` AS `hidden`,`uts`.`dateTaken` AS `dateTaken`,`ts`.`startTS` AS `startTS`,`ts`.`endTS` AS `endTS`,`tl`.`region` AS `region`,`tl`.`town` AS `town`,`tl`.`site` AS `site`,`pt`.`sessionDuration` AS `sessionDuration`,`pt`.`plannedTrainingID` AS `plannedTrainingID`,(select count(0) from `user_training_session` `uts2` where (`uts2`.`sessionID` = `uts`.`sessionID`)) AS `total_takers`,`pt`.`conferenceNumber` AS `conferenceNumber`,`pt`.`trainingCode` AS `trainingCode`,`pt`.`evaluationFormID` AS `evaluationFormID`,`pt`.`trainingType` AS `trainingType`,`pt`.`transmissionMode` AS `transmissionMode`,`t`.`training_name` AS `training_name`,`t`.`trainingID` AS `trainingID` from (((((`user_training_session` `uts` join `training_session` `ts` on((`uts`.`sessionID` = `ts`.`sessionID`))) left join `training_location` `tl` on((`ts`.`trainingLocationID` = `tl`.`trainingLocationID`))) join `trainingsession_plannedtraining` `tp` on((`ts`.`sessionID` = `tp`.`sessionID`))) join `planned_training` `pt` on((`tp`.`plannedTrainingID` = `pt`.`plannedTrainingID`))) join `training` `t` on((`pt`.`trainingID` = `t`.`trainingID`))) order by `uts`.`sessionID` desc;
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `user_view`
+-- Structure de la vue `user_view`
 --
 DROP TABLE IF EXISTS `user_view`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_view` AS select `u`.`cuid` AS `cuid`,`u`.`firstName` AS `firstName`,`u`.`lastName` AS `lastName`,`u`.`email` AS `email`,`u`.`gender` AS `gender`,`u`.`employmentDate` AS `employmentDate`,`u`.`number` AS `number`,`u`.`matricule` AS `matricule`,`u`.`bossID` AS `bossID`,`u`.`userLocationID` AS `userLocationID`,`u`.`userStatus` AS `userStatus`,`u`.`usr_img` AS `usr_img`,`ul`.`region` AS `region`,`ul`.`town` AS `town`,`ul`.`site` AS `site`,`u`.`contractType` AS `contractType` from (`user` `u` join `user_location` `ul` on((`u`.`userLocationID` = `ul`.`userLocationID`)));
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables exportées
 --
 
 --
--- Constraints for table `criteria_proposition`
+-- Contraintes pour la table `criteria_proposition`
 --
 ALTER TABLE `criteria_proposition`
   ADD CONSTRAINT `FKCriteria_P359538` FOREIGN KEY (`evaluationCriteriaID`) REFERENCES `evaluation_criteria` (`evaluationCriteriaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `department`
+-- Contraintes pour la table `department`
 --
 ALTER TABLE `department`
   ADD CONSTRAINT `FKDepartment356912` FOREIGN KEY (`directionID`) REFERENCES `direction` (`directionID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `evaluationform_evaluationcriteria`
+-- Contraintes pour la table `evaluationform_evaluationcriteria`
 --
 ALTER TABLE `evaluationform_evaluationcriteria`
   ADD CONSTRAINT `FKEvaluation100972` FOREIGN KEY (`evaluationFormID`) REFERENCES `evaluation_form` (`evaluationFormID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKEvaluation807921` FOREIGN KEY (`evaluationCriteriaID`) REFERENCES `evaluation_criteria` (`evaluationCriteriaID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `initial_training`
+-- Contraintes pour la table `initial_training`
 --
 ALTER TABLE `initial_training`
   ADD CONSTRAINT `FKInitial_Tr864659` FOREIGN KEY (`trainingID`) REFERENCES `training` (`trainingID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKInitial_Tr37515` FOREIGN KEY (`postID`) REFERENCES `post` (`postID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `notification`
+-- Contraintes pour la table `notification`
 --
 ALTER TABLE `notification`
   ADD CONSTRAINT `FKNotificati330256` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `planned_training`
+-- Contraintes pour la table `planned_training`
 --
 ALTER TABLE `planned_training`
   ADD CONSTRAINT `FKPlanned_Tr138439` FOREIGN KEY (`trainingID`) REFERENCES `training` (`trainingID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKPlanned_Tr35709` FOREIGN KEY (`evaluationFormID`) REFERENCES `evaluation_form` (`evaluationFormID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `post`
+-- Contraintes pour la table `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `FKPost39315` FOREIGN KEY (`serviceID`) REFERENCES `service` (`serviceID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `post_user`
+-- Contraintes pour la table `post_user`
 --
 ALTER TABLE `post_user`
   ADD CONSTRAINT `FKPost_User171273` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKPost_User612219` FOREIGN KEY (`postID`) REFERENCES `post` (`postID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `proposition`
+-- Contraintes pour la table `proposition`
 --
 ALTER TABLE `proposition`
   ADD CONSTRAINT `FKPropositio705986` FOREIGN KEY (`questionID`) REFERENCES `question` (`questionID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `question`
+-- Contraintes pour la table `question`
 --
 ALTER TABLE `question`
   ADD CONSTRAINT `FKQuestion124206` FOREIGN KEY (`quizID`) REFERENCES `quiz` (`quizID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `quiz`
+-- Contraintes pour la table `quiz`
 --
 ALTER TABLE `quiz`
   ADD CONSTRAINT `FKQuiz795813` FOREIGN KEY (`creator`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1722,26 +1843,26 @@ ALTER TABLE `quiz`
   ADD CONSTRAINT `FKQuiz953395` FOREIGN KEY (`subCategoryID`) REFERENCES `sub_category` (`subCategoryID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `resource_training`
+-- Contraintes pour la table `resource_training`
 --
 ALTER TABLE `resource_training`
-  ADD CONSTRAINT `FKResource_T767352` FOREIGN KEY (`trainingID`) REFERENCES `training` (`trainingID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_resource_training` FOREIGN KEY (`plannedtrainingid`) REFERENCES `planned_training` (`plannedTrainingID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKResource_T357364` FOREIGN KEY (`resourceID`) REFERENCES `resource` (`resourceID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `service`
+-- Contraintes pour la table `service`
 --
 ALTER TABLE `service`
   ADD CONSTRAINT `FKService849374` FOREIGN KEY (`departmentID`) REFERENCES `department` (`departmentID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `sub_category`
+-- Contraintes pour la table `sub_category`
 --
 ALTER TABLE `sub_category`
   ADD CONSTRAINT `FKSub_Catego512632` FOREIGN KEY (`categoryID`) REFERENCES `category` (`categoryID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `trainer_trainingsession`
+-- Contraintes pour la table `trainer_trainingsession`
 --
 ALTER TABLE `trainer_trainingsession`
   ADD CONSTRAINT `FKTrainer_Tr948124` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1749,35 +1870,35 @@ ALTER TABLE `trainer_trainingsession`
   ADD CONSTRAINT `FKTrainer_Tr575785` FOREIGN KEY (`exTrainerID`) REFERENCES `external_trainer` (`trainerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `trainingsession_plannedtraining`
+-- Contraintes pour la table `trainingsession_plannedtraining`
 --
 ALTER TABLE `trainingsession_plannedtraining`
   ADD CONSTRAINT `FKTrainingSe964262` FOREIGN KEY (`sessionID`) REFERENCES `training_session` (`sessionID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKTrainingSe372935` FOREIGN KEY (`plannedTrainingID`) REFERENCES `planned_training` (`plannedTrainingID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `training_session`
+-- Contraintes pour la table `training_session`
 --
 ALTER TABLE `training_session`
   ADD CONSTRAINT `FKTraining_S911243` FOREIGN KEY (`trainingLocationID`) REFERENCES `training_location` (`trainingLocationID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user`
+-- Contraintes pour la table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `FKUser375824` FOREIGN KEY (`userLocationID`) REFERENCES `user_location` (`userLocationID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user_evaluation_criteria`
+-- Contraintes pour la table `user_evaluation_criteria`
 --
 ALTER TABLE `user_evaluation_criteria`
-  ADD CONSTRAINT `FKUser_Evalu566755` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FKUser_Evalu208930` FOREIGN KEY (`sessionID`) REFERENCES `training_session` (`sessionID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKUser_Evalu286162` FOREIGN KEY (`evaluationCriteriaID`) REFERENCES `evaluation_criteria` (`evaluationCriteriaID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FKUser_Evalu348802` FOREIGN KEY (`criteriaPropositionID`) REFERENCES `criteria_proposition` (`criteriaPropositionID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FKUser_Evalu348802` FOREIGN KEY (`criteriaPropositionID`) REFERENCES `criteria_proposition` (`criteriaPropositionID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FKUser_Evalu566755` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_user_evaluation_criteria` FOREIGN KEY (`plannedtrainingid`) REFERENCES `planned_training` (`plannedTrainingID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user_question`
+-- Contraintes pour la table `user_question`
 --
 ALTER TABLE `user_question`
   ADD CONSTRAINT `FKUser_Quest937107` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1787,7 +1908,7 @@ ALTER TABLE `user_question`
   ADD CONSTRAINT `FKUser_Quest929325` FOREIGN KEY (`plannedTrainingID`) REFERENCES `planned_training` (`plannedTrainingID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user_quiz`
+-- Contraintes pour la table `user_quiz`
 --
 ALTER TABLE `user_quiz`
   ADD CONSTRAINT `FKUser_Quiz728969` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1795,15 +1916,15 @@ ALTER TABLE `user_quiz`
   ADD CONSTRAINT `FKUser_Quiz846109` FOREIGN KEY (`quizID`) REFERENCES `quiz` (`quizID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user_training_evaluation`
+-- Contraintes pour la table `user_training_evaluation`
 --
 ALTER TABLE `user_training_evaluation`
   ADD CONSTRAINT `FKUser_Train17992` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FKUser_Train30449` FOREIGN KEY (`evaluationFormID`) REFERENCES `evaluation_form` (`evaluationFormID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FKUser_Train311424` FOREIGN KEY (`sessionID`) REFERENCES `training_session` (`sessionID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_user_training_evaluation` FOREIGN KEY (`plannedtrainingid`) REFERENCES `planned_training` (`plannedTrainingID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user_training_session`
+-- Contraintes pour la table `user_training_session`
 --
 ALTER TABLE `user_training_session`
   ADD CONSTRAINT `FKUser_Train597318` FOREIGN KEY (`cuid`) REFERENCES `user` (`cuid`) ON DELETE CASCADE ON UPDATE CASCADE,

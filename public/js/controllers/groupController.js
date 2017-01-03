@@ -740,7 +740,7 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
         }
     };
 
-    $rootScope.loadTrainingItem = function (sessionID) {
+    $rootScope.loadTrainingItem = function (sessionID, plannedTrainingID) {
 
         $rootScope.SHOW_TRAINERS_NAV_BUT = false;
         $rootScope.SHOW_RESOURCES_NAV_BUT = false;
@@ -755,7 +755,8 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
         $('#details-page').dimmer('show');
 
         var params = {
-            session_id: sessionID
+            session_id: sessionID,
+            plannedTrainingID: plannedTrainingID
         };
 
         // Load training session info

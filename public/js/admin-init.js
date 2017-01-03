@@ -24,6 +24,14 @@ $('.session-configuration-block').slimScroll({
     height: '390px'
 });
 
+$('.evaluation-configuration-block').slimScroll({
+    height: '390px'
+});
+
+$('.evaluation-details-block').slimScroll({
+    height: '160px'
+});
+
 $('.site-block').slimScroll({
     height: '240px',
     alwaysVisible: true
@@ -47,7 +55,6 @@ var training = $('.training.long.modal').modal({
         training.css('border-radius', '3px');
     }
 });
-
 
 $('#pt-details-tab .menu .item').tab({});
 

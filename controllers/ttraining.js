@@ -827,9 +827,9 @@ exports.training_form = function (req, res) {
 exports.has_evaluated = function (req, res) {
 
     var cuid =  req.session.data.cuid;
-    var session_id = req.body.session_id;
+    var plannedTrainingID = req.body.plannedTrainingID;
 
-    trainingModel.has_evaluated(cuid, session_id, function (err, rows) {
+    trainingModel.has_evaluated(cuid, plannedTrainingID, function (err, rows) {
         if(err){
             // Error querying DB
             res.status(403).send({
@@ -852,12 +852,11 @@ exports.has_evaluated = function (req, res) {
 exports.user_training_evaluation = function (req, res) {
 
     var cuid =  req.session.data.cuid;
-    var session_id = req.body.session_id;
+    var plannedTrainingID = req.body.plannedTrainingID;
     var evaluationFormID = req.body.evaluationFormID;
-    var comment = req.body.comment;
     var user_response = req.body.user_response;
 
-    trainingModel.insert_user_training_criteria(cuid, session_id, user_response, function (err, rows) {
+    trainingModel.insert_user_training_criteria(cuid, plannedTrainingID, user_response, function (err, rows) {
         if(err){
             // Error querying DB
             res.status(403).send({
@@ -866,7 +865,7 @@ exports.user_training_evaluation = function (req, res) {
             });
         }else{
 
-            trainingModel.insert_user_training_comment(cuid, session_id, evaluationFormID, comment, function (err, rows) {
+            trainingModel.insert_user_training_comment(cuid, plannedTrainingID, evaluationFormID, function (err, rows) {
                 if(err){
                     // Error querying DB
                     // res.status(403).send({
@@ -1084,9 +1083,6 @@ exports.get_usersTrainingKPI = function(req, res){
 
 exports.get_trainingKPI = function(req, res){
 
-    // var date = req.body.date;
-    // var sessions = req.body.sessions;
-
     trainingModel.training_table(function(err, rows) {
         if(err){
             // Error querying DB
@@ -1120,6 +1116,117 @@ exports.get_training_report = function (req, res) {
         }
     });
 };
+
+exports.admin_training_evaluation = function (req, res) {
+
+    var pt_id = req.body.plannedTrainingID;
+
+    trainingModel.pt_evaluation(pt_id, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+
+            trainingModel.pt_evaluation_criteria_propositions(rows[0].evaluationFormID, evalCallback(rows, res));
+
+        }
+    });
+};
+
+function evalCallback(pt_Eval, res) {
+
+    return function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else {
+
+            var userInfo = [];
+            var criteriaInfo = [];
+
+            // Get users, propositions and criterias
+            var tmpUsers = new Set();
+            var tmpCriteria = new Set();
+
+            for(var i = 0; i < pt_Eval.length; i++){
+                tmpUsers.add(pt_Eval[i].cuid);
+            }
+
+            for(var i = 0; i < rows.length; i++){
+                tmpCriteria.add(rows[i].evaluationCriteriaID);
+            }
+
+            tmpCriteria.forEach(function (e) {
+                criteriaInfo.push({
+                    'criteriaID': e,
+                    'criteriaText': "",
+                    'proposition1Count': 0,
+                    'proposition2Count': 0,
+                    'proposition3Count': 0,
+                    'proposition4Count': 0,
+                    'proposition1Text': '',
+                    'proposition2Text': '',
+                    'proposition3Text': '',
+                    'proposition4Text': ''
+                });
+            });
+
+            tmpUsers.forEach(function (e) {
+                userInfo.push({
+                    'cuid': e,
+                    'firstName': e,
+                    'lastName': e,
+                    'comment1': "",
+                    'comment2': "",
+                    'comment3': "",
+                    'comment4': ""
+                });
+            });
+
+            for(var i = 0; i < pt_Eval.length; i++){
+
+                var prop = pt_Eval[i].criteriaPropositionID % 4;
+                if(prop == 0) {
+                    prop = 4;
+                }
+
+                for(var k = 0; k < userInfo.length; k++){
+                    if(userInfo[k].cuid == pt_Eval[i].cuid){
+                        userInfo[k].firstName = pt_Eval[i].firstName;
+                        userInfo[k].lastName = pt_Eval[i].lastName;
+                        userInfo[k]['comment' + prop] =  pt_Eval[i].criteriacomment;
+                    }
+                }
+
+                for(var j = 0; j < criteriaInfo.length; j++){
+                    if(pt_Eval[i].evaluationCriteriaID == criteriaInfo[j].criteriaID){
+                        criteriaInfo[j].criteriaText = pt_Eval[i].criteria;
+                        criteriaInfo[j]['proposition' + prop + 'Count']++;
+                    }
+                    criteriaInfo[j]['proposition' + prop + 'Text'] =  pt_Eval[i].criteria_proposition;
+                }
+            }
+
+            var response = {
+              userInfo: userInfo,
+              criteriaInfo: criteriaInfo
+            };
+
+            res.json({
+                success: true,
+                data: response
+            });
+
+        }
+    }
+
+}
 
 exports.notify = function (req, res) {
 
