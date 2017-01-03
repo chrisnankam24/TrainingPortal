@@ -61,17 +61,10 @@ exports.get_adminResourceList = function(req, res){
         }else{
 
             for(var i = 0; i < rows.length; i++){
-                if(rows[i].resourceType == 'Audio'){
-                    rows[i].colorCode = '#E0F2F1';
-                }else if(rows[i].resourceType == 'Video'){
-                    rows[i].colorCode = '#FFF3E0';
-                }else if(rows[i].resourceType == 'Document'){
-                    rows[i].colorCode = '#FDE3E0';
+                rows[i].can_modif = false;
+                if(rows[i].creator == req.session.data.cuid){
+                    rows[i].can_modif = true;
                 }
-                else{
-                    rows[i].colorCode = '#FFCCBC';
-                }
-                rows[i].colorCode = 'none';
 
                 rows[i].resourceVisibility = rows[i].resourceVisibility.readUIntBE(0, 1);
             }
@@ -159,6 +152,8 @@ exports.add_resource = function (req, res) {
     var link = req.body.resource_link;
     var visibility = req.body.resource_visibility;
     var type = req.body.resource_type;
+    var creator =  req.session.data.cuid;
+
 
     if(visibility == '0'){
         visibility = 0;
@@ -166,7 +161,7 @@ exports.add_resource = function (req, res) {
         visibility = 1;
     }
 
-    resourceModel.insert_resource(name, link, type, visibility, function (err, rows) {
+    resourceModel.insert_resource(name, link, type, visibility, creator, function (err, rows) {
         if(err){
             // Error querying DB
             res.status(403).send({

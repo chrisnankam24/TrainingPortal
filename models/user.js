@@ -68,18 +68,18 @@ exports.delete_UserPost = function (post_id, user_id, callback) {
 //------------- 'User' Table processes ---------------//
 
 exports.user_queryBuilder = function (start_ts, offset, search, callback) {
-    var total_query = "SELECT COUNT(*) FROM dv_portal_db.user";
+    var total_query = "SELECT COUNT(*) FROM dv_portal_db.user WHERE state = 1";
 
     if(search != undefined){
-        total_query += " WHERE cuid LIKE '%" + search + "%' OR";
+        total_query += " AND cuid LIKE '%" + search + "%' OR";
         total_query += " firstName LIKE '%" + search + "%' OR";
         total_query += " lastName LIKE '%" + search + "%'";
     }
 
-    var query = "SELECT u.*, (" + total_query + ") AS total FROM user u";
+    var query = "SELECT u.*, (" + total_query + ") AS total FROM user u WHERE state = 1";
 
     if(search != undefined){
-        query += " WHERE u.cuid LIKE '%" + search + "%' OR";
+        query += " AND u.cuid LIKE '%" + search + "%' OR";
         query += " u.firstName LIKE '%" + search + "%' OR";
         query += " u.lastName LIKE '%" + search + "%'";
     }
@@ -103,18 +103,42 @@ exports.get_user = function (user_id, callback) { // UserID to read from DB
 // CREATE a user
 exports.add_user = function (user, callback) {
     if(user.bossID == ''){
-        var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, employmentDate, number," +
-            " matricule, userStatus, userLocationID, contractType) " +
-            "VALUES (?, ?, ?, ?, ?, str_to_date('" + user.employmentDate  + "','%Y-%m-%d'), ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
-            user.gender, user.number, user.matricule, user.userStatus, user.userLocationID, user.contractType], callback);
+        if(user.employmentDate == ''){
+
+            var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, number," +
+                " matricule, userStatus, userLocationID, contractType) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
+                user.gender, user.number, user.matricule, user.userStatus, user.userLocationID, user.contractType], callback);
+
+        }else{
+
+            var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, employmentDate, number," +
+                " matricule, userStatus, userLocationID, contractType) " +
+                "VALUES (?, ?, ?, ?, ?, str_to_date('" + user.employmentDate  + "','%Y-%m-%d'), ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
+                user.gender, user.number, user.matricule, user.userStatus, user.userLocationID, user.contractType], callback);
+
+
+        }
+
 
     }else{
-        var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, employmentDate, number," +
-            " matricule, bossID, userStatus, userLocationID, contractType) " +
-            "VALUES (?, ?, ?, ?, ?, str_to_date('" + user.employmentDate  + "','%Y-%m-%d'), ?, ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
-            user.gender, user.number, user.matricule, user.bossID, user.userStatus, user.userLocationID, user.contractType], callback);
 
-        console.log(res.sql);
+        if(user.employmentDate == ''){
+
+            var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, number," +
+                " matricule, bossID, userStatus, userLocationID, contractType) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
+                user.gender, user.number, user.matricule, user.bossID, user.userStatus, user.userLocationID, user.contractType], callback);
+
+        }else{
+
+            var res = db_conn.query("INSERT INTO user(cuid, firstName, lastName, email, gender, employmentDate, number," +
+                " matricule, bossID, userStatus, userLocationID, contractType) " +
+                "VALUES (?, ?, ?, ?, ?, str_to_date('" + user.employmentDate  + "','%Y-%m-%d'), ?, ?, ?, ?, ?, ?);", [user.cuid, user.firstName, user.lastName, user.email,
+                user.gender, user.number, user.matricule, user.bossID, user.userStatus, user.userLocationID, user.contractType], callback);
+
+        }
+
     }
 };
 
@@ -129,7 +153,8 @@ exports.update_user = function (user_id, user, callback) {
 
 // DELETE a user
 exports.delete_user = function (user_id, callback) {
-    db_conn.query("DELETE FROM user WHERE cuid = ?", [user_id], callback);
+    //db_conn.query("DELETE FROM user WHERE cuid = ?", [user_id], callback);
+    db_conn.query("UPDATE user SET state = 0 WHERE cuid = ?", [user_id], callback);
 };
 
 exports.set_user_image = function (user_id, image, callback) {

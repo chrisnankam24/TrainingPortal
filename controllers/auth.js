@@ -32,7 +32,9 @@ exports.authenticate = function(req, res){
         }else{
             var user_info = rows[0];
 
-            if(!user_info){
+            console.log(user_info.state);
+
+            if(!user_info || (user_info.state == 0)){
                 // User object empty/undefined/null
                 res.status(401).send({
                     success: false,

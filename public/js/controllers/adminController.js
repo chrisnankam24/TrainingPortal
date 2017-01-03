@@ -3151,6 +3151,70 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
     };
 
+    $scope.startModifyPt = function (pt) {
+
+        $rootScope.current_pt = pt;
+
+        $rootScope.loadPtDetails();
+
+        $('.pt_modification.long.modal').modal('show');
+
+    };
+
+    $rootScope.loadPtDetails = function () {
+
+        var pt = $rootScope.current_pt;
+
+        var params = {
+            plannedTrainingID:  pt.plannedTrainingID
+        };
+
+        $('#pt_resources').dropdown('clear');
+
+        $('#pt-modif-content-block').dimmer('show');
+
+        // Load PT evaluation
+        $http.post('/api/v1/training/ptDetails', params)
+            .success(function (data, status, headers, config) {
+
+                $rootScope.current_pt = data.data;
+
+                $http.get('/api/v1/resource?id=all')
+                    .success(function (data, status, headers, config) {
+
+                        $rootScope.remaining_pt_resources = [];
+
+                        $rootScope.CONFIG.resources = data.data;
+
+                        // load all resources in total resources not in current pt resources
+                        for(var i = 0; i < $rootScope.CONFIG.resources.length; i++){
+                            var add = true;
+                            for(var j = 0; j < $rootScope.current_pt.resources.length; j++){
+                                if($rootScope.CONFIG.resources[i].resourceID == $rootScope.current_pt.resources[j].resourceID){
+                                    add = false;
+                                    break;
+                                }
+                            }
+                            if(add){
+                                $rootScope.remaining_pt_resources.push($rootScope.CONFIG.resources[i]);
+                            }
+                        }
+
+                        $('#pt-modif-content-block').dimmer('hide');
+
+                    }).error(function (data, status, headers, config) {
+
+                    $('#pt-modif-content-block').dimmer('hide');
+
+                });
+
+
+            }).error(function (data, status, headers, config) {
+
+        });// Load services
+
+    };
+
     $scope.deletePt = function (pt) {
 
         var r = confirm('Delete ' + pt.training_name + ' ?');

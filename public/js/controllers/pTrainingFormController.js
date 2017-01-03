@@ -92,6 +92,8 @@ $('#pt_trans_mode').dropdown({
     }
 });
 
+$('#pt_resources').dropdown({forceSelection: false});
+
 delete_participant = function (elmt) {
     var part = elmt.parentElement.parentElement.id.split(':');
     var cuid = part[0];
@@ -725,4 +727,48 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
         });
 
     };
+
+    $scope.delete_pt_resource = function (resource) {
+
+        var r = confirm('Delete ' + resource.resource_name + ' ?');
+
+        if(r == true){
+
+            $http.delete('/api/v1/training/ptResource?plannedTrainingID=' + $rootScope.current_pt.plannedTrainingID + '&resourceID=' + resource.resourceID)
+                .success(function (data, status, headers, config) {
+
+                    alert('Successfully deleted');
+
+                    $rootScope.loadPtDetails();
+
+                }).error(function (data, status, headers, config) {
+
+                alert('Deletion Failed')
+
+            });
+        }
+
+    }
+
+    $scope.add_pt_resources = function () {
+
+        var params = {
+            plannedTrainingID : $rootScope.current_pt.plannedTrainingID,
+            resourcesID: $('#pt_resources').dropdown('get value')
+        };
+
+        $http.post('/api/v1/training/ptResource', params)
+            .success(function (data, status, headers, config) {
+
+                alert('Successfully added');
+
+                $rootScope.loadPtDetails();
+
+            }).error(function (data, status, headers, config) {
+
+            alert('Addition Failed')
+
+        });
+
+    }
 });

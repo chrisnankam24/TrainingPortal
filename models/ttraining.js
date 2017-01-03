@@ -310,23 +310,21 @@ exports.insert_user_training_criteria = function (user_id, plannedTrainingID, us
 };
 
 // Insert Planned Training
-exports.insert_planned_training = function (training_type, trans_mode, start_date, end_date, session_duration, conference_num, training_id, training_code, evaluation_id, training_audience, callback) {
+exports.insert_planned_training = function (training_type, trans_mode, start_date, end_date, session_duration, conference_num, training_id, training_code, evaluation_id, training_audience, creator, callback) {
 
     var query = "";
     if(evaluation_id != -1) {
         query = "INSERT INTO planned_training(trainingType, transmissionMode, startDate, endDate, sessionDuration, " +
-            "conferenceNumber, trainingID, trainingCode, evaluationFormID, trainingAudience) " +
+            "conferenceNumber, trainingID, trainingCode, evaluationFormID, trainingAudience, creator) " +
             "VALUES ('" + training_type + "', '" + trans_mode + "', '" + start_date + "', '" + end_date + "', " + session_duration + ", '" +
-            "" + conference_num + "', " + training_id + ", '" + training_code + "', " + evaluation_id + ",  '" + training_audience + "')";
+            "" + conference_num + "', " + training_id + ", '" + training_code + "', " + evaluation_id + ", '" + training_audience + "', '" + creator + "')";
     }else{
         query = "INSERT INTO planned_training(trainingType, transmissionMode, startDate, endDate, sessionDuration, " +
             "conferenceNumber, trainingID, trainingCode, evaluationFormID, trainingAudience) " +
             "VALUES ('" + training_type + "', '" + trans_mode + "', '" + start_date + "', '" + end_date + "', " + session_duration + ", '" +
-            "" + conference_num + "', " + training_id + ", '" + training_code + "', NULL, '" + training_audience + "')";
+            "" + conference_num + "', " + training_id + ", '" + training_code + "', NULL, '" + training_audience + "', '" + creator + "')";
 
     }
-
-    console.log(query);
 
     db_conn.query(query, callback);
 
@@ -526,4 +524,20 @@ exports.pt_evaluation_criteria_propositions = function (eval_form_id, callback) 
     console.log(query);
 
     db_conn.query(query, callback);
+};
+
+exports.ptDetails = function (plannedTrainingID, callback) {
+
+    var query = "SELECT pt.*, r.*, t.training_name, ef.`formName` FROM dv_portal_db.planned_training pt INNER JOIN " +
+        "dv_portal_db.resource_training rt ON ( pt.`plannedTrainingID` = rt.plannedtrainingid  ) INNER JOIN dv_portal_db.resource r " +
+        "ON ( rt.`resourceID` = r.`resourceID`  ) INNER JOIN dv_portal_db.training t ON ( pt.`trainingID` = t.`trainingID`  ) " +
+        "INNER JOIN dv_portal_db.evaluation_form ef ON ( pt.`evaluationFormID` = ef.`evaluationFormID`)   " +
+        "WHERE pt.plannedTrainingID = " + plannedTrainingID;
+
+    db_conn.query(query, callback);
+};
+
+exports.delete_pt_resource = function (plannedTrainingID, resourceID, callback) {
+    var query = "DELETE FROM resource_training WHERE resourceID = ? AND plannedtrainingid = ?";
+    var res = db_conn.query(query, [resourceID, plannedTrainingID], callback);
 };

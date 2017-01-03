@@ -32,6 +32,10 @@ $('.evaluation-details-block').slimScroll({
     height: '160px'
 });
 
+$('.pt_resources-details-block').slimScroll({
+    height: '55px'
+});
+
 $('.site-block').slimScroll({
     height: '240px',
     alwaysVisible: true

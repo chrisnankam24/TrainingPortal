@@ -47,8 +47,7 @@ exports.resources_queryBuilder = function (group, start_ts, offset, search, call
 
     total_query = buildResourceQuery(total_query, group, start_ts, search);
 
-    var query = "SELECT rv.`resourceID`, rv.link, rv.`addition_date`, rv.resource_name, rv.num_downloads," +
-        " rv.`resourceVisibility`, rv.`resourceType`, (" + total_query + ") AS total FROM dv_portal_db.resources_view rv";
+    var query = "SELECT rv.*, (" + total_query + ") AS total FROM dv_portal_db.resources_view rv";
 
     query = buildResourceQuery(query, group, start_ts, search);
 
@@ -89,8 +88,7 @@ exports.admin_resources_queryBuilder = function (group, start_ts, offset, search
 
     total_query = buildAdminResourceQuery(total_query, group, start_ts, search);
 
-    var query = "SELECT rv.`resourceID`, rv.link, rv.`addition_date`, rv.resource_name, rv.num_downloads," +
-        " rv.`resourceVisibility`, rv.`resourceType`, (" + total_query + ") AS total FROM dv_portal_db.resources_view rv";
+    var query = "SELECT rv.*, (" + total_query + ") AS total FROM dv_portal_db.resources_view rv";
 
     query = buildAdminResourceQuery(query, group, start_ts, search);
 
@@ -107,12 +105,12 @@ exports.update_resource = function (resource_id, name, link, type, visibility, c
 
 };
 
-exports.insert_resource = function (name, link, type, visibility, callback) {
+exports.insert_resource = function (name, link, type, visibility, creator,  callback) {
 
-    var query = "INSERT INTO resource(resource_name, link, resourceType, resourceVisibility, addition_date) VALUES " +
-        "(?, ?, ?, ?, NOW())";
+    var query = "INSERT INTO resource(resource_name, link, resourceType, resourceVisibility, addition_date, creator) VALUES " +
+        "(?, ?, ?, ?, NOW(), ?)";
 
-    db_conn.query(query,[name, link, type, visibility], callback);
+    db_conn.query(query,[name, link, type, visibility, creator], callback);
 
 };
 

@@ -258,7 +258,6 @@
                                                     </div>
                                                 </div>
 
-
                                                 <div class="ui primary mini right floated submit button" style="margin-bottom: 40px;" ng-click="generate_participants()">Generate</div>
                                             </form>
                                         </div>
@@ -656,7 +655,7 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="" id="question_id" value="{{question_id}}">
-                                    <div class="ui primary mini right floated submit button" style="margin-bottom: 40px; margin-top: 10px;" ng-click="addModifyQuestion()">{{isModif? 'Modify' : 'Add'}} Question</div>
+                                    <div class="ui primary mini right floated submit button" style="margin-bottom: 40px; margin-top: 10px;" ng-class="{disabled: !current_quiz.can_modif || current_quiz.can_modif == null}" ng-click="addModifyQuestion()">{{isModif? 'Modify' : 'Add'}} Question</div>
                                 </form>
                             </div>
                         </div>
@@ -691,7 +690,7 @@
                                                     <button class="ui button" ng-click="startModifyQuestion(question)"><i
                                                                 class="write link icon"></i>
                                                     </button>
-                                                    <button class="ui grey button" ng-click="deleteQuestion(question)"><i
+                                                    <button class="ui grey button" ng-class="{disabled: !current_quiz.can_modif || current_quiz.can_modif == null}"  ng-click="deleteQuestion(question)"><i
                                                                 class="remove link icon"></i>
                                                     </button>
                                                 </div>
@@ -1166,14 +1165,130 @@
                                                 <td ng-bind="participant.firstName"></td>
                                                 <td ng-bind="participant.lastName"></td>
                                                 <td>
-                                                    <span class="ui mini circular label" ng-bind="participant.comment1"></span>
-                                                    <span class="ui mini circular label" ng-bind="participant.comment2"></span>
-                                                    <span class="ui mini circular label" ng-bind="participant.comment3"></span>
-                                                    <span class="ui mini circular label" ng-bind="participant.comment4"></span>
+                                                    <span class="ui small circular label" style="margin-top: 3px;" ng-bind="participant.comment1"></span>
+                                                    <span class="ui small circular label" style="margin-top: 3px;" ng-bind="participant.comment2"></span>
+                                                    <span class="ui small circular label" style="margin-top: 3px;" ng-bind="participant.comment3"></span>
+                                                    <span class="ui small circular label" style="margin-top: 3px;" ng-bind="participant.comment4"></span>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button">Cancel</div>
+        <div class="ui mini approve primary button">Done</div>
+    </div>
+</div>
+
+<div class="ui pt_modification long fullscreen modal scrolling" ng-controller="pTrainingFormController" id="pt-modification">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
+        <span>Training Modification</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui" id="pt-modif-content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <div id="eval_page" style="height: 50%!important;">
+                    <div class="section fp-auto-height" style="height: 100%;">
+                        <div class="slide round_radius">
+                            <div>
+                                <div class="ui grid" style="height: 100%; margin: 0px;">
+                                    <div class="column" style="width: 40%; padding: 0px 14px;">
+                                        <div>
+                                            <h4 class="ui dividing header"
+                                                style="font-size: small; text-align: left;">
+                                                Details</h4>
+
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <div style="margin-top: 5px;">
+                                                    <span class="ui small" style="font-weight: bold; font-size: 12px;">Training Name:</span>
+                                                    <span class="ui fluid label small" style="margin-top: 2px;" ng-bind="current_pt.training_name"></span>
+                                                </div>
+                                                <div style="margin-top: 5px;">
+                                                    <span class="ui small" style="font-weight: bold; font-size: 12px;">Transmission Mode:</span>
+                                                    <span class="ui fluid label small" style="margin-top: 2px;">
+                                                    {{current_pt.transmissionMode}}
+                                                    <span style="float: right">{{current_pt.conferenceNumber}}</span>
+                                                </span>
+                                                </div>
+                                                <div style="margin-top: 5px;">
+                                                    <span class="ui small" style="font-weight: bold; font-size: 12px;">Training Type:</span>
+                                                    <span class="ui fluid label small" style="margin-top: 2px;" ng-bind="current_pt.trainingType"></span>
+                                                </div>
+                                                <div style="margin-top: 5px;">
+                                                    <span class="ui small" style="font-weight: bold;  font-size: 12px;">Start Date:</span>
+                                                    <span class="ui fluid label small" style="margin-top: 2px;" ng-bind="current_pt.startDate | date : 'EEE dd, MMM, yyyy'"></span>
+                                                </div>
+                                                <div style="margin-top: 5px;">
+                                                    <span class="ui small" style="font-weight: bold; font-size: 12px;">End Date:</span>
+                                                    <span class="ui fluid label small" style="margin-top: 2px;" ng-bind="current_pt.endDate | date : 'EEE dd, MMM, yyyy'"></span>
+                                                </div>
+                                                <div style="margin-top: 5px;">
+                                                    <span class="ui small" style="font-weight: bold; font-size: 12px;">Session Duration:</span>
+                                                    <span class="ui fluid label small" style="margin-top: 2px;" ng-bind="current_pt.sessionDuration"></span>
+                                                </div>
+                                                <div style="margin-top: 5px;">
+                                                    <span class="ui small" style="font-weight: bold; font-size: 12px;">Evaluation Form:</span>
+                                                    <span class="ui fluid label small" style="margin-top: 2px;" ng-bind="current_pt.formName">
+                                                </span>
+                                                </div>
+                                                <div style="margin-top: 5px;">
+                                                    <span class="ui small" style="font-weight: bold; font-size: 12px;">Training Code:</span>
+                                                    <span class="ui fluid label small" style="margin-top: 2px;" ng-bind="current_pt.trainingCode"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column" style="width: 60%; padding: 0px 14px;">
+                                        <h4 class="ui dividing header"
+                                            style="font-size: small; text-align: left;">Resources</h4>
+                                        <div class="pt_resources-details-block">
+                                            <a class="ui small circular label" style="margin-bottom: 5px;" ng-repeat="resource in current_pt.resources">
+                                                {{resource.resource_name}}
+                                                <i class="delete right floated icon" ng-click="delete_pt_resource(resource)"></i>
+                                            </a>
+                                        </div>
+                                        <div class="ui dividing header"></div>
+                                        <form class="ui form mini"
+                                              style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
+                                            <input type="text" style="position: fixed; left: -10000000000000000000000000px;" disabled>
+                                            <div class="fields">
+                                                <div class="fifteen wide field">
+                                                    <div class="ui fluid multiple search selection dropdown"
+                                                         id="pt_resources">
+                                                        <input type="hidden" name="">
+                                                        <i class="dropdown icon"></i>
+                                                        <div class="default text">Resources</div>
+                                                        <div class="menu">
+                                                            <div class="item" ng-repeat="resource in remaining_pt_resources"
+                                                                 data-value="{{resource.resourceID}}">
+                                                                {{resource.resource_name}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="field">
+                                                    <div class="ui primary mini right floated submit button" style="margin-bottom: 40px;" ng-click="add_pt_resources()">Add</div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -116,6 +116,7 @@ exports.set_pt_training = function (req, res) {
     var trans_mode = req.body.trans_mode;
     var training_audience = req.body.training_audience;
     var session_duration = req.body.session_duration;
+    var creator =  req.session.data.cuid;
     var is_site = req.body.is_site;
     var evaluationFormID = req.body.evaluationFormID;
     var training_sites = req.body.training_sites; // site_id, site_sessions
@@ -142,7 +143,7 @@ exports.set_pt_training = function (req, res) {
     }
 
     trainingModel.insert_planned_training(training_type, trans_mode, start_date, end_date, session_duration,
-        conference_num, trainingID, training_code, evaluationFormID, training_audience, function (err, rows) {
+        conference_num, trainingID, training_code, evaluationFormID, training_audience, creator, function (err, rows) {
 
             if(err){
                 // Error querying DB
@@ -985,6 +986,14 @@ exports.get_ptList = function(req, res){
                 message: err
             });
         }else{
+
+            for(var i = 0; i < rows.length; i++){
+                rows[i].can_modif = false;
+                if(rows[i].creator == req.session.data.cuid){
+                    rows[i].can_modif = true;
+                }
+            }
+
             res.json({
                 success: true,
                 data: rows
@@ -1129,8 +1138,13 @@ exports.admin_training_evaluation = function (req, res) {
                 message: err
             });
         }else{
+            var evaluationFormID = 1;
+            try{
+                evaluationFormID = rows[0].evaluationFormID;
+            }catch(e){
 
-            trainingModel.pt_evaluation_criteria_propositions(rows[0].evaluationFormID, evalCallback(rows, res));
+            }
+            trainingModel.pt_evaluation_criteria_propositions(evaluationFormID, evalCallback(rows, res));
 
         }
     });
@@ -1271,3 +1285,83 @@ exports.notify = function (req, res) {
         }
     });
 };
+
+exports.ptDetails = function (req, res) {
+
+    var plannedTrainingID =  req.body.plannedTrainingID;
+
+    trainingModel.ptDetails(plannedTrainingID, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+
+            var result = rows[0];
+
+            result.resources = [];
+
+            for(var i = 0; i < rows.length; i++){
+                result.resources.push({
+                    resource_name: rows[i].resource_name,
+                    resourceID: rows[i].resourceID,
+                    link: rows[i].link,
+                    resource_type: rows[i].resource_type
+                });
+            }
+
+            res.json({
+                success: true,
+                data: result
+            });
+        }
+    });
+
+};
+
+exports.ptResource = function (req, res) {
+
+    var plannedTrainingID = req.query.plannedTrainingID;
+    var resourceID = req.query.resourceID;
+
+    trainingModel.delete_pt_resource(plannedTrainingID, resourceID, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+            res.json({
+                success: true,
+                data: rows
+            });
+        }
+    });
+};
+
+exports.add_pt_resources = function (req, res) {
+
+    var plannedTrainingID =  req.body.plannedTrainingID;
+    var resourcesID = req.body.resourcesID.split(',');
+
+    trainingModel.insert_training_resources(plannedTrainingID, resourcesID, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+
+            res.json({
+                success: true,
+                data: rows
+            });
+        }
+    });
+
+};
+

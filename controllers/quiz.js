@@ -59,6 +59,14 @@ exports.get_adminQuizList = function(req, res){
                 message: err
             });
         }else{
+
+            for(var i = 0; i < rows.length; i++){
+                rows[i].can_modif = false;
+                if(rows[i].uCreator == req.session.data.cuid){
+                    rows[i].can_modif = true;
+                }
+            }
+
             res.json({
                 success: true,
                 data: rows

@@ -93,7 +93,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="field required" ng-show="is_add">
+                                                                <div class="field" ng-show="is_add">
                                                                     <label style="font-size: 12px; text-align: left;">Initial
                                                                         Training</label>
                                                                     <div class="ui fluid multiple search selection dropdown"
@@ -642,7 +642,7 @@
 
                                                                 </div>
                                                                 <div class="fields">
-                                                                    <div class="eight wide field required">
+                                                                    <div class="eight wide field">
                                                                         <label style="font-size: 12px; float: left;">Employment
                                                                             Date</label>
                                                                         <div class="ui input">
@@ -749,7 +749,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
-                                                        <table id="user-table" class="ui celled table" cellspacing="0" width="100%">
+                                                        <table id="user-table" class="ui celled single line table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr>
                                                                 <th>CUID</th>
@@ -1029,7 +1029,7 @@
                                                                 <td>
                                                                     <div>
                                                                         <button class="ui mini grey circular icon button" ng-click="startReassignUserPost(userPost)">
-                                                                            <i class="remove link icon"></i>
+                                                                            <i class="write link icon"></i>
                                                                         </button>
                                                                     </div>
                                                                     {{$last ? initTable() : ""}}
@@ -1465,19 +1465,19 @@
                                                     </div>
 
                                                     <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
-                                                        <table id="planned-training-table" class="ui celled table" cellspacing="0" width="100%">
+                                                        <table id="planned-training-table" class="ui celled single line table" cellspacing="0" width="100%">
 
                                                             <thead>
                                                             <tr class="center aligned">
-                                                                <th class="sort-header">ID</th>
-                                                                <th class="sort-header">Name</th>
-                                                                <th class="sort-header">Start</th>
-                                                                <th class="sort-header">End</th>
-                                                                <th class="sort-header">Mode</th>
-                                                                <th class="sort-header">Type</th>
-                                                                <th class="sort-header">Code</th>
-                                                                <th class="sort-header">Session Duration</th>
-                                                                <th class="sort-header">Sessions</th>
+                                                                <th>ID</th>
+                                                                <th>Name</th>
+                                                                <th>Start</th>
+                                                                <th>End</th>
+                                                                <th>Mode</th>
+                                                                <th>Type</th>
+                                                                <th>Code</th>
+                                                                <th>Session Duration</th>
+                                                                <th>Sessions</th>
                                                                 <th></th>
                                                                 <th></th>
                                                             </tr>
@@ -1505,7 +1505,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    <div class="ui vertical animated mini primary button" tabindex="0"  ng-click="notifyTraining(pt.plannedTrainingID)">
+                                                                    <div class="ui vertical animated mini primary button" tabindex="0"  ng-class="{disabled: !pt.can_modif || pt.can_modif == null}" ng-click="notifyTraining(pt.plannedTrainingID)">
                                                                         <div class="hidden content">By  Mail</div>
                                                                         <div class="visible content">
                                                                             Notify
@@ -1514,10 +1514,10 @@
                                                                 </td>
                                                                 <td>
                                                                     <div style="min-width: 66px;">
-                                                                        <button class="ui mini circular icon button" disabled  ng-click="startModifyPt(pt)">
+                                                                        <button class="ui mini circular icon button"  ng-class="{disabled: !pt.can_modif || pt.can_modif == null}"  ng-click="startModifyPt(pt)">
                                                                             <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui mini grey circular icon button" ng-click="deletePt(pt)">
+                                                                        <button class="ui mini grey circular icon button"  ng-class="{disabled: !pt.can_modif || pt.can_modif == null}" ng-click="deletePt(pt)">
                                                                             <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
@@ -1589,11 +1589,11 @@
 
                                                             <thead>
                                                             <tr class="center aligned">
-                                                                <th class="sort-header">ID</th>
-                                                                <th class="sort-header">Name</th>
-                                                                <th class="sort-header">Creator</th>
-                                                                <th class="sort-header">Creation Date</th>
-                                                                <th class="sort-header">Sub Category</th>
+                                                                <th>ID</th>
+                                                                <th>Name</th>
+                                                                <th>Creator</th>
+                                                                <th>Creation Date</th>
+                                                                <th>Sub Category</th>
                                                                 <th></th>
                                                                 <th></th>
                                                                 <th></th>
@@ -1617,10 +1617,10 @@
                                                                 </td>
                                                                 <td>
                                                                     <div style="min-width: 66px;">
-                                                                        <button class="ui mini circular icon button" ng-click="startModifyQuiz(quiz)">
+                                                                        <button class="ui mini circular icon button" ng-class="{disabled: !quiz.can_modif || quiz.can_modif == null}" ng-click="startModifyQuiz(quiz)">
                                                                             <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui mini grey circular icon button" ng-click="deleteQuiz(quiz)">
+                                                                        <button class="ui mini grey circular icon button"  ng-class="{disabled: !quiz.can_modif ||  quiz.can_modif == null}" ng-click="deleteQuiz(quiz)">
                                                                             <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
@@ -1778,13 +1778,13 @@
 
                                                             <thead>
                                                             <tr class="center aligned">
-                                                                <th class="sort-header">ID</th>
-                                                                <th class="sort-header">Resource</th>
-                                                                <th class="sort-header">Type</th>
-                                                                <th class="sort-header">Link</th>
-                                                                <th class="sort-header">Visibility</th>
-                                                                <th class="sort-header">No Downloads</th>
-                                                                <th class="sort-header">Addition Date</th>
+                                                                <th>ID</th>
+                                                                <th>Resource</th>
+                                                                <th>Type</th>
+                                                                <th>Link</th>
+                                                                <th>Visibility</th>
+                                                                <th>No Downloads</th>
+                                                                <th>Addition Date</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
@@ -1800,10 +1800,10 @@
                                                                 <td ng-bind="resource.addition_date | date : 'EEE dd, MMM, yyyy'"></td>
                                                                 <td>
                                                                     <div style="min-width: 66px;">
-                                                                        <button class="ui mini circular icon button" ng-click="startModifyResource(resource)">
+                                                                        <button class="ui mini circular icon button" ng-class="{disabled: !resource.can_modif || resource.can_modif == null}" ng-click="startModifyResource(resource)">
                                                                             <i class="write link icon"></i>
                                                                         </button>
-                                                                        <button class="ui mini grey circular icon button" ng-click="deleteResource(resource)">
+                                                                        <button class="ui mini grey circular icon button" ng-class="{disabled: !resource.can_modif || resource.can_modif == null}"ng-click="deleteResource(resource)">
                                                                             <i class="remove link icon"></i>
                                                                         </button>
                                                                     </div>
