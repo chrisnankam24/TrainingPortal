@@ -18,6 +18,7 @@ $('#post_level').dropdown();
 $('#post_service').dropdown();
 $('#post_initial_training').dropdown({forceSelection: false});
 $('#training_resources').dropdown({forceSelection: false});
+$('#post_init_training').dropdown({forceSelection: false});
 $('#service_department').dropdown();
 $('#department_direction').dropdown();
 $('#training_location_town').dropdown();
@@ -1429,6 +1430,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
         $('#posts-list').dimmer('show', {closable: false});
 
+        $rootScope.current_post = post;
+
         // Load services
         $http.get('/api/v1/post/service?id=all')
             .success(function (data, status, headers, config) {
@@ -1438,15 +1441,105 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
             }).error(function (data, status, headers, config) {
 
         });
-        // Load trainings
-        $http.get('/api/v1/training?id=all')
+
+        $scope.loadPostDetails();
+
+    };
+
+    $scope.loadPostDetails = function () {
+
+        var post = $rootScope.current_post;
+
+        var params = {
+            postID:  post.postID
+        };
+
+        $scope.post_form_loading = true;
+
+        $('#post_init_training').dropdown('clear');
+
+        // Load PT evaluation
+        $http.post('/api/v1/post/postDetails', params)
             .success(function (data, status, headers, config) {
 
-                $rootScope.CONFIG.training = data.data;
+                $rootScope.current_post = data.data;
+
+                $http.get('/api/v1/training?id=all')
+                    .success(function (data, status, headers, config) {
+
+                        $rootScope.remaining_post_training = [];
+
+                        $rootScope.CONFIG.training = data.data;
+
+                        // load all resources in total training not in current post training
+                        for(var i = 0; i < $rootScope.CONFIG.training.length; i++){
+                            var add = true;
+                            for(var j = 0; j < $rootScope.current_post.training.length; j++){
+                                if($rootScope.CONFIG.training[i].trainingID == $rootScope.current_post.training[j].trainingID){
+                                    add = false;
+                                    break;
+                                }
+                            }
+                            if(add){
+                                $rootScope.remaining_post_training.push($rootScope.CONFIG.training[i]);
+                            }
+                        }
+
+                        $scope.post_form_loading = false;
+
+                    }).error(function (data, status, headers, config) {
+
+                    $scope.post_form_loading = false;
+
+                });
+
 
             }).error(function (data, status, headers, config) {
 
         });
+    };
+
+    $scope.add_init_training = function () {
+
+        var params = {
+            postID : $rootScope.current_post.postID,
+            trainingIDs: $('#post_init_training').dropdown('get value')
+        };
+
+        $http.post('/api/v1/post/postTraining', params)
+            .success(function (data, status, headers, config) {
+
+                alert('Successfully added');
+
+                $scope.loadPostDetails();
+
+            }).error(function (data, status, headers, config) {
+
+            alert('Addition Failed')
+
+        });
+
+    };
+
+    $scope.delete_init_training = function (training) {
+
+        var r = confirm('Delete ' + training.training_name + ' ?');
+
+        if(r == true){
+
+            $http.delete('/api/v1/post/postTraining?postID=' + $rootScope.current_post.postID + '&trainingID=' + training.trainingID)
+                .success(function (data, status, headers, config) {
+
+                    alert('Successfully deleted');
+
+                    $scope.loadPostDetails();
+
+                }).error(function (data, status, headers, config) {
+
+                alert('Deletion Failed')
+
+            });
+        }
 
     };
 

@@ -120,6 +120,7 @@
                                     <table class="ui very basic left small selectable aligned table sort" style="font-size: 11px;">
                                         <thead>
                                         <tr class="center aligned">
+                                            <th></th>
                                             <th class="sort-header">Training Date</th>
                                             <th class="sort-header">Training Name</th>
                                             <th class="sort-header">Status</th>
@@ -127,6 +128,9 @@
                                         </thead>
                                         <tbody>
                                         <tr class="center aligned" ng-repeat="training in subs_training_list">
+                                            <td>
+                                                <a class="ui mini orange empty circular label" ng-show="training.default_training > 0"></a>
+                                            </td>
                                             <td>{{training.startTS | date: "MMM, dd, yyyy"}}</td>
                                             <td>{{training.training_name}}</td>
                                             <td>{{training.status}}</td>

@@ -129,6 +129,86 @@ exports.add_post = function (req, res) {
 
 };
 
+exports.postDetails = function (req, res) {
+
+    var postID = req.body.postID;
+
+    postModel.postDetails(postID, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+
+            var result = rows[0];
+
+            result.training = [];
+
+            if(result.trainingID){
+                for(var i = 0; i < rows.length; i++){
+                    result.training.push({
+                        trainingID: rows[i].trainingID,
+                        training_name: rows[i].training_name
+                    });
+                }
+            }
+
+            res.json({
+                success: true,
+                data: result
+            });
+
+        }
+    });
+
+};
+
+exports.postTraining = function (req, res) {
+
+    var postID = req.query.postID;
+    var trainingID = req.query.trainingID;
+
+    postModel.delete_post_training(postID, trainingID, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+            res.json({
+                success: true,
+                data: rows
+            });
+        }
+    });
+};
+
+exports.add_post_trainings = function (req, res) {
+
+    var postID =  req.body.postID;
+    var trainingIDs = req.body.trainingIDs.split(',');
+
+    postModel.insert_post_trainings(postID, trainingIDs, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+
+            res.json({
+                success: true,
+                data: rows
+            });
+        }
+    });
+
+};
+
 exports.delete_post = function (req, res) {
 
     var id = req.query.post_id;

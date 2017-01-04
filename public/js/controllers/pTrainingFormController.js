@@ -748,7 +748,7 @@ app.controller("pTrainingFormController", function ($scope, $http, $rootScope) {
             });
         }
 
-    }
+    };
 
     $scope.add_pt_resources = function () {
 

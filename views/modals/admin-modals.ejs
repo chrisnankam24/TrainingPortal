@@ -922,7 +922,7 @@
                                 <div class="slide round_radius">
                                     <div id="kpi_1" style=" margin-top: 15px;">
                                         <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
-                                            <table class="ui celled table display nowrap"
+                                            <table class="ui celled single line table display nowrap"
                                                    id="kpi1-table" width="100%"  style="font-size: 11px;">
                                                 <thead>
                                                 <tr class="center aligned">
@@ -955,7 +955,7 @@
                                                 <tr class="center aligned refresh" ng-repeat="training in CONFIG.training_kpi_list">
                                                     <td ng-bind="training.training_name"></td>
                                                     <td ng-bind=" training_site != null ? training.site + ', ' + training.town : ''"></td>
-                                                    <td ng-bind="(training.startDate | date : 'EEE dd, MMM') + ' - ' + (training.endDate | date : 'EEE dd, MMM')"></td>
+                                                    <td ng-bind="(training.startDate | date : 'EEE dd MMM, yyyy') + ' - ' + (training.endDate | date : 'EEE dd MMM, yyyy')"></td>
                                                     <td ng-bind="training.sessionDuration"></td>
                                                     <td ng-bind="training.services"></td>
                                                     <td ng-bind="training.women_expected"></td>

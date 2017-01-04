@@ -193,6 +193,33 @@ exports.get_post = function (post_id, callback) { // postID to read from DB
     db_conn.query("SELECT * FROM post WHERE postID = ?", [post_id], callback);
 };
 
+exports.postDetails = function (post_id, callback) { //
+
+    var query = "SELECT p.*, t.*, s.service " +
+        "FROM dv_portal_db.post p LEFT OUTER JOIN dv_portal_db.initial_training it ON ( p.`postID` = it.`postID`  ) " +
+        "LEFT OUTER JOIN dv_portal_db.training t ON ( it.`trainingID` = t.`trainingID`  ) INNER JOIN dv_portal_db.service s " +
+        "ON ( p.`serviceID` = s.`serviceID`  ) WHERE p.postID = ? ";
+
+    db_conn.query(query, [post_id], callback);
+};
+
+exports.delete_post_training = function (postID, trainingID, callback) {
+    var query = "DELETE FROM initial_training WHERE postID = ? AND trainingID = ?";
+    db_conn.query(query, [postID, trainingID], callback);
+};
+
+exports.insert_post_trainings = function (postID, training_ids, callback) {
+
+    var query = "INSERT INTO initial_training(posID, trainingID) VALUES (" + postID + ", " + training_ids[0] + ")";
+
+    for(var i = 1; i < training_ids.length; i++){
+        query += ",(" + postID + ", " + training_ids[i] + ")";
+    }
+
+    db_conn.query(query, callback);
+
+};
+
 // CREATE a post
 exports.add_post = function (post_name, level, service_id, callback) {
     var query = "INSERT INTO post(post_name, level, serviceID) VALUES ('" + post_name + "', " + level + ", " + service_id + ")";

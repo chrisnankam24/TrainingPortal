@@ -112,7 +112,7 @@ exports.user_subs_training_queryBuilder = function (user_id, start_ts, end_ts, o
     var total_query = "SELECT COUNT(*) FROM dv_portal_db.user_training_view utv WHERE cuid = '" + user_id + "' AND " +
         "startTS >=str_to_date('" + start_ts  + "','%Y-%m-%d') AND endTS <= str_to_date('" + end_ts  + "','%Y-%m-%d')" ;
 
-    var query = "SELECT utv.cuid, utv.sessionID, utv.`trainingTaken`, utv.`dateTaken`, utv.`startTS`, utv.`endTS`, "+
+    var query = "SELECT utv.cuid, utv.sessionID, utv.`trainingTaken`, utv.`dateTaken`, utv.`startTS`, utv.`endTS`, utv.`default_training`, "+
         "utv.training_name, (" + total_query + ") AS total " +
         "FROM dv_portal_db.user_training_view utv WHERE " +
         "utv.cuid = '" + user_id + "' AND startTS >=str_to_date('" + start_ts  + "','%Y-%m-%d') " +
@@ -528,11 +528,13 @@ exports.pt_evaluation_criteria_propositions = function (eval_form_id, callback) 
 
 exports.ptDetails = function (plannedTrainingID, callback) {
 
-    var query = "SELECT pt.*, r.*, t.training_name, ef.`formName` FROM dv_portal_db.planned_training pt INNER JOIN " +
-        "dv_portal_db.resource_training rt ON ( pt.`plannedTrainingID` = rt.plannedtrainingid  ) INNER JOIN dv_portal_db.resource r " +
+    var query = "SELECT pt.*, r.*, t.training_name, ef.`formName` FROM dv_portal_db.planned_training pt LEFT JOIN " +
+        "dv_portal_db.resource_training rt ON ( pt.`plannedTrainingID` = rt.plannedtrainingid  ) LEFT JOIN dv_portal_db.resource r " +
         "ON ( rt.`resourceID` = r.`resourceID`  ) INNER JOIN dv_portal_db.training t ON ( pt.`trainingID` = t.`trainingID`  ) " +
-        "INNER JOIN dv_portal_db.evaluation_form ef ON ( pt.`evaluationFormID` = ef.`evaluationFormID`)   " +
+        "LEFT JOIN dv_portal_db.evaluation_form ef ON ( pt.`evaluationFormID` = ef.`evaluationFormID`)   " +
         "WHERE pt.plannedTrainingID = " + plannedTrainingID;
+
+    console.log(query);
 
     db_conn.query(query, callback);
 };

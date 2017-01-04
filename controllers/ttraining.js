@@ -1303,13 +1303,15 @@ exports.ptDetails = function (req, res) {
 
             result.resources = [];
 
-            for(var i = 0; i < rows.length; i++){
-                result.resources.push({
-                    resource_name: rows[i].resource_name,
-                    resourceID: rows[i].resourceID,
-                    link: rows[i].link,
-                    resource_type: rows[i].resource_type
-                });
+            if(result.resourceID){
+                for(var i = 0; i < rows.length; i++){
+                    result.resources.push({
+                        resource_name: rows[i].resource_name,
+                        resourceID: rows[i].resourceID,
+                        link: rows[i].link,
+                        resource_type: rows[i].resource_type
+                    });
+                }
             }
 
             res.json({

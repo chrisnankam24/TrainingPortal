@@ -7,6 +7,14 @@ var postController = require('../controllers/post');
 
 postRouter.route('/postList/')
     .post(postController.get_postList);
+
+postRouter.route('/postDetails/')
+    .post(postController.postDetails);
+
+postRouter.route('/postTraining/')
+    .post(postController.add_post_trainings)
+    .delete(postController.postTraining);
+
 postRouter.route('/service/serviceList/')
     .post(postController.get_serviceList);
 postRouter.route('/department/departmentList/')

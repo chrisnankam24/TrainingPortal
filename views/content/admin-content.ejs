@@ -28,12 +28,12 @@
                                                      style="min-height: 483px"
                                                      id="posts-list">
                                                     <div class="ui inverted dimmer white-background">
-                                                        <!--<div class="ui text loader">Loading</div>-->
+
                                                         <div style="padding-left: 50px; padding-right: 50px; height: 100%;">
                                                             <h4 class="ui dividing header"
                                                                 style="font-size: small; text-align: left; padding-left: 23px; margin-top: 10px;">
                                                                 {{addModifText}} Post</h4>
-                                                            <form class="ui form mini"
+                                                            <form class="ui form mini" ng-class="{loading: post_form_loading}"
                                                                   style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
                                                                 <div class="field required">
                                                                     <label style="font-size: 12px; float: left;">Name
@@ -106,6 +106,36 @@
                                                                                  data-value="{{training.trainingID}}">
                                                                                 {{training.training_name}}
                                                                             </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div ng-show="!is_add">
+                                                                    <h4 class="ui dividing header"
+                                                                        style="font-size: small; text-align: left;">Initial Training</h4>
+                                                                    <div class="pt_resources-details-block">
+                                                                        <a class="ui small circular label" style="margin-bottom: 5px;" ng-repeat="training in current_post.training">
+                                                                            {{training.training_name}}
+                                                                            <i class="delete right floated icon" ng-click="delete_init_training(training)"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="ui dividing header"></div>
+                                                                    <div class="fields">
+                                                                        <div class="fifteen wide field">
+                                                                            <div class="ui fluid multiple search selection dropdown"
+                                                                                 id="post_init_training">
+                                                                                <input type="hidden" name="">
+                                                                                <i class="dropdown icon"></i>
+                                                                                <div class="default text">Initial Training</div>
+                                                                                <div class="menu">
+                                                                                    <div class="item" ng-repeat="training in remaining_post_training"
+                                                                                         data-value="{{training.trainingID}}">
+                                                                                        {{training.training_name}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="field">
+                                                                            <div class="ui primary mini right floated submit button" style="margin-bottom: 40px;" ng-click="add_init_training()">Add</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

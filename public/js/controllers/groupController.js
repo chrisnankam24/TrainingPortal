@@ -976,43 +976,6 @@ app.controller("groupController", function ($scope, $rootScope, $http, $compile)
 
                 $rootScope.loadSubsData('training_table');
 
-                /*$http.post('/api/v1/management/subsTrainingTable', params)
-                    .success(function (data, status, headers, config) {
-
-                        $http.post('/api/v1/management/subsCalendar', params)
-                            .success(function (data, status, headers, config) {
-
-                                $http.post('/api/v1/management/quizResultsTable', params)
-                                    .success(function (data, status, headers, config) {
-
-                                        $http.post('/api/v1/management/quizResultsGraph', params)
-                                            .success(function (data, status, headers, config) {
-
-
-                                            }).error(function (data, status, headers, config) {
-
-                                            $('#quiz-details-page').dimmer('hide');
-
-                                        });
-
-                                    }).error(function (data, status, headers, config) {
-
-                                    $('#quiz-details-page').dimmer('hide');
-
-                                });
-
-                            }).error(function (data, status, headers, config) {
-
-                            $('#quiz-details-page').dimmer('hide');
-
-                        });
-
-                    }).error(function (data, status, headers, config) {
-
-                    $('#quiz-details-page').dimmer('hide');
-
-                });*/
-
             }).error(function (data, status, headers, config) {
 
             $('#quiz-details-page').dimmer('hide');
