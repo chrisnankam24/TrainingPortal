@@ -23,6 +23,13 @@ $('#kpi2_services').dropdown({
         }
     }
 });
+$('#evol_training_start_date').flatpickr();
+$('#evol_training_end_date').flatpickr();
+
+$('#user_evol_dd').dropdown({
+    forceSelection: false
+});
+
 $('#kpi2_year').dropdown();
 $('#all_services').checkbox();
 
@@ -35,7 +42,15 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
 
     $scope.all_serv = false;
 
-    $('#kpi2_year').dropdown('set selected', '2016');
+    $scope.EVOL_TRAINING_OFFSET = 0;
+
+    $scope.evol_training_list = [];
+
+    $scope.user_default_training = [];
+    $scope.user_post_timeline = [];
+
+    $scope.EVOL_DISABLE_FORWARD_NAV = true;
+    $scope.EVOL_DISABLE_BACKWARD_NAV = true;
 
     $scope.loadAllServices = function () {
         $scope.all_serv = !$scope.all_serv;
@@ -148,6 +163,98 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
             });
 
         }
-    }
+    };
+
+    $scope.loadUserEvolution = function () {
+
+        $scope.current_user_id = $('#user_evol_dd').dropdown('get value');
+
+        var params = {
+            userID: $scope.current_user_id
+        };
+
+        $('.content').dimmer('show');
+
+        $http.post('/api/v1/user/userDefaultTraining/', params)
+            .success(function (data, status, headers, config) {
+
+                $scope.user_default_training = data.data;
+
+                $http.post('/api/v1/user/userPostTimeline/', params)
+                    .success(function (data, status, headers, config) {
+
+                        $scope.user_post_timeline = data.data;
+
+                        $('.content').dimmer('hide');
+
+                    }).error(function (data, status, headers, config) {
+
+
+                });
+
+            }).error(function (data, status, headers, config) {
+
+
+        });
+
+
+    };
+
+    $scope.evolLoadNext = function () {
+        $scope.EVOL_TRAINING_OFFSET += 10;
+        $scope.loadEvolTrainingItems();
+    };
+
+    $scope.evolLoadPrev = function () {
+        $scope.EVOL_TRAINING_OFFSET -= 10;
+        $scope.loadEvolTrainingItems();
+    };
+
+    $scope.loadEvolTrainingItems = function () {
+
+        var params = {
+            start_ts: $('#evol_training_start_date').val(),
+            end_ts: $('#evol_training_end_date').val(),
+            user_id: $scope.current_user_id,
+            offset: $scope.EVOL_TRAINING_OFFSET
+        };
+        
+        $http.post('/api/v1/training/subsTrainingList', params)
+            .success(function (data, status, headers, config) {
+                $scope.evol_training_list = data.data;
+                if ($scope.evol_training_list.length > 0) {
+                    $scope.evol_training_list_total = $scope.evol_training_list[0].total;
+                    $scope.evol_training_list_max = $scope.evol_training_list.length + $scope.EVOL_TRAINING_OFFSET;
+                    $scope.evol_training_list_min = 1 + $scope.EVOL_TRAINING_OFFSET;
+
+                    if ($scope.evol_training_list_max < $scope.evol_training_list_total) {
+                        // Enable forward navigation
+                        $scope.EVOL_DISABLE_FORWARD_NAV = false;
+                    } else {
+                        // Disable forward navigation
+                        $scope.EVOL_DISABLE_FORWARD_NAV = true;
+                    }
+                    if ($scope.evol_training_list_min > 2) {
+                        // Enable backward navigation
+                        $scope.EVOL_DISABLE_BACKWARD_NAV = false;
+                    } else {
+                        // Disable backward navigation
+                        $scope.EVOL_DISABLE_BACKWARD_NAV = true;
+                    }
+
+                } else {
+                    $scope.evol_training_list_min = 0;
+                    $scope.evol_training_list_max = 0;
+                    $scope.evol_training_list_total = 0;
+                }
+
+                $('#content-lists').dimmer('hide');
+
+            }).error(function (data, status, headers, config) {
+            $('#content-lists').dimmer('hide');
+        });
+
+    };
+
 
 });

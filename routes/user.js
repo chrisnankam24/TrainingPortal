@@ -16,6 +16,12 @@ userRouter.route("/users_in_planned_training/").post(userController.get_users_in
 userRouter.route('/userList')
     .post(userController.get_userList);
 
+userRouter.route('/userDefaultTraining')
+    .post(userController.userDefaultTraining);
+
+userRouter.route('/userPostTimeline')
+    .post(userController.userPostTimeline);
+
 userRouter.route('/')
     .get(userController.get_user)
     .post(userController.add_user)

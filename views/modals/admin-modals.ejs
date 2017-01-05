@@ -1268,7 +1268,6 @@
                                         <div class="ui dividing header"></div>
                                         <form class="ui form mini"
                                               style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
-                                            <input type="text" style="position: fixed; left: -10000000000000000000000000px;" disabled>
                                             <div class="fields">
                                                 <div class="fifteen wide field">
                                                     <div class="ui fluid multiple search selection dropdown"
@@ -1289,6 +1288,150 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui inverted dimmer" style="border-radius: 3px;">
+        <div class="ui text loader">Loading </div>
+    </div>
+
+    <div class="actions">
+        <div class="ui mini deny  button">Cancel</div>
+        <div class="ui mini approve primary button">Done</div>
+    </div>
+</div>
+
+<div class="ui user_evolution long fullscreen modal scrolling" ng-controller="reportController" id="pt-evolution">
+    <div class="header" style="padding-bottom: 8px; padding-top: 8px; text-align: center; font-size: 14px;">
+        <span>User Evolution</span>
+    </div>
+    <div>
+        <div>
+            <div class="content ui" id="pt-modif-content-block" style="height: 420px; height: 410px; margin: 10px 15px;">
+                <div class="ui inverted dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <div id="eval_page" style="height: 50%!important;">
+                    <div class="section fp-auto-height" style="height: 100%;">
+                        <div class="slide round_radius">
+                            <div>
+                                <div class="ui grid" style="height: 100%; margin: 0px;">
+                                    <div class="column" style="width: 35%; padding: 0px 14px;">
+                                        <div>
+                                            <h4 class="ui dividing header"
+                                                style="font-size: small; text-align: left;">
+                                                Select User</h4>
+                                            <form class="ui form mini"
+                                                  style="margin-left: 0px; margin-right: 0px; margin-top: -5px;">
+                                                <div class="fields">
+                                                    <div class="thirteen wide field">
+                                                        <div class="ui fluid search selection dropdown"
+                                                             id="user_evol_dd"
+                                                             style="clear: both;">
+                                                            <input type="hidden" name="">
+                                                            <i class="dropdown icon"></i>
+                                                            <div class="default text">User</div>
+                                                            <div class="menu">
+                                                                <div class="item" ng-repeat="user in CONFIG.user"
+                                                                     data-value="{{user.cuid}}">
+                                                                    {{user.firstName + ' ' + user.lastName}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="two wide field">
+                                                        <button class="ui primary mini button" ng-click="loadUserEvolution()">
+                                                            Load
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="column" style="width: 65%; padding: 0px 14px;">
+                                        <h4 class="ui dividing header"
+                                            style="font-size: x-small; text-align: left; margin-bottom: 5px;">Default Training</h4>
+                                        <div class="user-evolution-dft-block">
+                                            <a class="ui small circular label" ng-class="{'orange': training.training_taken}" style="font-size: x-small; text-align: left; margin-bottom: 5px;" ng-repeat="training in user_default_training">
+                                                {{training.default_training}}
+                                            </a>
+                                        </div>
+                                        <h4 class="ui dividing header"
+                                            style="font-size: x-small; text-align: left; margin-top: 5px; margin-bottom: 5px;">Post History</h4>
+                                        <div class="user-evolution-dft-block">
+                                            <a class="ui small circular label" ng-class="{'orange': $last}" style="font-size: x-small; text-align: left;  margin-bottom: 5px;" ng-repeat="post in user_post_timeline">
+                                                <div class="title">{{($index + 1) + '. ' + post.post_name}}</div>
+                                                <div class="description">{{post.assignationDate}}</div>
+                                            </a>
+                                        </div>
+                                        <h4 class="ui dividing header"
+                                            style="font-size: x-small; text-align: left; margin-top: 5px; margin-bottom: 14px;">Training List</h4>
+                                        <form class="ui form mini" style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+
+                                            <div class="fields">
+                                                <div class="five wide field">
+                                                    <div class="ui input">
+                                                        <input type="text" class="training-table-date" id="evol_training_start_date"
+                                                               placeholder="Start Date"
+                                                               name="">
+                                                    </div>
+                                                </div>
+                                                <div class="five wide field">
+                                                    <div class="ui input">
+                                                        <input type="text" class="training-table-date" id="evol_training_end_date"
+                                                               placeholder="End Date"
+                                                               name="">
+                                                    </div>
+                                                </div>
+                                                <div class="two wide field">
+                                                    <button class="ui primary mini button" ng-click="loadEvolTrainingItems()">
+                                                        Load
+                                                    </button>
+                                                </div>
+                                                <div class="five wide field"
+                                                     style="padding: 0px 0px 6px 14px;">
+                                                    <div style="min-width: 66px; float: right">
+                                                        <button class="ui mini circular icon button" ng-disabled="EVOL_DISABLE_BACKWARD_NAV" ng-click="evolLoadPrev()">
+                                                            <i class="chevron left link icon"></i>
+                                                        </button>
+                                                        <button class="ui mini circular icon button" ng-disabled="EVOL_DISABLE_FORWARD_NAV" ng-click="evolLoadNext()">
+                                                            <i class="chevron right link icon"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="ui container" id="subs_training_table">
+                                            <table class="ui very basic left small selectable aligned table sort" style="font-size: 11px;">
+                                                <thead>
+                                                <tr class="center aligned">
+                                                    <th></th>
+                                                    <th>Training Date</th>
+                                                    <th>Training Name</th>
+                                                    <th>Post</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="center aligned" ng-repeat="training in evol_training_list">
+                                                    <td class="right aligned">
+                                                        <a class="ui mini orange empty circular label" ng-show="training.default_training > 0"></a>
+                                                    </td>
+                                                    <td>{{training.startTS | date: "MMM, dd, yyyy"}}</td>
+                                                    <td>{{training.training_name}}</td>
+                                                    <td>{{training.post_name}}</td>
+                                                    <td>{{training.status}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

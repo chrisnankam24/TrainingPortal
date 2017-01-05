@@ -92,7 +92,7 @@ exports.user_queryBuilder = function (start_ts, offset, search, callback) {
 
 // READ ALL user
 exports.get_all_users = function (callback) {
-    db_conn.query("SELECT cuid, firstName, lastName FROM user", callback);
+    db_conn.query("SELECT cuid, firstName, lastName FROM user WHERE state = 1", callback);
 };
 
 // READ a user
@@ -209,8 +209,6 @@ exports.get_users_in_services = function (services_id, callback) {
 
     query += ")";
 
-    console.log(query);
-
     db_conn.query(query, callback);
 
 };
@@ -218,6 +216,26 @@ exports.get_users_in_services = function (services_id, callback) {
 exports.get_users_in_planned_training = function (pt_id, callback) {
 
     var query = "SELECT * FROM dv_portal_db.user_pt_view uav WHERE uav.plannedTrainingID = " + pt_id;
+
+    db_conn.query(query, callback);
+
+};
+
+exports.userDefaultTraining = function (user_id, callback) {
+
+    var query = "SELECT * FROM dv_portal_db.user_default_training_view WHERE cuid = '" + user_id + "' AND  " +
+        "user_post_id = (SELECT MAX(user_post_id) FROM post_user WHERE cuid = '" + user_id + "')";
+
+    db_conn.query(query, callback);
+
+};
+
+exports.userPostTimeline = function (user_id, callback) {
+
+    var query = "SELECT pu.user_post_id, pu.`postID`, pu.cuid, pu.`assignationDate`, p.post_name FROM " +
+        "dv_portal_db.post_user pu INNER JOIN dv_portal_db.post p ON ( pu.`postID` = p.`postID`  ) WHERE pu.cuid = '" + user_id  + "'";
+
+    console.log(query);
 
     db_conn.query(query, callback);
 

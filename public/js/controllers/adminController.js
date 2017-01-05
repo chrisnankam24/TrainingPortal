@@ -3392,7 +3392,23 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
         });
 
         $('#report_1').click();
-    }
+    };
+
+    $rootScope.showUserEvolution = function () {
+
+        $('.user_evolution.long.modal').modal('show');
+
+        $http.post('/api/v1/training/usersTrainingKPI/', params)
+            .success(function (data, status, headers, config) {
+
+                $rootScope.CONFIG.users_training_list = data.data;
+
+            }).error(function (data, status, headers, config) {
+
+
+        });
+
+    };
     
     $rootScope.notifyTraining = function (plannedTrainingID) {
 

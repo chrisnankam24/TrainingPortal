@@ -112,8 +112,7 @@ exports.user_subs_training_queryBuilder = function (user_id, start_ts, end_ts, o
     var total_query = "SELECT COUNT(*) FROM dv_portal_db.user_training_view utv WHERE cuid = '" + user_id + "' AND " +
         "startTS >=str_to_date('" + start_ts  + "','%Y-%m-%d') AND endTS <= str_to_date('" + end_ts  + "','%Y-%m-%d')" ;
 
-    var query = "SELECT utv.cuid, utv.sessionID, utv.`trainingTaken`, utv.`dateTaken`, utv.`startTS`, utv.`endTS`, utv.`default_training`, "+
-        "utv.training_name, (" + total_query + ") AS total " +
+    var query = "SELECT utv.*, (" + total_query + ") AS total " +
         "FROM dv_portal_db.user_training_view utv WHERE " +
         "utv.cuid = '" + user_id + "' AND startTS >=str_to_date('" + start_ts  + "','%Y-%m-%d') " +
         "AND endTS <= str_to_date('" + end_ts  + "','%Y-%m-%d')" ;

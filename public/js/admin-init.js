@@ -36,6 +36,10 @@ $('.pt_resources-details-block').slimScroll({
     height: '55px'
 });
 
+$('.user-evolution-dft-block').slimScroll({
+    height: '45px'
+});
+
 $('.site-block').slimScroll({
     height: '240px',
     alwaysVisible: true

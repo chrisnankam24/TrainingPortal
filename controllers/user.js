@@ -202,6 +202,55 @@ exports.get_users_in_services = function (req, res) {
     });
 };
 
+exports.userDefaultTraining = function (req, res) {
+
+    var user_id = req.body.userID;
+
+    userModel.userDefaultTraining(user_id, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+            var result = [];
+
+            for(var i = 0; i < rows.length; i++){
+                if(rows[i].default_training){
+                    result.push(rows[i]);
+                }
+            }
+
+            res.json({
+                success: true,
+                data: result
+            });
+        }
+    });
+};
+
+exports.userPostTimeline = function (req, res) {
+
+    var user_id = req.body.userID;
+
+    userModel.userPostTimeline(user_id, function (err, rows) {
+        if(err){
+            // Error querying DB
+            res.status(403).send({
+                success: false,
+                message: err
+            });
+        }else{
+
+            res.json({
+                success: true,
+                data: rows
+            });
+        }
+    });
+};
+
 exports.get_users_in_planned_training = function (req, res) {
 
     var pt_id = req.body.pt_id;
