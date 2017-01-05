@@ -3350,6 +3350,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
                 $rootScope.CONFIG.quiz_takers_list = data.data;
 
+                $('#quiz-result-table').DataTable({}).destroy();
+
             }).error(function (data, status, headers, config) {
 
         });
@@ -3362,6 +3364,8 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
         $('.report.long.modal').modal('show');
 
+        $('.content').dimmer('show');
+
         var params = {
             date: '2016',
             services: 'all'//[1, 2, 3, 5, 8]
@@ -3373,7 +3377,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                 $rootScope.CONFIG.users_training_list = data.data;
 
             }).error(function (data, status, headers, config) {
-
+            $('.content').dimmer('hide');
 
         });
 
@@ -3387,7 +3391,7 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
                 $rootScope.CONFIG.training_kpi_list = data.data;
 
             }).error(function (data, status, headers, config) {
-
+            $('.content').dimmer('hide');
 
         });
 
@@ -3398,14 +3402,18 @@ app.controller("adminController", function ($scope, $rootScope, $http) {
 
         $('.user_evolution.long.modal').modal('show');
 
-        $http.post('/api/v1/training/usersTrainingKPI/', params)
+        $('.content').dimmer('show');
+
+        $http.get('/api/v1/user?id=all')
             .success(function (data, status, headers, config) {
 
-                $rootScope.CONFIG.users_training_list = data.data;
+                $rootScope.CONFIG.user = data.data;
+
+                $('.content').dimmer('hide');
+
 
             }).error(function (data, status, headers, config) {
-
-
+            $('.content').dimmer('hide');
         });
 
     };

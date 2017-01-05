@@ -99,4 +99,30 @@ app.controller("quizResultsController", function ($scope, $rootScope, $http) {
 
     };
 
+    $scope.initResultTable = function () {
+
+        var params = {
+            dom: 'Bfrtip',
+            "info": false,
+            "scrollX": true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        };
+
+        $('#quiz-result-table').DataTable({}).destroy();
+        $('#quiz-result-table').DataTable(params);
+
+        $('.dtWrapper .grid .row').addClass('left aligned');
+        $('.dtWrapper .grid').css('margin-top', '-21px');
+
+        $('.dt-buttons').removeClass('buttons').css('display', 'inline').css('margin-bottom', '12px');
+        $('.dt-buttons .button').removeClass('buttons').addClass('circular mini').css('font-size', '10px');
+        $('#quiz-result-table_filter').css('float', 'right').css('margin-bottom', '12px');
+        $('#quiz-result-table_paginate').css('float', 'right').addClass('ui buttons');
+        $('#quiz-result-table_paginate').css('float', 'right').css('margin-top', '7px').addClass('ui mini buttons');
+        $('#quiz-result-table_paginate .paginate_button').addClass('ui button very mini');
+
+    };
+
 });

@@ -156,27 +156,31 @@ app.get('/trainer', function (req, res) {
 
                 }else{
 
-                    params = {
-                        title: 'DV Portal | Administration',
-                        params: {
-                            header : {
-                                title: "Portal",
-                                subtitle: "Training Management",
-                                menu: {
-                                    administration: "Administration"
+                    if(rows.length > 0){
+                        params = {
+                            title: 'DV Portal | Administration',
+                            params: {
+                                header : {
+                                    title: "Portal",
+                                    subtitle: "Training Management",
+                                    menu: {
+                                        administration: "Administration"
+                                    }
+                                },
+                                is_manager: req.session.data.status == 'MANAGER',
+                                is_trainer: req.session.data.status == 'TRAINER',
+                                user: {
+                                    full_name: req.session.data.firstName + ' ' + req.session.data.lastName,
+                                    direction: rows[0].direction.substr(0, 12),
+                                    image: rows[0].usr_img != 'none' ? rows[0].usr_img : req.session.data.gender == 1 ? "/images/user_images/male.png" : "/images/user_images/female.png"
+
+
                                 }
-                            },
-                            is_manager: req.session.data.status == 'MANAGER',
-                            is_trainer: req.session.data.status == 'TRAINER',
-                            user: {
-                                full_name: req.session.data.firstName + ' ' + req.session.data.lastName,
-                                direction: rows[0].direction.substr(0, 12),
-                                image: rows[0].usr_img != 'none' ? rows[0].usr_img : req.session.data.gender == 1 ? "/images/user_images/male.png" : "/images/user_images/female.png"
-
-
                             }
-                        }
-                    };
+                        };
+                    }else{
+                        res.redirect('/login');
+                    }
                 }
 
                 res.render('trainer', params);
@@ -226,33 +230,35 @@ app.get('/trainee', function (req, res) {
 
           }else{
 
-              params = {
-                  title: req.session.data.status == 'MANAGER' ? 'DV Portal | Manager' : 'DV Portal | Trainee',
-                  params: {
-                      header : {
-                          title: "Portal",
-                          subtitle: "Training Management",
-                          menu: {
-                              training: "Training",
-                              quiz: "Quiz",
-                              resources: "Resources",
-                              management: "Subordinates"
+              if(rows.length > 0){
+                  params = {
+                      title: req.session.data.status == 'MANAGER' ? 'DV Portal | Manager' : 'DV Portal | Trainee',
+                      params: {
+                          header : {
+                              title: "Portal",
+                              subtitle: "Training Management",
+                              menu: {
+                                  training: "Training",
+                                  quiz: "Quiz",
+                                  resources: "Resources",
+                                  management: "Subordinates"
+                              }
+                          },
+                          is_manager: req.session.data.status == 'MANAGER',
+                          is_trainer: req.session.data.status == 'TRAINER',
+                          user: {
+                              full_name: req.session.data.firstName + ' ' + req.session.data.lastName,
+                              direction: rows[0].direction.substr(0, 12),
+                              image: rows[0].usr_img != 'none' ? rows[0].usr_img : req.session.data.gender == 1 ? "/images/user_images/male.png" : "/images/user_images/female.png"
+
+
                           }
-                      },
-                      is_manager: req.session.data.status == 'MANAGER',
-                      is_trainer: req.session.data.status == 'TRAINER',
-                      user: {
-                          full_name: req.session.data.firstName + ' ' + req.session.data.lastName,
-                          direction: rows[0].direction.substr(0, 12),
-                          image: rows[0].usr_img != 'none' ? rows[0].usr_img : req.session.data.gender == 1 ? "/images/user_images/male.png" : "/images/user_images/female.png"
-
-
                       }
-                  }
-              };
+                  };
+              }else{
+                  res.redirect('/login');
+              }
           }
-
-          console.log(params);
 
           res.render('trainee', params);
       });

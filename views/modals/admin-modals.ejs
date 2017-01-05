@@ -607,7 +607,7 @@
                             <div class="session-configuration-block" style="padding-top: 10px;">
                                 <form class="ui form mini"
                                       style="margin-left: 10px; margin-right: 10px; margin-top: -5px;">
-                                    <input type="text" style="position: fixed; left: -10000000000000000000000000px;" disabled>
+                                    <input type="text" style="display:none;">
 
                                     <div class="fields">
                                         <div class="thirteen wide field required">
@@ -655,7 +655,7 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="" id="question_id" value="{{question_id}}">
-                                    <div class="ui primary mini right floated submit button" style="margin-bottom: 40px; margin-top: 10px;" ng-class="{disabled: !current_quiz.can_modif || current_quiz.can_modif == null}" ng-click="addModifyQuestion()">{{isModif? 'Modify' : 'Add'}} Question</div>
+                                    <div class="ui primary mini right floated submit button" style="margin-bottom: 40px; margin-top: 10px;" ng-class="{disabled: !current_quiz.can_modif || current_quiz.can_modif == null || current_quiz.can_add}" ng-click="addModifyQuestion()">{{isModif? 'Modify' : 'Add'}} Question</div>
                                 </form>
                             </div>
                         </div>
@@ -671,27 +671,27 @@
                                     <div class="ui text loader">Loading</div>
                                 </div>
                                 <div id="quiz-question-table" style="margin-left: 5px; margin-right: 5px;">
-                                    <table class="ui very basic left small selectable aligned table sort" style="font-size: 11px; margin-top: 5px;">
+                                    <table class="ui very basic fixed left small aligned table" style="font-size: 11px; margin-top: 5px;">
                                         <thead>
                                         <tr class="center aligned">
-                                            <th class="sort-header">ID</th>
-                                            <th class="sort-header">Text</th>
-                                            <th class="sort-header">Type</th>
+                                            <th>ID</th>
+                                            <th>Text</th>
+                                            <th>Type</th>
                                             <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr class="center aligned" ng-repeat="question in question_list">
-                                            <td ng-bind="question.questionID"></td>
+                                            <td ng-bind="$index + 1"></td>
                                             <td ng-bind="question.question_title"></td>
                                             <td ng-bind="question.question_type"></td>
                                             <td>
-                                                <div class="ui icon mini buttons">
-                                                    <button class="ui button" ng-click="startModifyQuestion(question)"><i
-                                                                class="write link icon"></i>
+                                                <div style="min-width: 66px;">
+                                                    <button class="ui mini circular icon button"  ng-click="startModifyQuestion(question)">
+                                                        <i class="write link icon"></i>
                                                     </button>
-                                                    <button class="ui grey button" ng-class="{disabled: !current_quiz.can_modif || current_quiz.can_modif == null}"  ng-click="deleteQuestion(question)"><i
-                                                                class="remove link icon"></i>
+                                                    <button class="ui mini grey circular icon button" ng-class="{disabled: !current_quiz.can_modif || current_quiz.can_modif == null || current_quiz.can_add}"  ng-click="deleteQuestion(question)">
+                                                        <i class="remove link icon"></i>
                                                     </button>
                                                 </div>
                                             </td>
@@ -826,29 +826,43 @@
                     <div class="section fp-auto-height" style="height: 100%;">
                         <div class="slide round_radius">
                             <div class="session-configuration-block">
-                                <table class="ui very basic left small selectable aligned table"
-                                       id="post-table" style="font-size: 11px; margin-top: 15px;">
-                                    <thead>
-                                    <tr class="center aligned">
-                                        <th class="sort-header">No</th>
-                                        <th class="sort-header">First Name</th>
-                                        <th class="sort-header">Last Name</th>
-                                        <th class="sort-header">Score</th>
-                                        <th class="sort-header">Date</th>
-                                        <th class="sort-header">Status</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="center aligned refresh" ng-repeat="taker in CONFIG.quiz_takers_list">
-                                        <td ng-bind="$index + 1"></td>
-                                        <td ng-bind="taker.firstName"></td>
-                                        <td ng-bind="taker.lastName"></td>
-                                        <td ng-bind="taker.score"></td>
-                                        <td ng-bind="taker.dateTakingQuiz | date : 'EEE dd, MMM, yyyy'"></td>
-                                        <td ng-bind="taker.quizTaken == 1 ? 'Taken' : 'Untaken'"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+
+                                <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
+                                    <table class="ui celled single line table display nowrap"
+                                           id="quiz-result-table" width="100%"  style="font-size: 11px;">
+                                        <thead>
+                                        <tr class="center aligned">
+                                            <th>No</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Score</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Region</th>
+                                            <th>Town</th>
+                                            <th>Site</th>
+                                            <th>Gender</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="center aligned refresh" ng-repeat="taker in CONFIG.quiz_takers_list">
+                                            <td ng-bind="$index + 1"></td>
+                                            <td ng-bind="taker.firstName"></td>
+                                            <td ng-bind="taker.lastName"></td>
+                                            <td ng-bind="taker.score"></td>
+                                            <td ng-bind="taker.dateTakingQuiz | date : 'EEE dd, MMM, yyyy'"></td>
+                                            <td ng-bind="taker.quizTaken == 1 ? 'Taken' : 'Untaken'"></td>
+                                            <td ng-bind="taker.region"></td>
+                                            <td ng-bind="taker.town"></td>
+                                            <td ng-bind="taker.site"></td>
+                                            <td ng-bind="taker.gender == 1 ? 'Male' : 'Female'">
+                                                {{$last ? initResultTable() : ""}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -877,39 +891,6 @@
                 <div class="ui inverted dimmer">
                     <div class="ui text loader">Loading</div>
                 </div>
-<!--
-                <div id="q_page" style="height: 50%!important;">
-                    <div class="section fp-auto-height" style="height: 100%;">
-                        <div class="slide round_radius">
-                            <div>
-                                <table class="ui very basic left small selectable aligned table"
-                                       id="post-table" style="font-size: 11px; margin-top: 15px;">
-                                    <thead>
-                                    <tr class="center aligned">
-                                        <th class="sort-header">No</th>
-                                        <th class="sort-header">First Name</th>
-                                        <th class="sort-header">Last Name</th>
-                                        <th class="sort-header">Score</th>
-                                        <th class="sort-header">Date</th>
-                                        <th class="sort-header">Status</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="center aligned refresh" ng-repeat="taker in CONFIG.quiz_takers_list">
-                                        <td ng-bind="$index + 1"></td>
-                                        <td ng-bind="taker.firstName"></td>
-                                        <td ng-bind="taker.lastName"></td>
-                                        <td ng-bind="taker.score"></td>
-                                        <td ng-bind="taker.dateTakingQuiz | date : 'EEE dd, MMM, yyyy'"></td>
-                                        <td ng-bind="taker.quizTaken == 1 ? 'Taken' : 'Untaken'"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
--->
                 <div id="report_tab">
                     <div class="ui small top attached tabular menu"
                          style="margin-bottom: 3px;" >
@@ -995,9 +976,17 @@
                                                                 <div class="default text">Year
                                                                 </div>
                                                                 <div class="menu">
-                                                                    <div class="item" ng-repeat="year in trainingYears"
-                                                                         data-value={{year}}>
-                                                                        {{year}}
+                                                                    <div class="item" data-value='2016'>
+                                                                        2016
+                                                                    </div>
+                                                                    <div class="item" data-value='2017'>
+                                                                        2017
+                                                                    </div>
+                                                                    <div class="item" data-value='2018'>
+                                                                        2018
+                                                                    </div>
+                                                                    <div class="item" data-value='2019'>
+                                                                        2019
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1019,7 +1008,7 @@
                                                         </div>
                                                         <div class="two wide field">
                                                             <div class="ui toggle checkbox" id="all_services" style="margin-top: 4px;" ng-click="loadAllServices()">
-                                                                <input type="checkbox" ng-model="all_serv" tabindex="0" class="hidden">
+                                                                <input type="checkbox" checked ng-model="all_serv" tabindex="0" class="hidden">
                                                                 <label style="font-size: x-small">All Services</label>
                                                             </div>
                                                         </div>
@@ -1368,12 +1357,11 @@
                                         <div class="user-evolution-dft-block">
                                             <a class="ui small circular label" ng-class="{'orange': $last}" style="font-size: x-small; text-align: left;  margin-bottom: 5px;" ng-repeat="post in user_post_timeline">
                                                 <div class="title">{{($index + 1) + '. ' + post.post_name}}</div>
-                                                <div class="description">{{post.assignationDate}}</div>
                                             </a>
                                         </div>
                                         <h4 class="ui dividing header"
                                             style="font-size: x-small; text-align: left; margin-top: 5px; margin-bottom: 14px;">Training List</h4>
-                                        <form class="ui form mini" style="margin-left: 20px; margin-right: 20px; margin-top: -5px;">
+                                        <form class="ui form mini" style="margin-left: 20px; margin-right: 20px; margin-top: -5px;" ng-class="{'loading': loading_user_trainings}">
 
                                             <div class="fields">
                                                 <div class="five wide field">
@@ -1408,7 +1396,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <div class="ui container" id="subs_training_table">
+                                        <div class="ui container" id="evol_training_table">
                                             <table class="ui very basic left small selectable aligned table sort" style="font-size: 11px;">
                                                 <thead>
                                                 <tr class="center aligned">
@@ -1422,7 +1410,9 @@
                                                 <tbody>
                                                 <tr class="center aligned" ng-repeat="training in evol_training_list">
                                                     <td class="right aligned">
-                                                        <a class="ui mini orange empty circular label" ng-show="training.default_training > 0"></a>
+                                                        <a class="ui mini green empty circular label" ng-show="training.default_training > 0 && training.status == 'Taken'"></a>
+                                                        <a class="ui mini orange empty circular label" ng-show="training.default_training > 0 && training.status == 'Pending'"></a>
+                                                        <a class="ui mini red empty circular label" ng-show="training.default_training > 0 && training.status == 'Overdue'"></a>
                                                     </td>
                                                     <td>{{training.startTS | date: "MMM, dd, yyyy"}}</td>
                                                     <td>{{training.training_name}}</td>

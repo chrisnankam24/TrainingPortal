@@ -188,7 +188,7 @@ exports.correct_quiz = function (req, res) {
 
     var score = 0;
     for(var i = 0; i < user_response.length; i++){
-        if(user_response[i].response = user_response[i].correctPropositionID){
+        if(user_response[i].response == user_response[i].correctPropositionID){
             score = score + 1;
         }
     }
@@ -600,6 +600,7 @@ exports.get_takers = function (req, res) {
 
             for(var i = 0; i < rows.length; i++){
                 rows[i].quizTaken = rows[i].quizTaken.readUIntBE(0, 1);
+                rows[i].gender = rows[i].gender.readUIntBE(0, 1);
             }
 
             res.json({

@@ -20,6 +20,11 @@ $('#configuration-block').slimScroll({
     alwaysVisible: true
 });
 
+$('#evol_training_table').slimScroll({
+    height: '175px',
+    alwaysVisible: true
+});
+
 $('.session-configuration-block').slimScroll({
     height: '390px'
 });

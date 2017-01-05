@@ -33,6 +33,10 @@ $('#user_evol_dd').dropdown({
 $('#kpi2_year').dropdown();
 $('#all_services').checkbox();
 
+$('#evol_training_start_date').val(Date.today().last().month().toString('yyyy-MM-dd'));
+$('#evol_training_end_date').val(Date.today().next().month().toString('yyyy-MM-dd'));
+$('#kpi2_year').dropdown('set selected', Date.now().getFullYear() + '');
+
 // Create client controller
 app.controller("reportController", function ($scope, $http, $rootScope) {
 
@@ -61,6 +65,9 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
         }
     };
 
+    // Init
+    $scope.loadAllServices();
+
     $scope.reSelectService = function (services_id) {
         $scope.selected_services = [];
         for(var i = 0; i < services_id.length; i++){
@@ -80,9 +87,11 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
         };
 
         if(kpi == 'kpi1'){
+            params['scrollY'] = 180;
             $('#kpi1-table').DataTable({}).destroy();
             $('#kpi1-table').DataTable(params);
         }else if(kpi == 'kpi2') {
+            params['scrollY'] = 190;
             $('#kpi2-table').DataTable({}).destroy();
             $('#kpi2-table').DataTable(params);
         }
@@ -100,6 +109,8 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
         $('#kpi2-table_paginate').css('float', 'right').addClass('ui buttons');
         $('#kpi2-table_paginate').css('float', 'right').css('margin-top', '7px').addClass('ui mini buttons');
         $('#kpi2-table_paginate .paginate_button').addClass('ui button very mini');
+
+        $('.content').dimmer('hide');
 
     };
 
@@ -130,6 +141,8 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
                     services: services//[1, 2, 3, 5, 8]
                 };
 
+                $('.content').dimmer('show');
+
                 $http.post('/api/v1/training/usersTrainingKPI/', params)
                  .success(function (data, status, headers, config) {
 
@@ -149,6 +162,8 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
             var params = {
 
             };
+
+            $('.content').dimmer('show');
 
             $http.post('/api/v1/training/trainingKPI/', params)
                 .success(function (data, status, headers, config) {
@@ -185,6 +200,9 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
 
                         $scope.user_post_timeline = data.data;
 
+                        $scope.EVOL_TRAINING_OFFSET = 0;
+                        $scope.loadEvolTrainingItems();
+
                         $('.content').dimmer('hide');
 
                     }).error(function (data, status, headers, config) {
@@ -194,9 +212,7 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
 
             }).error(function (data, status, headers, config) {
 
-
         });
-
 
     };
 
@@ -218,6 +234,8 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
             user_id: $scope.current_user_id,
             offset: $scope.EVOL_TRAINING_OFFSET
         };
+
+        $scope.loading_user_trainings = true;
         
         $http.post('/api/v1/training/subsTrainingList', params)
             .success(function (data, status, headers, config) {
@@ -248,10 +266,10 @@ app.controller("reportController", function ($scope, $http, $rootScope) {
                     $scope.evol_training_list_total = 0;
                 }
 
-                $('#content-lists').dimmer('hide');
+                $scope.loading_user_trainings = false;
 
             }).error(function (data, status, headers, config) {
-            $('#content-lists').dimmer('hide');
+            $scope.loading_user_trainings = false;
         });
 
     };

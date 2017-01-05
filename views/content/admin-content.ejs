@@ -180,7 +180,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
                                                         <table id="post-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
@@ -292,7 +292,7 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
                                                         <table id="service-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
@@ -403,7 +403,7 @@
                                                             </button>
                                                         </div>
                                                     </div>
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
                                                         <table id="department-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
@@ -499,7 +499,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
                                                         <table id="direction-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
@@ -915,7 +915,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
                                                         <table id="user_location-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr>
@@ -1038,7 +1038,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
 
                                                         <table id="user_post-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
@@ -1156,7 +1156,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
                                                         <table id="training-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
@@ -1282,7 +1282,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
                                                         <table id="training_location-table" class="ui celled table" cellspacing="0" width="100%">
 
                                                             <thead>
@@ -1407,7 +1407,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 12px;">
+                                                    <div class="ui small dtWrapper" style="padding: 0px 10px 10px; font-size: 11px;">
                                                         <table id="exTrainer-table" class="ui celled table" cellspacing="0" width="100%">
                                                             <thead>
                                                             <tr class="center aligned">
@@ -1638,7 +1638,8 @@
                                                                 <td ng-bind="quiz.creationDate | date : 'EEE dd, MMM, yyyy'"></td>
                                                                 <td ng-bind="quiz.subCategory"></td>
                                                                 <td>
-                                                                    <button class="ui mini primary button" ng-click="startQuizQuestions(quiz)"> Questions
+                                                                    <button class="ui mini primary button" ng-click="startQuizQuestions(quiz)">
+                                                                        {{'Questions (' + quiz.num_questions + ')'}}
                                                                     </button>
                                                                 </td>
                                                                 <td>

@@ -444,7 +444,7 @@ exports.session_taking = function (user_id, session_id, taken, callback) {
 
 exports.users_training_table = function (date, services, callback) {
 
-    var query = "SELECT uts.cuid, u.firstName, u.lastName," +
+    /*var query = "SELECT uts.cuid, u.firstName, u.lastName," +
         "(SELECT _postID FROM user_admin_view WHERE cuid = uts.cuid) AS post_id, " +
         "(SELECT post_name FROM post_view WHERE postID = post_id) AS post_name, " +
         "(SELECT _serviceID FROM user_admin_view WHERE cuid = uts.cuid) AS service_id, " +
@@ -466,13 +466,36 @@ exports.users_training_table = function (date, services, callback) {
         " INNER JOIN dv_portal_db.planned_training pt ON ( tp.`plannedTrainingID` = pt.`plannedTrainingID` )" +
         " INNER JOIN dv_portal_db.training t ON ( pt.`trainingID` = t.`trainingID` )" +
         " INNER JOIN dv_portal_db.`user` u ON ( uts.cuid = u.cuid )" +
-        " WHERE uts.trainingTaken = '1'";
+        " WHERE uts.trainingTaken = '1'";*/
+
+    var query = "SELECT u.cuid, u.`firstName`, u.`lastName`," +
+        "(SELECT _postID FROM user_admin_view WHERE cuid = u.cuid) AS post_id," +
+        "(SELECT post_name FROM post_view WHERE postID = post_id) AS post_name," +
+        "(SELECT _serviceID FROM user_admin_view WHERE cuid = u.cuid) AS service_id," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 1) AS January," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 2) AS Febuary," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 3) AS March," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 4) AS April," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 5) AS May," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 6) AS June," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 7) AS July," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 8) AS August," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 9) AS September," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 10) AS October," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 11) AS November," +
+        "(SELECT COUNT(*) FROM user_training_session uts2 WHERE trainingTaken = '1' AND uts2.cuid = u.cuid AND YEAR(dateTaken) = " + date + " AND MONTH(dateTaken) = 12) AS December " +
+        "FROM dv_portal_db.`user` u " +
+        "LEFT OUTER JOIN dv_portal_db.user_training_session uts ON ( u.cuid = uts.cuid  ) " +
+        "LEFT OUTER JOIN dv_portal_db.training_session ts ON ( uts.`sessionID` = ts.`sessionID`  ) " +
+        "LEFT OUTER JOIN dv_portal_db.trainingsession_plannedtraining tp ON ( ts.`sessionID` = tp.`sessionID`  ) " +
+        "LEFT OUTER JOIN dv_portal_db.planned_training pt ON ( tp.`plannedTrainingID` = pt.`plannedTrainingID`  ) " +
+        "WHERE u.state = 1 ";
 
     if(services != 'all'){
-        query += " AND (SELECT _serviceID FROM user_admin_view WHERE cuid = uts.cuid) IN (" +  services + ")";
+        query += " AND (SELECT _serviceID FROM user_admin_view WHERE cuid = u.cuid) IN (" +  services + ")";
     }
 
-    query +=  " GROUP BY uts.cuid";
+    query +=  " GROUP BY u.cuid";
 
     console.log(query);
 
